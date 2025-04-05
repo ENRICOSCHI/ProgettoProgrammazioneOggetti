@@ -11,9 +11,11 @@ namespace GiocoTestualeEsame
     {
         static void Main(string[] args)
         {
+            /*prove generali SI POTRANNO RIMUOVERE*/
             Console.WriteLine(ElencoOggetti.scarpa.nome); //esempio
             Giocatore player = new Giocatore("Enrico", "Fiore");
             player.AddZaino(ElencoOggetti.scarpa);
+            player.RemoveZaino(ElencoOggetti.scarpa);
         }
         
     }

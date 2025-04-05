@@ -22,7 +22,9 @@ namespace GiocoTestualeEsame
             this.cognome = cognome;
         }
         /// <summary>
-        /// Aggiunge allo zaino l'oggetto che si vuole inserire. <br> N.B. puoi inserire oggetti che fanno parte dell'ELENCO OGGETTI.</br>
+        /// Aggiunge allo zaino l'oggetto che si vuole inserire. 
+        /// <br> N.B. Puoi inserire oggetti che fanno parte dell'ELENCO OGGETTI.</br>
+        /// <br>N.B.2 Gli oggetti vengono inseriti con lo schema LIFO</br>
         /// </summary>
         /// <param name="oggetto"></param>
         public void AddZaino(Oggetto oggetto)
@@ -38,6 +40,43 @@ namespace GiocoTestualeEsame
                 zaino.Add(oggetto);
             }
         }
+        /// <summary>
+        /// Viene rimosso l'oggetto indicato.
+        /// <br> N.B. Puoi inserire oggetti che fanno parte dell'ELENCO OGGETTI.</br>
+        /// </summary>
+        /// <param name="oggetto"></param>
+        public void RemoveZaino(Oggetto oggetto)
+        {
+            //controllo se l'oggetto è presente nello zaino
+            if(zaino.Find(o => o.nome == oggetto.nome) != null) //il find per sapere a chi si riferisce devi fare o=>
+            {
+                pesoNelloZaino -= oggetto.peso;
+                zaino.Remove(oggetto);//rimuovo oggetto dalla lista
+            }
+            else
+            {
+                Warning.WarningOggettoNonPresenteNelloZaino(oggetto);
+            }
+        }
 
+
+        /// <summary>
+        /// Attacca un personaggio con l'oggetto assegnato.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="p"></param>
+        public void Attacca(Oggetto o, Personaggio p)
+        {
+
+        }
+
+        /// <summary>
+        /// Usa l'oggetto assegnato.
+        /// </summary>
+        /// <param name="o"></param>
+        public void Usa(Oggetto o)
+        {
+
+        }
     }
 }

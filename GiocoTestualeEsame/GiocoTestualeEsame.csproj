@@ -50,6 +50,8 @@
     <Compile Include="Persona_cartella\Personaggio.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="stanze\Stanza.cs" />
+    <Compile Include="warning\Warning.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -11,8 +11,6 @@ namespace GiocoTestualeEsame.Oggetto_cartella
     {
         public static Oggetto spada { get; } = new Oggetto("spada", 9.50, "spada trovare in un fosso", true);
         public static Oggetto scarpa { get; } = new Oggetto("scarpa",1.5, "scarpe rotte da usare come abbellimento", true);
-
-        //public List<Oggetto> oggetti = new List<Oggetto>();
         
     }
 }

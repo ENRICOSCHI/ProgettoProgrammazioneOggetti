@@ -8,12 +8,14 @@ namespace GiocoTestualeEsame
 {
     public class Personaggio : Persona
     {
-        private string nome;
-        private string descrizione;
+        public string nome { get; } 
+        public string descrizione { get; }
+        public int vita { get; }
 
-        public Personaggio(string nome, string descrizione) : base(nome)
+        public Personaggio(string nome, string descrizione, int vita) : base(nome)
         {
             this.descrizione = descrizione;
+            this.vita = vita;
         }
     }
 }

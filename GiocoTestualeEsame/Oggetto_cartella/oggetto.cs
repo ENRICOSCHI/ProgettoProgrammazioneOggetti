@@ -21,6 +21,5 @@ namespace GiocoTestualeEsame
             this.descrizione = descrizione;
             this.isRaccoglibile = isRaccoglibile;
         }
-
     }
 }
