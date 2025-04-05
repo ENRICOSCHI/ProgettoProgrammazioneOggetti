@@ -9,11 +9,11 @@ namespace GiocoTestualeEsame.stanze
 {
     public class Stanza
     {
-        private List<Oggetto> oggettiPresentiNellaStanza = new List<Oggetto>();
+        private string descrizione;
 
         public Stanza(List<Oggetto> oggettiPresentiNellaStanza)
         {
-            this.oggettiPresentiNellaStanza = oggettiPresentiNellaStanza;
+            
         }
         /// <summary>
         /// Mostro tutti gli oggetti presenti nella stanza.

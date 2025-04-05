@@ -9,5 +9,6 @@ namespace GiocoTestualeEsame.stanze
 {
     public class Casa
     {
+        private List<Oggetto> oggettiPresentiNellaStanza = new List<Oggetto>();
     }
 }
