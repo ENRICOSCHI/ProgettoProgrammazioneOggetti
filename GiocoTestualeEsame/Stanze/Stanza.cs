@@ -20,9 +20,9 @@ namespace GiocoTestualeEsame.stanze
         /// </summary>
         public static void MostraOggettiNellaStanza(List<Oggetto> list_ogg)
         {
-            foreach(object o in list_ogg)
+            foreach(Oggetto o in list_ogg)
             {
-                Console.WriteLine("- " + o.ToString()+ "\n");
+                Console.WriteLine("- " + o.nome + "\n");
             }
         }
     }
