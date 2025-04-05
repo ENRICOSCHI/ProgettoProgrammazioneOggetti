@@ -7,8 +7,26 @@ using System.Threading.Tasks;
 
 namespace GiocoTestualeEsame.stanze
 {
-    public class Casa
+    public class Casa : Stanza
     {
-        private List<Oggetto> oggettiPresentiNellaStanza = new List<Oggetto>();
+        /*inserire oggetti presenti nella stanza*/
+        private List<Oggetto> oggettiPresentiNellaCasa = new List<Oggetto>
+        {
+            ElencoOggetti.scarpa,
+            ElencoOggetti.spada //nell'ultimo oggetto non va la virgola
+        };
+
+        public string descrizione { get; }
+
+        public Casa(string descrizione): base(descrizione)
+        {
+        }
+        /// <summary>
+        /// Mostra gli oggetti presenti nella casa;
+        /// </summary>
+        public void MostraOggettiNellaStanza()
+        {
+            Stanza.MostraOggettiNellaStanza(oggettiPresentiNellaCasa);
+        }
     }
 }

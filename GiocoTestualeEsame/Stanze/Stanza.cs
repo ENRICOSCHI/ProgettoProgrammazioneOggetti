@@ -11,18 +11,18 @@ namespace GiocoTestualeEsame.stanze
     {
         private string descrizione;
 
-        public Stanza(List<Oggetto> oggettiPresentiNellaStanza)
+        public Stanza(string descrizione)
         {
-            
+            this.descrizione = descrizione;
         }
         /// <summary>
         /// Mostro tutti gli oggetti presenti nella stanza.
         /// </summary>
-        public void MostraOggettiNellaStanza()
+        public static void MostraOggettiNellaStanza(List<Oggetto> list_ogg)
         {
-            foreach(object o in oggettiPresentiNellaStanza)
+            foreach(object o in list_ogg)
             {
-                Console.WriteLine(o.ToString());
+                Console.WriteLine("- " + o.ToString()+ "\n");
             }
         }
     }
