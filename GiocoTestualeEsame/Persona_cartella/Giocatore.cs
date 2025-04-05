@@ -1,4 +1,5 @@
 ﻿using GiocoTestualeEsame.Oggetto_cartella;
+using GiocoTestualeEsame.stanze;
 using GiocoTestualeEsame.warning;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace GiocoTestualeEsame
         {
             this.cognome = cognome;
         }
+
+
         /// <summary>
         /// Aggiunge allo zaino l'oggetto che si vuole inserire. 
         /// <br> N.B. Puoi inserire oggetti che fanno parte dell'ELENCO OGGETTI.</br>
@@ -32,7 +35,12 @@ namespace GiocoTestualeEsame
             //se la somma tra l'oggetto da inserire e quelli già presenti nello zaino sfora il peso massimo
             if((oggetto.peso + pesoNelloZaino) > pesoMaxZaino)
             {
-                Console.WriteLine(Warning.WarnignSuperamentoPesoMassimo(oggetto));
+                Warning.WarnignSuperamentoPesoMassimo(oggetto);
+                Warning.WarningOggettoNonAggiuntoAlloZaino(oggetto);
+            }
+            else if (!oggetto.isRaccoglibile)//se non può essere raccolto
+            {
+                Warning.WarningNonPuoiRaccogliereOgetto();
             }
             else
             {

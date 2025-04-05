@@ -15,15 +15,27 @@ namespace GiocoTestualeEsame.stanze
         {
             this.descrizione = descrizione;
         }
+
         /// <summary>
-        /// Mostro tutti gli oggetti presenti nella stanza.
+        ///  Mostro tutti gli oggetti presenti nella stanza.
         /// </summary>
+        /// <param name="list_ogg"></param>
         public static void MostraOggettiNellaStanza(List<Oggetto> list_ogg)
         {
             foreach(Oggetto o in list_ogg)
             {
-                Console.WriteLine("- " + o.nome + "\n");
+                Console.WriteLine("- " + o.nome + "\r");
             }
+        }
+
+        /// <summary>
+        /// Rimuovo oggetto dalla stanza.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="list_ogg"></param>
+        public static void RimuoviOggettoDallaStanza(Oggetto o,List<Oggetto> list_ogg)
+        {
+            list_ogg.Remove(o);
         }
     }
 }

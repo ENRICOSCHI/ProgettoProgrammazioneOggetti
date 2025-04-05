@@ -21,12 +21,23 @@ namespace GiocoTestualeEsame.stanze
         public Casa(string descrizione): base(descrizione)
         {
         }
+
+
         /// <summary>
-        /// Mostra gli oggetti presenti nella casa;
+        /// Mostra gli oggetti presenti nella casa.
         /// </summary>
         public void MostraOggettiNellaStanza()
         {
             Stanza.MostraOggettiNellaStanza(oggettiPresentiNellaCasa);
+        }
+
+        /// <summary>
+        /// Rimuovo oggetto dalla stanza.
+        /// </summary>
+        /// <param name="o"></param>
+        public void RimuoviOggettoDallaStanza(Oggetto o)
+        {
+            Stanza.RimuoviOggettoDallaStanza(o, oggettiPresentiNellaCasa);
         }
     }
 }
