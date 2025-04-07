@@ -5,11 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GiocoTestualeEsame.stanze
-{
+namespace GiocoTestualeEsame.stanze 
+{ 
     public class Stanza
     {
-        private string descrizione;
+        public string descrizione { get; }
+        /*inserire oggetti presenti nella stanza (si riemprirà con addOggettiNellaStanza)*/
+        private List<Oggetto> oggettiNellaStanza = new List<Oggetto>
+        {
+        };
 
         public Stanza(string descrizione)
         {
@@ -20,9 +24,9 @@ namespace GiocoTestualeEsame.stanze
         ///  Mostro tutti gli oggetti presenti nella stanza.
         /// </summary>
         /// <param name="list_ogg"></param>
-        public static void MostraOggettiNellaStanza(List<Oggetto> list_ogg)
+        public void MostraOggettiNellaStanza()
         {
-            foreach(Oggetto o in list_ogg)
+            foreach(Oggetto o in oggettiNellaStanza)
             {
                 Console.WriteLine("- " + o.nome + "\r");
             }
@@ -33,9 +37,17 @@ namespace GiocoTestualeEsame.stanze
         /// </summary>
         /// <param name="o"></param>
         /// <param name="list_ogg"></param>
-        public static void RimuoviOggettoDallaStanza(Oggetto o,List<Oggetto> list_ogg)
+        public void RimuoviOggettoDallaStanza(Oggetto o)
         {
-            list_ogg.Remove(o);
+            oggettiNellaStanza.Remove(o);
+        }
+        /// <summary>
+        /// Aggiungo oggetto alla stanza.
+        /// </summary>
+        /// <param name="o"></param>
+        public void AddOggettoNellaStanza(Oggetto o)
+        {
+            oggettiNellaStanza.Add(o);
         }
     }
 }
