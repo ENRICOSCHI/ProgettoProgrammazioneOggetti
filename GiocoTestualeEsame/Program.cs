@@ -24,12 +24,16 @@ namespace GiocoTestualeEsame
             player.AddZaino(ElencoOggetti.scarpa);
             Console.WriteLine("Ho rimosso " + ElencoOggetti.scarpa.nome + " dalla stanza e lo messo nello zaino");
             player.RemoveZaino(ElencoOggetti.scarpa);
-            Console.WriteLine("scegli uno tra questi tre oggetti");
+            Console.WriteLine("Ho rimesso " + ElencoOggetti.scarpa.nome + " dalla zaino e lo messa nella stanza");
+            /*Console.WriteLine("scegli uno tra questi tre oggetti");
             string input = Console.ReadLine();
             Oggetto oggettoScelto = null;
             oggettoScelto = ControlloInput(input, oggettoScelto);//controllo oggetto scelto
-            Console.WriteLine($"{oggettoScelto.nome} è stato scelto");
+            Console.WriteLine($"{oggettoScelto.nome} è stato scelto");*/
+            GestistiStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
             PreparazioneStoria.CostruisciStoria();
+            Console.WriteLine("costruisco storia");
+            GestistiStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
             //GestistiStatoGioco statoGioco = new GestistiStatoGioco();
             //statoGioco.stanzaCorrente = ElencoStanze.cantina;
             GestistiStatoGioco.stanzaCorrente = ElencoStanze.cantina;
@@ -39,7 +43,7 @@ namespace GiocoTestualeEsame
 
         public static Oggetto ControlloInput(string input, Oggetto oggettoScelto)
         {
-            while (!ElencoOggetti.Tutti.TryGetValue(input, out oggettoScelto))
+            while (!ElencoOggetti.TuttiGliOggetti.TryGetValue(input, out oggettoScelto))
             {
                 Warning.WarningErroreDiBattitura();
                 input = Console.ReadLine();

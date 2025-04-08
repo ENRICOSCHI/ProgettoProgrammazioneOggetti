@@ -25,6 +25,15 @@ namespace GiocoTestualeEsame
             this.cognome = cognome;
         }
 
+        /// <summary>
+        /// Aggiunge l'oggetto raccolto in mano
+        /// </summary>
+        /// <param name="o"></param>
+        public void MettiOggettoInMano(Oggetto o)
+        {
+            GestistiStatoGioco.oggettoInMano = o;//metto l'oggetto in mano
+            GestistiStatoGioco.stanzaCorrente.RimuoviOggettoDallaStanza(o);//rimuovo l'oggetto dalla stanza
+        }
 
         /// <summary>
         /// Aggiunge allo zaino l'oggetto che si vuole inserire. 
@@ -48,6 +57,8 @@ namespace GiocoTestualeEsame
             {
                 //l'oggetto viene inserito
                 zaino.Push(oggetto);
+                pesoNelloZaino += oggetto.peso;//aggiorno il peso
+                GestistiStatoGioco.stanzaCorrente.RimuoviOggettoDallaStanza(oggetto);//siccome ho messo l'oggetto nello zaino, lo tolgo dalla stanza
             }
         }
         /// <summary>

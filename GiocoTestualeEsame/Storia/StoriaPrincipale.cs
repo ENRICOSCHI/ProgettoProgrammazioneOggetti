@@ -25,9 +25,8 @@ namespace GiocoTestualeEsame.Storia
         /// </summary>
         public void Prompt()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;//cambio colore scritta del prompt
-            Stanza currentRoom = GestistiStatoGioco.stanzaCorrente;
-            Console.Write($"[{currentRoom.nome}] > "); //scrivo nella riga dove il giocatore scrive l'input
+            Console.ForegroundColor = ConsoleColor.Cyan;//cambio colore scritta del prompt 
+            Console.Write($"[{GestistiStatoGioco.stanzaCorrente.nome}] {GestistiStatoGioco.oggettoInMano.nome} > "); //scrivo nella riga dove il giocatore scrive l'input con Write
             string input = Console.ReadLine();
             string[] substring =  input.Split(' ');
             string command = substring[0];//comando utilizzato
