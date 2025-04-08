@@ -57,6 +57,7 @@
     <Compile Include="stanze\Stanza.cs" />
     <Compile Include="Storia\GestistiStatoGioco.cs" />
     <Compile Include="Storia\PreparazioneStoria.cs" />
+    <Compile Include="Storia\StoriaPrincipale.cs" />
     <Compile Include="warning\Warning.cs" />
   </ItemGroup>
   <ItemGroup>

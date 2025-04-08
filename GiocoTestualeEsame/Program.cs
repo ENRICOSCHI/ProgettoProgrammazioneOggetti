@@ -15,6 +15,9 @@ namespace GiocoTestualeEsame
         static void Main(string[] args)
         {
             /*prove generali SI POTRANNO RIMUOVERE*/
+            StoriaPrincipale storia = new StoriaPrincipale();
+            storia.Prompt();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(ElencoOggetti.scarpa.nome); //esempio
             Giocatore player = new Giocatore("Enrico", "Fiore");
             //Casa casa = new Casa("Bella e accogliente");
@@ -27,8 +30,10 @@ namespace GiocoTestualeEsame
             oggettoScelto = ControlloInput(input, oggettoScelto);//controllo oggetto scelto
             Console.WriteLine($"{oggettoScelto.nome} è stato scelto");
             PreparazioneStoria.CostruisciStoria();
-            GestistiStatoGioco statoGioco = new GestistiStatoGioco();
-            statoGioco.stanzaCorrente = ElencoStanze.cantina;
+            //GestistiStatoGioco statoGioco = new GestistiStatoGioco();
+            //statoGioco.stanzaCorrente = ElencoStanze.cantina;
+            GestistiStatoGioco.stanzaCorrente = ElencoStanze.cantina;
+            storia.Prompt();
                
         }
 

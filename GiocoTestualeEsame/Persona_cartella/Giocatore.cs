@@ -1,5 +1,6 @@
 ﻿using GiocoTestualeEsame.Oggetto_cartella;
 using GiocoTestualeEsame.stanze;
+using GiocoTestualeEsame.Storia;
 using GiocoTestualeEsame.warning;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace GiocoTestualeEsame
         private string nome { get; }
         private string cognome { get; } //credo per il loggin serve sapere il cognome
         private double pesoMaxZaino = 50; //peso massimo che può portare il giocatore
-        private List<Oggetto> zaino = new List<Oggetto>();
+        private Stack<Oggetto> zaino = new Stack<Oggetto>();//lista zaino con tecnica LIFO
+        private List<Oggetto> oggettiMomentaneiRimossi = new List<Oggetto>();
         private double pesoNelloZaino = 0; //il peso che si aggiorna man mano che si aggiungono oggetti nello zaino
 
         public Giocatore(string nome, string cognome) : base(nome) //creo la classe con nome e cognome e poi gli passo il nome
@@ -45,7 +47,7 @@ namespace GiocoTestualeEsame
             else
             {
                 //l'oggetto viene inserito
-                zaino.Add(oggetto);
+                zaino.Push(oggetto);
             }
         }
         /// <summary>
@@ -56,10 +58,23 @@ namespace GiocoTestualeEsame
         public void RemoveZaino(Oggetto oggetto)
         {
             //controllo se l'oggetto è presente nello zaino
-            if(zaino.Find(o => o.nome == oggetto.nome) != null) //il find per sapere a chi si riferisce devi fare o=>
+            if(zaino.Contains(oggetto)) // contaians controlla se l'oggetto è presente e ritorna o false o true
             {
                 pesoNelloZaino -= oggetto.peso;
-                zaino.Remove(oggetto);//rimuovo oggetto dalla lista
+                /*Pensare come tirare fuori l'oggetto desiderato!!!!*/
+                Oggetto o = null;
+                do
+                {
+                    o = zaino.Pop();//rimuovo oggetto dalla lista
+                    oggettiMomentaneiRimossi.Add(o);
+                } while (o.nome != oggetto.nome);
+                oggettiMomentaneiRimossi.Remove(o);//rimuovo l'oggetto che ho appena tolto dallo zaino
+                GestistiStatoGioco.stanzaCorrente.AddOggettoNellaStanza(o);//agiungo l'oggetto rimosso nella stanza
+                foreach(Oggetto ogg in oggettiMomentaneiRimossi)
+                {
+                    AddZaino(ogg);//rimetto gli oggetti che ho tolto
+                }
+                oggettiMomentaneiRimossi.Clear();//svuoto la lista
             }
             else
             {

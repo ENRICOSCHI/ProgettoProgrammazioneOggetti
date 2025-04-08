@@ -10,6 +10,6 @@ namespace GiocoTestualeEsame.Storia
     public class GestistiStatoGioco
     {
         //gestisci la stanza corrente
-        public Stanza stanzaCorrente { get; set; } = ElencoStanze.pianoTerra;
+        public static Stanza stanzaCorrente { get; set; } = ElencoStanze.pianoTerra;
     }
 }

@@ -9,14 +9,16 @@ namespace GiocoTestualeEsame.stanze
 { 
     public class Stanza
     {
+        public string nome { get; }
         public string descrizione { get; }
         /*inserire oggetti presenti nella stanza (si riemprirà con addOggettiNellaStanza)*/
         private List<Oggetto> oggettiNellaStanza = new List<Oggetto>
         {
         };
 
-        public Stanza(string descrizione)
+        public Stanza(string nome,string descrizione)
         {
+            this.nome = nome;
             this.descrizione = descrizione;
         }
 
