@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>GiocoTestualeEsame.Program</StartupObject>
+    <StartupObject>GiocoTestualeEsame.Storia.StoriaPrincipale</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

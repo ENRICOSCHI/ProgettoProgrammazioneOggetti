@@ -27,7 +27,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 case "ciao": Console.WriteLine("ciao!");break;
                 case "prendi": c.MettiNellaMano(argomento); break;
                 case "guarda": c.GuardaStanza(); break;
-
+                case "help": c.Help(); break;
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
@@ -48,16 +48,18 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="argomento"></param>
         public void MettiNellaMano(string argomento)
         {
+            Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
             Oggetto oggettoPassato = ConvertiStringToOggetto(argomento);
             Oggetto oggettoCorrenteInMano = GestistiStatoGioco.oggettoInMano;//oggetto che ho in mano prima di cambiarlo
-            if (GestistiStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(oggettoPassato))// se è vero...
+            if (oggettoPassato != null && GestistiStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(oggettoPassato))// se è vero...
             {
                 GestistiStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggettoCorrenteInMano);// metto l'oggetto che avevo in mano nella stanza
                 Giocatore.MettiOggettoInMano(oggettoPassato);// metto l'oggetto nuovo in mano
+                Console.WriteLine("L'oggetto " + argomento + " è stato preso in mano");
             }
             else
             {
-                Warning.WarnignOggettoNonPresenteNellaStanza(oggettoPassato);
+                Warning.WarnignOggettoNonPresenteNellaStanza();
             }
         }
 
@@ -69,13 +71,27 @@ namespace GiocoTestualeEsame.comandiDiGioco
             GestistiStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
        }
 
+       public void Help()
+       {
+            Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
+            Console.WriteLine("- help\n" +
+                "- ciao: saluta!\n- prendi + oggetto da prendere. Prendi un oggetto presente nella stanza .Per esempio: prendi spada\n" +
+                "- guarda: guarda gli oggetti presenti nella stanza");
+       }
+        
+        /// <summary>
+        /// Converto la stringa in oggetto.
+        /// Ritorna un oggetto. 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static Oggetto ConvertiStringToOggetto(string input)
         {
             Oggetto o;
-            while (!ElencoOggetti.TuttiGliOggetti.TryGetValue(input, out o))
+            if (!ElencoOggetti.TuttiGliOggetti.TryGetValue(input, out o))
             {
                 Warning.WarningErroreDiBattitura();
-                input = Console.ReadLine();
+                return null;
             }
             return o;
         }

@@ -12,11 +12,11 @@ namespace GiocoTestualeEsame.warning
         /*MESSAGGI DI WARNING*/
         private static string superatoLimitePeso = "Non puoi inserire {0}, hai superato il limite\r"; //nello 0 ci andrà il nome dell'oggetto
         private static string oggettoNonPresenteNelloZaino = "ERRORE, {0} non è presente nello zaino\r";
-        private static string oggettoNonPresenteNellaStanza = "ERRORE, {0} non è presente nella stanza\r";
+        private static string oggettoNonPresenteNellaStanza = "ERRORE, l'oggetto non è presente nella stanza\r";
         private static string oggettoNonRaccoglibile = "Non puoi raccogliere questo oggetto!\r";
         private static string oggettoNonAggiuntoAlloZaino = "{0} non è stato aggiunto nello zaino\r";
         private static string erroreDiBattitura = "Attenzione, il nome inserito è sbagliato\r";
-        private static string comandoErrato = "Attenzione, il comando {0} inserito non esiste\r";
+        private static string comandoErrato = "Attenzione, il comando '{0}' inserito non esiste\r";
 
 
 
@@ -83,10 +83,13 @@ namespace GiocoTestualeEsame.warning
             Console.WriteLine(string.Format(comandoErrato,input));
         }
 
-        public static void WarnignOggettoNonPresenteNellaStanza(Oggetto o)
+        /// <summary>
+        /// Warning per avvisare l'utente che l'oggetto non è presente nella stanza
+        /// </summary>
+        public static void WarnignOggettoNonPresenteNellaStanza()
         {
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
-            Console.WriteLine(string.Format(oggettoNonPresenteNellaStanza, o.nome));
+            Console.WriteLine(oggettoNonPresenteNellaStanza);
         }
     }
 }

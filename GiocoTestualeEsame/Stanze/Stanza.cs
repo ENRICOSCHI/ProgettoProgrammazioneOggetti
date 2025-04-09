@@ -28,7 +28,8 @@ namespace GiocoTestualeEsame.stanze
         /// <param name="list_ogg"></param>
         public void MostraOggettiNellaStanza()
         {
-            foreach(Oggetto o in oggettiNellaStanza)
+            Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
+            foreach (Oggetto o in oggettiNellaStanza)
             {
                 Console.WriteLine("- " + o.nome + "\r");
             }
