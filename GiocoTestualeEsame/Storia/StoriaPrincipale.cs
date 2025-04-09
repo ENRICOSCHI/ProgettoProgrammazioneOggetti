@@ -1,4 +1,5 @@
-﻿using GiocoTestualeEsame.stanze;
+﻿using GiocoTestualeEsame.comandiDiGioco;
+using GiocoTestualeEsame.stanze;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,7 @@ namespace GiocoTestualeEsame.Storia
             string[] substring =  input.Split(' ');
             string command = substring[0];//comando utilizzato
             string argomento = substring[1];//argomento del comando (una parola)
+            Comandi.ControlloComandi(command, argomento);// controllo il comando inserito
             //Console.WriteLine($"Hai scritto: {command} {argomento}"); test comando
         }
     }

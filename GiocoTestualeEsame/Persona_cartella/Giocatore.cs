@@ -29,7 +29,7 @@ namespace GiocoTestualeEsame
         /// Aggiunge l'oggetto raccolto in mano
         /// </summary>
         /// <param name="o"></param>
-        public void MettiOggettoInMano(Oggetto o)
+        public static void MettiOggettoInMano(Oggetto o)
         {
             GestistiStatoGioco.oggettoInMano = o;//metto l'oggetto in mano
             GestistiStatoGioco.stanzaCorrente.RimuoviOggettoDallaStanza(o);//rimuovo l'oggetto dalla stanza
@@ -69,7 +69,7 @@ namespace GiocoTestualeEsame
         public void RemoveZaino(Oggetto oggetto)
         {
             //controllo se l'oggetto è presente nello zaino
-            if(zaino.Contains(oggetto)) // contaians controlla se l'oggetto è presente e ritorna o false o true
+            if (zaino.Contains(oggetto)) // contaians controlla se l'oggetto è presente e ritorna o false o true
             {
                 pesoNelloZaino -= oggetto.peso;
                 /*Pensare come tirare fuori l'oggetto desiderato!!!!*/
@@ -81,7 +81,7 @@ namespace GiocoTestualeEsame
                 } while (o.nome != oggetto.nome);
                 oggettiMomentaneiRimossi.Remove(o);//rimuovo l'oggetto che ho appena tolto dallo zaino
                 GestistiStatoGioco.stanzaCorrente.AddOggettoNellaStanza(o);//agiungo l'oggetto rimosso nella stanza
-                foreach(Oggetto ogg in oggettiMomentaneiRimossi)
+                foreach (Oggetto ogg in oggettiMomentaneiRimossi)
                 {
                     AddZaino(ogg);//rimetto gli oggetti che ho tolto
                 }
@@ -91,26 +91,6 @@ namespace GiocoTestualeEsame
             {
                 Warning.WarningOggettoNonPresenteNelloZaino(oggetto);
             }
-        }
-
-
-        /// <summary>
-        /// Attacca un personaggio con l'oggetto assegnato.
-        /// </summary>
-        /// <param name="o"></param>
-        /// <param name="p"></param>
-        public void Attacca(Oggetto o, Personaggio p)
-        {
-
-        }
-
-        /// <summary>
-        /// Usa l'oggetto assegnato.
-        /// </summary>
-        /// <param name="o"></param>
-        public void Usa(Oggetto o)
-        {
-
         }
     }
 }

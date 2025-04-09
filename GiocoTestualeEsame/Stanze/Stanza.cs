@@ -51,5 +51,13 @@ namespace GiocoTestualeEsame.stanze
         {
             oggettiNellaStanza.Add(o);
         }
+
+        public bool ControlloOggettoNellaStanza(Oggetto o)
+        {
+            if (oggettiNellaStanza.Contains(o))
+                return true;
+            else return false;
+
+        }
     }
 }
