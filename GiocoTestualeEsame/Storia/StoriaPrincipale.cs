@@ -14,7 +14,13 @@ namespace GiocoTestualeEsame.Storia
         static void Main(string[] args)
         {
             StoriaPrincipale storia = new StoriaPrincipale();
+            GestistiStatoGioco GS = new GestistiStatoGioco();
             PreparazioneStoria.CostruisciStoria();
+            /*Chiedo le credenziali del giocatore*/
+            Console.WriteLine("Inserisci nome e cognome\n");
+            Console.Write("Nome: ");string nomeUtente = Console.ReadLine();
+            Console.Write("Cognome: "); string cognomeUtente = Console.ReadLine();
+            GS.CreateGiocatore(nomeUtente,cognomeUtente);//creo il giocatore
             while (true)
             {
                 storia.Prompt();

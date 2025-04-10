@@ -10,8 +10,14 @@ namespace GiocoTestualeEsame.Storia
 {
     public class GestistiStatoGioco
     {
+
         //gestisci la stanza corrente
         public static Stanza stanzaCorrente { get; set; } = ElencoStanze.pianoTerra;
         public static Oggetto oggettoInMano { get; set; } = ElencoOggetti.manoVuota; //non ha niente all'inizio in mano
+        public static Giocatore giocatoreCorrente { get; set; } //il giocatore lo creo da StoriaPrincipale
+        public void CreateGiocatore(string nome,string cognome)
+        {
+            giocatoreCorrente = new Giocatore(nome, cognome);//creo giocatore
+        }
     }
 }

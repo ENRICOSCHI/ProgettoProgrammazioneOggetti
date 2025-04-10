@@ -52,7 +52,11 @@ namespace GiocoTestualeEsame.stanze
         {
             oggettiNellaStanza.Add(o);
         }
-
+        /// <summary>
+        /// Ritorna true se l'oggetto è presente nella stanzaCorrente
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
         public bool ControlloOggettoNellaStanza(Oggetto o)
         {
             if (oggettiNellaStanza.Contains(o))

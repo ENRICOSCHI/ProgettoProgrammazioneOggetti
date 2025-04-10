@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GiocoTestualeEsame.Storia;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -10,14 +11,14 @@ namespace GiocoTestualeEsame.warning
     public  class Warning
     {
         /*MESSAGGI DI WARNING*/
-        private static string superatoLimitePeso = "Non puoi inserire {0}, hai superato il limite\r"; //nello 0 ci andrà il nome dell'oggetto
+        private static string superatoLimitePeso = "Non puoi inserire {0}, hai superato il limite di peso. Peso zaino: {1}\r"; //nello 0 ci andrà il nome dell'oggetto
         private static string oggettoNonPresenteNelloZaino = "ERRORE, {0} non è presente nello zaino\r";
         private static string oggettoNonPresenteNellaStanza = "ERRORE, l'oggetto non è presente nella stanza\r";
         private static string oggettoNonRaccoglibile = "Non puoi raccogliere questo oggetto!\r";
         private static string oggettoNonAggiuntoAlloZaino = "{0} non è stato aggiunto nello zaino\r";
         private static string erroreDiBattitura = "Attenzione, il nome inserito è sbagliato\r";
         private static string comandoErrato = "Attenzione, il comando '{0}' inserito non esiste\r";
-
+        private static string direzioneErrata = "Non è presente questa direzione nella stanza\r";
 
 
 
@@ -30,7 +31,7 @@ namespace GiocoTestualeEsame.warning
         public static void WarnignSuperamentoPesoMassimo(Oggetto oggetto)
         {
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
-            Console.WriteLine(string.Format(superatoLimitePeso,oggetto.nome));
+            Console.WriteLine(string.Format(superatoLimitePeso,oggetto.nome,GestistiStatoGioco.giocatoreCorrente.pesoNelloZaino));
         }
 
         /// <summary>
@@ -90,6 +91,14 @@ namespace GiocoTestualeEsame.warning
         {
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
             Console.WriteLine(oggettoNonPresenteNellaStanza);
+        }
+        /// <summary>
+        /// Warning per avvisare che la direzione indicata non è presente nella scena
+        /// </summary>
+        public static void WarningDirezioneNonPresenteNellaScena()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
+            Console.WriteLine(direzioneErrata);
         }
     }
 }

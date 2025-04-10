@@ -14,9 +14,15 @@ namespace GiocoTestualeEsame.Storia
         /*Attenzione gli oggetti devono avere nomi differenti se stanno in stanze diverse*/
         public static void CostruisciStoria()
         {
+            /*PIANO TERRA*/
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scarpa);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.spada);
-            ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.scarpa);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_destra);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_sinistra);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_su);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_giu);
+            /*CANTINA*/
+            ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
         }
         
     }

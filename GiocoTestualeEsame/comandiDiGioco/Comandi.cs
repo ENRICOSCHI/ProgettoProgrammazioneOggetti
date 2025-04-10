@@ -24,10 +24,16 @@ namespace GiocoTestualeEsame.comandiDiGioco
             /*swtich case con tutti i casi del comando che può esser stato scelto*/
             switch (comando)
             {
-                case "ciao": Console.WriteLine("ciao!");break;
+                case "ciao": Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("ciao!");break;
                 case "prendi": c.MettiNellaMano(argomento); break;
                 case "guarda": c.GuardaStanza(); break;
                 case "help": c.Help(); break;
+                case "vai": c.Vai(argomento); break;
+                case "zaino": c.GuardaZaino(); break;
+                case "aggiungi": c.AggiungiNelloZaino(argomento); break;
+                case "rimuovi": c.RimuoviOggettoDalloZaino(argomento); break;
+                case "peso": c.PesoZaino(); break;
+                case "descrizione": c.DescrizioneOggetto(argomento); break;
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
@@ -70,18 +76,120 @@ namespace GiocoTestualeEsame.comandiDiGioco
        {
             GestistiStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
        }
-
+        /// <summary>
+        /// Riassunto dei comandi
+        /// </summary>
        public void Help()
        {
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
-            Console.WriteLine("- help\n" +
-                "- ciao: saluta!\n- prendi + oggetto da prendere. Prendi un oggetto presente nella stanza .Per esempio: prendi spada\n" +
-                "- guarda: guarda gli oggetti presenti nella stanza");
+            Console.WriteLine("- help: mostra i comandi presenti nel gioco.\n" +
+                "- ciao: saluta!\n" +
+                "- prendi + oggetto da prendere. Prendi un oggetto presente nella stanza .Per esempio: prendi spada.\n" +
+                "- guarda: guarda gli oggetti presenti nella stanza.\n" +
+                "- vai + direzione: Spostati nel mondo di gioco inserendo verso quale posizone spostarti. Per esempio: vai porta_destra.\n" +
+                "- zaino: Guarda gli oggetti presenti nel tuo zaino.\n" +
+                "- aggiungi + oggetto: aggiunge l'oggetto nello zaino e lo rimuove dalla stanza. Per esempio: aggiungi spada.\n" +
+                "- rimuovi + oggetto: rimuove l'oggetto dallo zaino e lo lascia nella stanza. Per esempio: rimuovi spada.\n" +
+                "- peso: Puoi vedere quanto pesa il tuo zaino\n" +
+                "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada\n");
        }
-        
+        /// <summary>
+        /// Sposta il giocatore nelle stanze del gioco
+        /// </summary>
+        /// <param name="direzione"></param>
+        public void Vai(string direzione)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
+            Oggetto o = ConvertiStringToOggetto(direzione);//converto la stringa in un Oggetto, e controllo se la direzione è presente come oggetto nella stanza
+            if (!GestistiStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))
+            {
+                Warning.WarningDirezioneNonPresenteNellaScena();
+                return;//se non è presente esco dal metodo 
+            }
+            /*CAMBIARE STANZE, C'E' SOLO CANTINA*/
+            switch (direzione)
+            {
+                case "porta_sinistra": GestistiStatoGioco.stanzaCorrente = ElencoStanze.camera; break;
+                case "porta_destra": GestistiStatoGioco.stanzaCorrente = ElencoStanze.salaGiochi;break;
+                case "scale_su": GestistiStatoGioco.stanzaCorrente = ElencoStanze.primoPiano; break;
+                case "scale_giu": GestistiStatoGioco.stanzaCorrente = ElencoStanze.cantina; break;
+                case "torna_piano_terra": GestistiStatoGioco.stanzaCorrente = ElencoStanze.pianoTerra;break;
+                default: break;  
+            }
+            Console.WriteLine(GestistiStatoGioco.stanzaCorrente.descrizione);//mostro la descrizione della stanza
+        }
+        /// <summary>
+        /// Il giocatore guarda gli oggetti presenti nello zaino.
+        /// </summary>
+        public void GuardaZaino()
+        {
+            GestistiStatoGioco.giocatoreCorrente.GuardaOggettiNelloZaino();
+        }
+        /// <summary>
+        /// L'utente aggiunge l'oggetto nella stanza.
+        /// <br> Passare l'argomento come parametro.</br>
+        /// </summary>
+        /// <param name="oggettoPassato"></param>
+        public void AggiungiNelloZaino(string oggettoPassato)
+        {
+            Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
+            if(GestistiStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//se è presente nella stanza...
+            {
+                GestistiStatoGioco.giocatoreCorrente.AddZaino(o);//inserisco l'oggetto nello zaino
+            }
+            else
+            {
+                Warning.WarnignOggettoNonPresenteNellaStanza();
+            }
+        }
+        /// <summary>
+        /// Rimuovo l'oggetto dallo zaino
+        /// </summary>
+        /// <param name="oggettoPassato"></param>
+        public void RimuoviOggettoDalloZaino(string oggettoPassato)
+        {
+            Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
+            GestistiStatoGioco.giocatoreCorrente.RemoveZaino(o);
+        }
+        /// <summary>
+        /// L'utene può vedere quanto pesa lo zaino.
+        /// </summary>
+        public void PesoZaino()
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
+            Console.WriteLine("Lo zaino pesa: " + GestistiStatoGioco.giocatoreCorrente.pesoNelloZaino + " kg / "+ GestistiStatoGioco.giocatoreCorrente.pesoMaxZaino);
+        }
+        /// <summary>
+        /// Mostra all'utente il peso e la descrizione di un oggetto presente nella scena o nello zaino
+        /// </summary>
+        /// <param name="oggettoPassato"></param>
+        public void DescrizioneOggetto(string oggettoPassato)
+        {
+            Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo anche se esiste
+            if (GestistiStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//controllo se l'oggetto è nella stanza
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
+                if (o.isRaccoglibile)
+                    Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);// se è raccoglibile mostro il peso..
+                else
+                    Console.WriteLine("Descrizione: " + o.descrizione+"\n");//...altrimenti non lo mostro
+                return;
+            }
+            else if (GestistiStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(o))//controllo se l'oggetto è nello zaino
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
+                Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
+                return;
+            }
+            /*Avviso che non è presente ne nella scena ne nello zaino*/
+            Warning.WarningOggettoNonPresenteNelloZaino(o);
+            Warning.WarningDirezioneNonPresenteNellaScena();
+        }
+
         /// <summary>
         /// Converto la stringa in oggetto.
-        /// Ritorna un oggetto. 
+        /// Ritorna un oggetto.
+        /// Se l'oggetto non esiste ritorna null con un warning
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>

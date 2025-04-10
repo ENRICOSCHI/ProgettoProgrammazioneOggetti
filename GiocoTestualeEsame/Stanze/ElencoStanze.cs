@@ -10,11 +10,17 @@ namespace GiocoTestualeEsame.stanze
     {
         public static Stanza pianoTerra { get; } = new Stanza("piano terra","descrizione Piano Terra");
         public static Stanza cantina { get; } = new Stanza("cantina","descrizione cantina");
+        public static Stanza primoPiano { get; } = new Stanza("primo piano", "descrizione primo piano");
+        public static Stanza salaGiochi { get; } = new Stanza("sala giochi", "descrizione sala giochi");
+        public static Stanza camera { get; } = new Stanza("camera", "descrizione camera");
 
         public static readonly Dictionary<string, Stanza> TutteLeStanze = new Dictionary<string, Stanza>()
         {
             { "piano_terra" , pianoTerra },
-            {"cantina", cantina }
+            {"cantina", cantina },
+            {"primo_piano", primoPiano },
+            {"sala_giochi", salaGiochi },
+            {"camera",camera }
         };
     }
 }
