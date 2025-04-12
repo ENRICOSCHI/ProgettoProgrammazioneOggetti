@@ -17,6 +17,7 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Oggetto scale_su { get; } = new Oggetto("scale_su", 0, "queste scale portano al primo piano", false);
         public static Oggetto scale_giu { get; } = new Oggetto("scale_giu", 0, "queste scale portano alla cantina", false);
         public static Oggetto torna_piano_terra { get; } = new Oggetto("torna_piano_terra", 0, "ritorna al piano terra", false);
+        public static Oggetto teletrasporto { get; } = new Oggetto("teletrasporto", 10, "vieni portato in una stanza casuale", true);
 
 
 
@@ -31,6 +32,7 @@ namespace GiocoTestualeEsame.Oggetto_cartella
             {"porta_destra",porta_destra },
             { "porta_sinistra",porta_sinistra},
             {"torna_piano_terra", torna_piano_terra },
+            {"teletrasporto",teletrasporto },
             { "vuoto", manoVuota } //oggetto di default
         };
     }

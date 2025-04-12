@@ -34,6 +34,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 case "rimuovi": c.RimuoviOggettoDalloZaino(argomento); break;
                 case "peso": c.PesoZaino(); break;
                 case "descrizione": c.DescrizioneOggetto(argomento); break;
+                case "tp": c.Teletrasporto(argomento); break;
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
@@ -91,7 +92,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 "- aggiungi + oggetto: aggiunge l'oggetto nello zaino e lo rimuove dalla stanza. Per esempio: aggiungi spada.\n" +
                 "- rimuovi + oggetto: rimuove l'oggetto dallo zaino e lo lascia nella stanza. Per esempio: rimuovi spada.\n" +
                 "- peso: Puoi vedere quanto pesa il tuo zaino\n" +
-                "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada\n");
+                "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada\n" +
+                "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale\n");
        }
         /// <summary>
         /// Sposta il giocatore nelle stanze del gioco
@@ -160,7 +162,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
             Console.WriteLine("Lo zaino pesa: " + GestistiStatoGioco.giocatoreCorrente.pesoNelloZaino + " kg / "+ GestistiStatoGioco.giocatoreCorrente.pesoMaxZaino);
         }
         /// <summary>
-        /// Mostra all'utente il peso e la descrizione di un oggetto presente nella scena o nello zaino
+        /// Mostra all'utente il peso e la descrizione di un oggetto presente nella scena o nello zaino o in mano
         /// </summary>
         /// <param name="oggettoPassato"></param>
         public void DescrizioneOggetto(string oggettoPassato)
@@ -180,10 +182,28 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
                 Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
                 return;
+            }else if (GestistiStatoGioco.oggettoInMano.nome == oggettoPassato)//se l'oggetto è in mano
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
+                Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
             }
             /*Avviso che non è presente ne nella scena ne nello zaino*/
             Warning.WarningOggettoNonPresenteNelloZaino(o);
             Warning.WarningDirezioneNonPresenteNellaScena();
+        }
+
+        /*Da completare*/
+        public void Teletrasporto(string argomento)
+        {
+            Oggetto o = ConvertiStringToOggetto(argomento);
+            if (GestistiStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(o))
+            {
+                /*Fare il random per prendere il luogo in cui teletrasportarsi*/
+            }
+            else
+            {
+                Warning.WarningOggettoNonPresenteNelloZaino(o);
+            }
         }
 
         /// <summary>

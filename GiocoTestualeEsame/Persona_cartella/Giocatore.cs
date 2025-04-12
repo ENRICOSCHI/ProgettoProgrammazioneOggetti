@@ -109,6 +109,7 @@ namespace GiocoTestualeEsame
                 i++;//aggiorno il count per l'elenco
             }
         }
+
         /// <summary>
         /// Ritorna true se l'oggetto è presente nello zaino
         /// </summary>

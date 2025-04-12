@@ -23,6 +23,8 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_giu);
             /*CANTINA*/
             ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
+            /*SALA GIOCHI*/
+            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.teletrasporto);
         }
         
     }
