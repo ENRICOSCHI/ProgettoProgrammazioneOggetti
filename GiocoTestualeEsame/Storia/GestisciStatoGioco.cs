@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GiocoTestualeEsame.Storia
 {
-    public class GestistiStatoGioco
+    public class GestisciStatoGioco
     {
 
         //gestisci la stanza corrente

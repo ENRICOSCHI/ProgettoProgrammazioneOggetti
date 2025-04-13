@@ -25,6 +25,11 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
             /*SALA GIOCHI*/
             ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.teletrasporto);
+            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
+            /*PRIMO PIANO*/
+            ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
+            /*CAMERA*/
+            ElencoStanze.camera.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
         }
         
     }

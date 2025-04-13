@@ -14,6 +14,7 @@ namespace GiocoTestualeEsame.warning
         private static string superatoLimitePeso = "Non puoi inserire {0}, hai superato il limite di peso. Peso zaino: {1}\r"; //nello 0 ci andrà il nome dell'oggetto
         private static string oggettoNonPresenteNelloZaino = "ERRORE, {0} non è presente nello zaino\r";
         private static string oggettoNonPresenteNellaStanza = "ERRORE, l'oggetto non è presente nella stanza\r";
+        private static string oggettoNonInMano = "ERRORE, l'oggetto non è in mano\r";
         private static string oggettoNonRaccoglibile = "Non puoi raccogliere questo oggetto!\r";
         private static string oggettoNonAggiuntoAlloZaino = "{0} non è stato aggiunto nello zaino\r";
         private static string erroreDiBattitura = "Attenzione, il nome inserito è sbagliato\r";
@@ -31,7 +32,7 @@ namespace GiocoTestualeEsame.warning
         public static void WarnignSuperamentoPesoMassimo(Oggetto oggetto)
         {
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
-            Console.WriteLine(string.Format(superatoLimitePeso,oggetto.nome,GestistiStatoGioco.giocatoreCorrente.pesoNelloZaino));
+            Console.WriteLine(string.Format(superatoLimitePeso,oggetto.nome,GestisciStatoGioco.giocatoreCorrente.pesoNelloZaino));
         }
 
         /// <summary>
@@ -92,6 +93,7 @@ namespace GiocoTestualeEsame.warning
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
             Console.WriteLine(oggettoNonPresenteNellaStanza);
         }
+
         /// <summary>
         /// Warning per avvisare che la direzione indicata non è presente nella scena
         /// </summary>
@@ -100,5 +102,15 @@ namespace GiocoTestualeEsame.warning
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
             Console.WriteLine(direzioneErrata);
         }
+
+        /// <summary>
+        /// Warning per avvisare che l'oggetto indicato non è in mano
+        /// </summary>
+        public static void WarningOggettoNonInMano()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
+            Console.WriteLine(oggettoNonInMano);
+        }
+
     }
 }

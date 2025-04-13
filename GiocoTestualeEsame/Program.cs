@@ -30,13 +30,13 @@ namespace GiocoTestualeEsame
             Oggetto oggettoScelto = null;
             oggettoScelto = ControlloInput(input, oggettoScelto);//controllo oggetto scelto
             Console.WriteLine($"{oggettoScelto.nome} è stato scelto");*/
-            GestistiStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
+            GestisciStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
             PreparazioneStoria.CostruisciStoria();
             Console.WriteLine("costruisco storia");
-            GestistiStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
+            GestisciStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
             //GestistiStatoGioco statoGioco = new GestistiStatoGioco();
             //statoGioco.stanzaCorrente = ElencoStanze.cantina;
-            GestistiStatoGioco.stanzaCorrente = ElencoStanze.cantina;
+            GestisciStatoGioco.stanzaCorrente = ElencoStanze.cantina;
             storia.Prompt();
                
         }

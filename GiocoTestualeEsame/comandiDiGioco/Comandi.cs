@@ -34,7 +34,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 case "rimuovi": c.RimuoviOggettoDalloZaino(argomento); break;
                 case "peso": c.PesoZaino(); break;
                 case "descrizione": c.DescrizioneOggetto(argomento); break;
-                case "tp": c.Teletrasporto(argomento); break;
+                case "tp": c.Teletrasporto(); break;
+                case "lascia": c.Lascia();break;
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
@@ -57,17 +58,36 @@ namespace GiocoTestualeEsame.comandiDiGioco
         {
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
             Oggetto oggettoPassato = ConvertiStringToOggetto(argomento);
-            Oggetto oggettoCorrenteInMano = GestistiStatoGioco.oggettoInMano;//oggetto che ho in mano prima di cambiarlo
-            if (oggettoPassato != null && GestistiStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(oggettoPassato))// se è vero...
+            Oggetto oggettoCorrenteInMano = GestisciStatoGioco.oggettoInMano;//oggetto che ho in mano prima di cambiarlo
+            if (oggettoPassato != null && GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(oggettoPassato))// se è vero...
             {
-                GestistiStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggettoCorrenteInMano);// metto l'oggetto che avevo in mano nella stanza
-                Giocatore.MettiOggettoInMano(oggettoPassato);// metto l'oggetto nuovo in mano
-                Console.WriteLine("L'oggetto " + argomento + " è stato preso in mano");
+                if (oggettoPassato.isRaccoglibile)//se è raccoglibile
+                {
+                    GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggettoCorrenteInMano);// metto l'oggetto che avevo in mano nella stanza
+                    GestisciStatoGioco.giocatoreCorrente.MettiOggettoInMano(oggettoPassato);// metto l'oggetto nuovo in mano
+                    Console.WriteLine("L'oggetto " + argomento + " è stato preso in mano");
+                }
+                else
+                {
+                    Warning.WarningNonPuoiRaccogliereOgetto();
+                }
+                
             }
             else
             {
                 Warning.WarnignOggettoNonPresenteNellaStanza();
             }
+        }
+        /// <summary>
+        /// Lascio nella stanza l'oggetto presente nella mano
+        /// </summary>
+        public void Lascia()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
+            if (GestisciStatoGioco.oggettoInMano.nome != "")
+                GestisciStatoGioco.giocatoreCorrente.LasciOggettoDallaMano();
+            else
+                Console.WriteLine("non hai oggetti in mano");
         }
 
         /// <summary>
@@ -75,7 +95,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// </summary>
        public void GuardaStanza()
        {
-            GestistiStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
+            GestisciStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
        }
         /// <summary>
         /// Riassunto dei comandi
@@ -85,7 +105,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
             Console.WriteLine("- help: mostra i comandi presenti nel gioco.\n" +
                 "- ciao: saluta!\n" +
-                "- prendi + oggetto da prendere. Prendi un oggetto presente nella stanza .Per esempio: prendi spada.\n" +
+                "- prendi + oggetto da prendere. Prendi un oggetto presente nella stanza (l'oggetto in mano verrà messo nella stanza).Per esempio: prendi spada.\n" +
+                "- lascia: l'oggetto in mano viene lasciato nella scena, e la mano sarà così liberata\n"+
                 "- guarda: guarda gli oggetti presenti nella stanza.\n" +
                 "- vai + direzione: Spostati nel mondo di gioco inserendo verso quale posizone spostarti. Per esempio: vai porta_destra.\n" +
                 "- zaino: Guarda gli oggetti presenti nel tuo zaino.\n" +
@@ -103,7 +124,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         {
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
             Oggetto o = ConvertiStringToOggetto(direzione);//converto la stringa in un Oggetto, e controllo se la direzione è presente come oggetto nella stanza
-            if (!GestistiStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))
+            if (!GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))
             {
                 Warning.WarningDirezioneNonPresenteNellaScena();
                 return;//se non è presente esco dal metodo 
@@ -111,21 +132,21 @@ namespace GiocoTestualeEsame.comandiDiGioco
             /*CAMBIARE STANZE, C'E' SOLO CANTINA*/
             switch (direzione)
             {
-                case "porta_sinistra": GestistiStatoGioco.stanzaCorrente = ElencoStanze.camera; break;
-                case "porta_destra": GestistiStatoGioco.stanzaCorrente = ElencoStanze.salaGiochi;break;
-                case "scale_su": GestistiStatoGioco.stanzaCorrente = ElencoStanze.primoPiano; break;
-                case "scale_giu": GestistiStatoGioco.stanzaCorrente = ElencoStanze.cantina; break;
-                case "torna_piano_terra": GestistiStatoGioco.stanzaCorrente = ElencoStanze.pianoTerra;break;
+                case "porta_sinistra": GestisciStatoGioco.stanzaCorrente = ElencoStanze.camera; break;
+                case "porta_destra": GestisciStatoGioco.stanzaCorrente = ElencoStanze.salaGiochi;break;
+                case "scale_su": GestisciStatoGioco.stanzaCorrente = ElencoStanze.primoPiano; break;
+                case "scale_giu": GestisciStatoGioco.stanzaCorrente = ElencoStanze.cantina; break;
+                case "torna_piano_terra": GestisciStatoGioco.stanzaCorrente = ElencoStanze.pianoTerra;break;
                 default: break;  
             }
-            Console.WriteLine(GestistiStatoGioco.stanzaCorrente.descrizione);//mostro la descrizione della stanza
+            Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);//mostro la descrizione della stanza
         }
         /// <summary>
         /// Il giocatore guarda gli oggetti presenti nello zaino.
         /// </summary>
         public void GuardaZaino()
         {
-            GestistiStatoGioco.giocatoreCorrente.GuardaOggettiNelloZaino();
+            GestisciStatoGioco.giocatoreCorrente.GuardaOggettiNelloZaino();
         }
         /// <summary>
         /// L'utente aggiunge l'oggetto nella stanza.
@@ -135,9 +156,9 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void AggiungiNelloZaino(string oggettoPassato)
         {
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
-            if(GestistiStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//se è presente nella stanza...
+            if(GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//se è presente nella stanza...
             {
-                GestistiStatoGioco.giocatoreCorrente.AddZaino(o);//inserisco l'oggetto nello zaino
+                GestisciStatoGioco.giocatoreCorrente.AddZaino(o);//inserisco l'oggetto nello zaino
             }
             else
             {
@@ -151,7 +172,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void RimuoviOggettoDalloZaino(string oggettoPassato)
         {
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
-            GestistiStatoGioco.giocatoreCorrente.RemoveZaino(o);
+            GestisciStatoGioco.giocatoreCorrente.RemoveZaino(o);
         }
         /// <summary>
         /// L'utene può vedere quanto pesa lo zaino.
@@ -159,7 +180,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void PesoZaino()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
-            Console.WriteLine("Lo zaino pesa: " + GestistiStatoGioco.giocatoreCorrente.pesoNelloZaino + " kg / "+ GestistiStatoGioco.giocatoreCorrente.pesoMaxZaino);
+            Console.WriteLine("Lo zaino pesa: " + GestisciStatoGioco.giocatoreCorrente.pesoNelloZaino + " kg / "+ GestisciStatoGioco.giocatoreCorrente.pesoMaxZaino);
         }
         /// <summary>
         /// Mostra all'utente il peso e la descrizione di un oggetto presente nella scena o nello zaino o in mano
@@ -168,7 +189,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void DescrizioneOggetto(string oggettoPassato)
         {
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo anche se esiste
-            if (GestistiStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//controllo se l'oggetto è nella stanza
+            if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//controllo se l'oggetto è nella stanza
             {
                 Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
                 if (o.isRaccoglibile)
@@ -177,12 +198,12 @@ namespace GiocoTestualeEsame.comandiDiGioco
                     Console.WriteLine("Descrizione: " + o.descrizione+"\n");//...altrimenti non lo mostro
                 return;
             }
-            else if (GestistiStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(o))//controllo se l'oggetto è nello zaino
+            else if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(o))//controllo se l'oggetto è nello zaino
             {
                 Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
                 Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
                 return;
-            }else if (GestistiStatoGioco.oggettoInMano.nome == oggettoPassato)//se l'oggetto è in mano
+            }else if (GestisciStatoGioco.oggettoInMano.nome == oggettoPassato)//se l'oggetto è in mano
             {
                 Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
                 Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
@@ -193,16 +214,18 @@ namespace GiocoTestualeEsame.comandiDiGioco
         }
 
         /*Da completare*/
-        public void Teletrasporto(string argomento)
+        public void Teletrasporto()
         {
-            Oggetto o = ConvertiStringToOggetto(argomento);
-            if (GestistiStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(o))
+            if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(ElencoOggetti.teletrasporto) || GestisciStatoGioco.giocatoreCorrente.IsOggettoInMano(ElencoOggetti.teletrasporto))
             {
-                /*Fare il random per prendere il luogo in cui teletrasportarsi*/
+                GestisciStatoGioco.stanzaCorrente = Stanza.GetRandomStanza();
+                Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
+                Console.WriteLine("ti sei teletrasportato con successo");
             }
             else
             {
-                Warning.WarningOggettoNonPresenteNelloZaino(o);
+                Warning.WarningOggettoNonPresenteNelloZaino(ElencoOggetti.teletrasporto);
+                Warning.WarningOggettoNonInMano();
             }
         }
 

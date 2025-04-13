@@ -14,7 +14,7 @@ namespace GiocoTestualeEsame.Storia
         static void Main(string[] args)
         {
             StoriaPrincipale storia = new StoriaPrincipale();
-            GestistiStatoGioco GS = new GestistiStatoGioco();
+            GestisciStatoGioco GS = new GestisciStatoGioco();
             PreparazioneStoria.CostruisciStoria();
             /*Chiedo le credenziali del giocatore*/
             Console.WriteLine("Inserisci nome e cognome\n");
@@ -33,7 +33,7 @@ namespace GiocoTestualeEsame.Storia
         public void Prompt()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;//cambio colore scritta del prompt 
-            Console.Write($"[{GestistiStatoGioco.stanzaCorrente.nome}] {GestistiStatoGioco.oggettoInMano.nome} > "); //scrivo nella riga dove il giocatore scrive l'input con Write
+            Console.Write($"[{GestisciStatoGioco.stanzaCorrente.nome}] {GestisciStatoGioco.oggettoInMano.nome} > "); //scrivo nella riga dove il giocatore scrive l'input con Write
             string input = Console.ReadLine();
             string[] substring =  input.Split();
             string command = substring[0];//comando utilizzato

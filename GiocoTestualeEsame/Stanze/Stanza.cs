@@ -16,6 +16,8 @@ namespace GiocoTestualeEsame.stanze
         {
         };
 
+        private static Random random = new Random();
+
         public Stanza(string nome,string descrizione)
         {
             this.nome = nome;
@@ -50,7 +52,8 @@ namespace GiocoTestualeEsame.stanze
         /// <param name="o"></param>
         public void AddOggettoNellaStanza(Oggetto o)
         {
-            oggettiNellaStanza.Add(o);
+            if(o.nome != "")
+                oggettiNellaStanza.Add(o);
         }
         /// <summary>
         /// Ritorna true se l'oggetto è presente nella stanzaCorrente
@@ -63,6 +66,14 @@ namespace GiocoTestualeEsame.stanze
                 return true;
             else return false;
 
+        }
+        /// <summary>
+        /// Ottengo una stanza random
+        /// </summary>
+        /// <returns></returns>
+        public static Stanza GetRandomStanza()
+        { 
+            return ElencoStanze.TutteLeStanze.ElementAt(random.Next(ElencoStanze.TutteLeStanze.Count)).Value;//con .Value accedo alla stanza
         }
     }
 }

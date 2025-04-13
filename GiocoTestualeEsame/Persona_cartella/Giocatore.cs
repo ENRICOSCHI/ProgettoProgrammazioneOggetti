@@ -29,10 +29,21 @@ namespace GiocoTestualeEsame
         /// Aggiunge l'oggetto raccolto in mano
         /// </summary>
         /// <param name="o"></param>
-        public static void MettiOggettoInMano(Oggetto o)
+        public void MettiOggettoInMano(Oggetto o)
         {
-            GestistiStatoGioco.oggettoInMano = o;//metto l'oggetto in mano
-            GestistiStatoGioco.stanzaCorrente.RimuoviOggettoDallaStanza(o);//rimuovo l'oggetto dalla stanza
+            GestisciStatoGioco.oggettoInMano = o;//metto l'oggetto in mano
+            GestisciStatoGioco.stanzaCorrente.RimuoviOggettoDallaStanza(o);//rimuovo l'oggetto dalla stanza
+        }
+
+        /// <summary>
+        /// Lascio l'oggetto presente nella mano nella stanza e la manon diventa vuota
+        /// </summary>
+        public void LasciOggettoDallaMano()
+        {
+            GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(GestisciStatoGioco.oggettoInMano);
+            GestisciStatoGioco.oggettoInMano = ElencoOggetti.manoVuota; 
+            Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
+            Console.WriteLine("Oggetto lasciato nella stanza");
         }
 
         /// <summary>
@@ -59,7 +70,7 @@ namespace GiocoTestualeEsame
                 //l'oggetto viene inserito
                 zaino.Push(oggetto);
                 pesoNelloZaino += oggetto.peso;//aggiorno il peso
-                GestistiStatoGioco.stanzaCorrente.RimuoviOggettoDallaStanza(oggetto);//siccome ho messo l'oggetto nello zaino, lo tolgo dalla stanza
+                GestisciStatoGioco.stanzaCorrente.RimuoviOggettoDallaStanza(oggetto);//siccome ho messo l'oggetto nello zaino, lo tolgo dalla stanza
                 Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
                 Console.WriteLine("Oggetto inserito nello zaino");
             }
@@ -84,7 +95,7 @@ namespace GiocoTestualeEsame
                     oggettiMomentaneiRimossi.Add(o);
                 } while (o.nome != oggetto.nome);
                 oggettiMomentaneiRimossi.Remove(o);//rimuovo l'oggetto che ho appena tolto dallo zaino
-                GestistiStatoGioco.stanzaCorrente.AddOggettoNellaStanza(o);//agiungo l'oggetto rimosso nella stanza
+                GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(o);//agiungo l'oggetto rimosso nella stanza
                 foreach (Oggetto ogg in oggettiMomentaneiRimossi)
                 {
                     AddZaino(ogg);//rimetto gli oggetti che ho tolto
@@ -122,6 +133,22 @@ namespace GiocoTestualeEsame
                 return true;
             }
             return false;
+        }
+        /// <summary>
+        /// Ritorna true se l'oggetto passato è in mano
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        public bool IsOggettoInMano(Oggetto o)
+        {
+            if(o.nome == GestisciStatoGioco.oggettoInMano.nome)
+            {
+                return true; //l'oggetto è in mano
+            }
+            else
+            {
+                return false;// l'oggetto non è in mano
+            }
         }
     }
 }
