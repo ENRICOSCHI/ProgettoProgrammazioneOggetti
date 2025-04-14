@@ -41,16 +41,6 @@ namespace GiocoTestualeEsame.comandiDiGioco
         }
 
         /// <summary>
-        /// Attacca un personaggio con l'oggetto assegnato.
-        /// </summary>
-        /// <param name="o"></param>
-        /// <param name="p"></param>
-        public void Attacca(Oggetto o, Personaggio p)
-        {
-
-        }
-
-        /// <summary>
         /// L'oggetto assegnato viene messo nella mano del giocatore e quello che era in mano viene lasciato nella stanza
         /// </summary>
         /// <param name="argomento"></param>
