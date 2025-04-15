@@ -47,7 +47,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void MettiNellaMano(string argomento)
         {
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
-            Oggetto oggettoPassato = ConvertiStringToOggetto(argomento);
+            Oggetto oggettoPassato = ConvertiStringToOggetto(argomento,false);
             Oggetto oggettoCorrenteInMano = GestisciStatoGioco.oggettoInMano;//oggetto che ho in mano prima di cambiarlo
             if (oggettoPassato != null && GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(oggettoPassato))// se è vero...
             {
@@ -110,25 +110,17 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// Sposta il giocatore nelle stanze del gioco
         /// </summary>
         /// <param name="direzione"></param>
-        public void Vai(string direzione)
+        public void Vai(string nomePassaggio)
         {
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
-            Oggetto o = ConvertiStringToOggetto(direzione);//converto la stringa in un Oggetto, e controllo se la direzione è presente come oggetto nella stanza
+            Passaggio o = ConvertiStringToPassaggio(nomePassaggio);//converto la stringa in un Oggetto, e controllo se la direzione è presente come oggetto nella stanza
             if (!GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))
             {
                 Warning.WarningDirezioneNonPresenteNellaScena();
                 return;//se non è presente esco dal metodo 
             }
-            /*CAMBIARE STANZE, C'E' SOLO CANTINA*/
-            switch (direzione)
-            {
-                case "porta_sinistra": GestisciStatoGioco.stanzaCorrente = ElencoStanze.camera; break;
-                case "porta_destra": GestisciStatoGioco.stanzaCorrente = ElencoStanze.salaGiochi;break;
-                case "scale_su": GestisciStatoGioco.stanzaCorrente = ElencoStanze.primoPiano; break;
-                case "scale_giu": GestisciStatoGioco.stanzaCorrente = ElencoStanze.cantina; break;
-                case "torna_piano_terra": GestisciStatoGioco.stanzaCorrente = ElencoStanze.pianoTerra;break;
-                default: break;  
-            }
+            Stanza stanzaDestinazione = o.destinazione; //prendo la stanza in cui entrerà il giocatore
+            GestisciStatoGioco.stanzaCorrente = stanzaDestinazione; //entra nella stanza
             Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);//mostro la descrizione della stanza
         }
         /// <summary>
@@ -145,7 +137,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void AggiungiNelloZaino(string oggettoPassato)
         {
-            Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
+            Oggetto o = ConvertiStringToOggetto(oggettoPassato,false);//mentre converto controllo se l'oggetto esiste
             if(GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//se è presente nella stanza...
             {
                 GestisciStatoGioco.giocatoreCorrente.AddZaino(o);//inserisco l'oggetto nello zaino
@@ -161,7 +153,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void RimuoviOggettoDalloZaino(string oggettoPassato)
         {
-            Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
+            Oggetto o = ConvertiStringToOggetto(oggettoPassato,false);//mentre converto controllo se l'oggetto esiste
             GestisciStatoGioco.giocatoreCorrente.RemoveZaino(o);
         }
         /// <summary>
@@ -178,29 +170,43 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void DescrizioneOggetto(string oggettoPassato)
         {
-            Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo anche se esiste
-            if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//controllo se l'oggetto è nella stanza
+            Oggetto o = ConvertiStringToOggetto(oggettoPassato,true);//converto in oggetto
+            Passaggio p = ConvertiStringToPassaggio(oggettoPassato);//converto in passaggio
+            Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
+            if (o != null)
             {
-                Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
-                if (o.isRaccoglibile)
-                    Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);// se è raccoglibile mostro il peso..
+                if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//controllo se l'oggetto è nella stanza
+                {
+                    Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
+                    return;
+                }
+                else if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(o))//controllo se l'oggetto è nello zaino
+                {
+                    Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
+                    return;
+                }
+                else if (GestisciStatoGioco.oggettoInMano.nome == oggettoPassato)//se l'oggetto è in mano
+                {
+                    
+                    Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
+                    return;
+                }
                 else
-                    Console.WriteLine("Descrizione: " + o.descrizione+"\n");//...altrimenti non lo mostro
-                return;
-            }
-            else if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(o))//controllo se l'oggetto è nello zaino
+                {
+                    Warning.WarningOggettoNonPresenteNelloZaino(o);
+                    Warning.WarnignOggettoNonPresenteNellaStanza();
+                }
+            }else if(p != null)
             {
-                Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
-                Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
-                return;
-            }else if (GestisciStatoGioco.oggettoInMano.nome == oggettoPassato)//se l'oggetto è in mano
-            {
-                Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
-                Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
+                if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(p))
+                {
+                    Console.WriteLine("Descrizione: " + p.descrizione + "\n");
+                }
+                else
+                {
+                    Warning.WarningDirezioneNonPresenteNellaScena();
+                }
             }
-            /*Avviso che non è presente ne nella scena ne nello zaino*/
-            Warning.WarningOggettoNonPresenteNelloZaino(o);
-            Warning.WarningDirezioneNonPresenteNellaScena();
         }
 
         /*Da completare*/
@@ -220,16 +226,35 @@ namespace GiocoTestualeEsame.comandiDiGioco
         }
 
         /// <summary>
-        /// Converto la stringa in oggetto.
+        /// Converto la stringa in Oggetto.
         /// Ritorna un oggetto.
         /// Se l'oggetto non esiste ritorna null con un warning
+        /// PS. Se il metodo viene richiamato prima di ConvertiStringToPassaggio, mettere il bool a true
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static Oggetto ConvertiStringToOggetto(string input)
+        public static Oggetto ConvertiStringToOggetto(string input,bool byPassError)
         {
             Oggetto o;
             if (!ElencoOggetti.TuttiGliOggetti.TryGetValue(input, out o))
+            {
+                if(!byPassError)
+                    Warning.WarningErroreDiBattitura();
+                return null;
+            }
+            return o;
+        }
+        /// <summary>
+        /// Converto la stringa in Passaggio.
+        /// Ritorna un Passaggio.
+        /// Se l'oggetto Passaggio non esiste ritorna null con un warning
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static Passaggio ConvertiStringToPassaggio(string input)
+        {
+            Passaggio o;
+            if (!ElencoOggetti.TuttiIPassaggi.TryGetValue(input, out o))
             {
                 Warning.WarningErroreDiBattitura();
                 return null;

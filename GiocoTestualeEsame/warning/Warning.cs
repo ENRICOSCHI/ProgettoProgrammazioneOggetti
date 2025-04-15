@@ -19,7 +19,7 @@ namespace GiocoTestualeEsame.warning
         private static string oggettoNonAggiuntoAlloZaino = "{0} non è stato aggiunto nello zaino\r";
         private static string erroreDiBattitura = "Attenzione, il nome inserito è sbagliato\r";
         private static string comandoErrato = "Attenzione, il comando '{0}' inserito non esiste\r";
-        private static string direzioneErrata = "Non è presente questa direzione nella stanza\r";
+        private static string direzioneErrata = "Non è presente questo passaggio nella stanza\r";
 
 
 

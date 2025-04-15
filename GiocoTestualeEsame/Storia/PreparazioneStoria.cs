@@ -3,6 +3,7 @@ using GiocoTestualeEsame.stanze;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,19 +18,19 @@ namespace GiocoTestualeEsame.Storia
             /*PIANO TERRA*/
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scarpa);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.spada);
-            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_destra);
-            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_sinistra);
-            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_su);
-            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_giu);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_camera);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_salagiochi);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_giu_cantina);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_su_primo_piano);
             /*CANTINA*/
-            ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
+            ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.scale_piano_terra);
             /*SALA GIOCHI*/
             ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.teletrasporto);
-            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
+            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.porta_piano_terra);
             /*PRIMO PIANO*/
-            ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
+            ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.scale_piano_terra);
             /*CAMERA*/
-            ElencoStanze.camera.AddOggettoNellaStanza(ElencoOggetti.torna_piano_terra);
+            ElencoStanze.camera.AddOggettoNellaStanza(ElencoOggetti.porta_piano_terra);
         }
         
     }

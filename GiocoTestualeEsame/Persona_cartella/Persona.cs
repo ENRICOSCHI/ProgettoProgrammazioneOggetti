@@ -8,7 +8,7 @@ namespace GiocoTestualeEsame
 {
     public class Persona
     {
-        private string nome;
+        private string nome { get; }
         
         public Persona(string nome)
         {

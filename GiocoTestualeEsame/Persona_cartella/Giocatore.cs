@@ -13,7 +13,6 @@ namespace GiocoTestualeEsame
     public class Giocatore : Persona
     {
         //uso le proprietà con solo il get perchè il set lo faccio già quando creo l'oggetto
-        private string nome { get; }
         private string cognome { get; } //credo per il loggin serve sapere il cognome
         public double pesoMaxZaino { get; } = 50; //peso massimo che può portare il giocatore
         private Stack<Oggetto> zaino = new Stack<Oggetto>();//lista zaino con tecnica LIFO

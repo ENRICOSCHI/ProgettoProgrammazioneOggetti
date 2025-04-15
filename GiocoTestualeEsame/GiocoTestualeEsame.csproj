@@ -49,6 +49,7 @@
     <Compile Include="comandiDiGioco\Comandi.cs" />
     <Compile Include="Oggetto_cartella\ElencoOggetti.cs" />
     <Compile Include="Oggetto_cartella\oggetto.cs" />
+    <Compile Include="Oggetto_cartella\Passaggio.cs" />
     <Compile Include="Persona_cartella\Giocatore.cs" />
     <Compile Include="Persona_cartella\Persona.cs" />
     <Compile Include="Persona_cartella\Personaggio.cs" />
