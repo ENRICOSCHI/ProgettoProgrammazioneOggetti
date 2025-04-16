@@ -36,6 +36,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 case "descrizione": c.DescrizioneOggetto(argomento); break;
                 case "tp": c.Teletrasporto(); break;
                 case "lascia": c.Lascia();break;
+                case "parla": c.Parla(argomento); break;
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
@@ -103,7 +104,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 "- rimuovi + oggetto: rimuove l'oggetto dallo zaino e lo lascia nella stanza. Per esempio: rimuovi spada.\n\n" +
                 "- peso: Puoi vedere quanto pesa il tuo zaino\n\n" +
                 "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada\n\n" +
-                "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale\n\n");
+                "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale\n\n" +
+                "- parla + nome personaggio: ascolta cosa ha da dirti un personaggio nella scena\n\n");
        }
         /// <summary>
         /// Sposta il giocatore nelle stanze del gioco
@@ -121,6 +123,18 @@ namespace GiocoTestualeEsame.comandiDiGioco
             Stanza stanzaDestinazione = p.destinazione; //prendo la stanza in cui entrerà il giocatore
             GestisciStatoGioco.stanzaCorrente = stanzaDestinazione; //entra nella stanza
             Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);//mostro la descrizione della stanza
+        }
+        /// <summary>
+        /// L'utente può leggere la richiesta del personaggio selezionato.
+        /// </summary>
+        /// <param name="personaggio"></param>
+        public void Parla(string personaggio)
+        {
+            Personaggio c = ConvertiStringToPersonaggio(personaggio);
+            if(GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(c))
+                c.RichiestaToString();//stampo la richeista del personaggio
+            else
+                Warning.WarnignOggettoNonPresenteNellaStanza();
         }
         /// <summary>
         /// Il giocatore guarda gli oggetti presenti nello zaino.
@@ -169,7 +183,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void DescrizioneOggetto(string oggettoPassato)
         {
-            Oggetto o = ConvertiStringToOggettoOrPassaggi(oggettoPassato);//converto in Oggetto o Passaggi
+            Oggetto o = ConvertiStringToOggettoOrPassaggiOrPersonaggio(oggettoPassato);//converto in Oggetto o Passaggi
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
             if (o.isRaccoglibile)//se è un Oggetto...
             {
@@ -198,7 +212,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
             {
                 if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))
                 {
-                    Console.WriteLine("Descrizione: " + o.descrizione + "\n");
+                    Console.WriteLine("Descrizione: " + o.descrizione);
                 }
                 else
                 {
@@ -227,20 +241,24 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// Converto la stringa in Oggetto.
         /// Ritorna un Oggetto.
         /// Se l'oggetto non esiste ritorna null con un warning.
-        /// <br>PS. Questo metodo può convertire anche in Passaggio ma lo ritorna come oggetto (funziona perchè eredità da oggetto).</br>
+        /// <br>PS. Questo metodo può convertire anche in Passaggio o Personaggio ma lo ritorna come oggetto (funziona perchè eredità da oggetto).</br>
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static Oggetto ConvertiStringToOggettoOrPassaggi(string input)
+        public static Oggetto ConvertiStringToOggettoOrPassaggiOrPersonaggio(string input)
         {
             Oggetto o;
             Passaggio p;
+            Personaggio c;
             if (ElencoOggetti.TuttiGliOggetti.TryGetValue(input, out o))
             {
                 return o;
             }else if(ElencoOggetti.TuttiIPassaggi.TryGetValue(input, out p))
             {
                 return p;
+            }else if(ElencoOggetti.TuttiIPersonaggi.TryGetValue(input, out c))
+            {
+                return c;
             }
             else
             {
@@ -274,13 +292,30 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <returns></returns>
         public static Passaggio ConvertiStringToPassaggio(string input)
         {
-            Passaggio o;
-            if (!ElencoOggetti.TuttiIPassaggi.TryGetValue(input, out o))
+            Passaggio p;
+            if (!ElencoOggetti.TuttiIPassaggi.TryGetValue(input, out p))
             {
                 Warning.WarningErroreDiBattitura();
                 return null;
             }
-            return o;
+            return p;
+        }
+        /// <summary>
+        /// Converto la stringa in Personaggio.
+        /// Ritorna un Personaggio.
+        /// Se l'oggetto Personaggio non esiste ritorna null con un warning
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static Personaggio ConvertiStringToPersonaggio(string input)
+        {
+            Personaggio c;
+            if (!ElencoOggetti.TuttiIPersonaggi.TryGetValue(input, out c))
+            {
+                Warning.WarningErroreDiBattitura();
+                return null;
+            }
+            return c;
         }
     }
 }

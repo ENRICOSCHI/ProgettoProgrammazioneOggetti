@@ -18,5 +18,13 @@ namespace GiocoTestualeEsame
         {
             richiesta = nuovaRichiesta;
         }
+
+        public void RichiestaToString()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"{nome} vorrebbe ");
+            Console.ForegroundColor = ConsoleColor.DarkRed;//cambio il colore solo per la variabile
+            Console.Write(richiesta.nome+"\n");
+        }
     }
 }

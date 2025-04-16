@@ -25,6 +25,8 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Passaggio scale_piano_terra { get; } = new Passaggio("scala1", "queste scale portano al piano terra", ElencoStanze.pianoTerra);
         public static Passaggio scale_giu_cantina { get; } = new Passaggio("scala3", "queste scale portano alla cantina", ElencoStanze.cantina);
 
+        /*PERSONAGGI*/
+        public static Personaggio ragazzoChill { get; } = new Personaggio("ChillGuy", "è solo un ragazzo nel chill che ti vuole bene", ElencoOggetti.spada);
 
         //dizionario oggetto
         public static readonly Dictionary<string, Oggetto> TuttiGliOggetti = new Dictionary<string, Oggetto>(System.StringComparer.OrdinalIgnoreCase)//per non renderelo case sensitive
@@ -43,6 +45,11 @@ namespace GiocoTestualeEsame.Oggetto_cartella
             {porta_camera.nome,porta_camera },
             {porta_piano_terra.nome ,porta_piano_terra },
             {porta_salagiochi.nome,porta_salagiochi}
+        };
+        //dizionario personaggi
+        public static readonly Dictionary<string, Personaggio> TuttiIPersonaggi = new Dictionary<string, Personaggio>(System.StringComparer.OrdinalIgnoreCase)
+        {
+            {ragazzoChill.nome,ragazzoChill}
         };
     }
 }

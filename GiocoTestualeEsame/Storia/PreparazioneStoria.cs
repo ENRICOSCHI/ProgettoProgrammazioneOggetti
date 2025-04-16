@@ -22,6 +22,7 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_salagiochi);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_giu_cantina);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_su_primo_piano);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.ragazzoChill);
             /*CANTINA*/
             ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.scale_piano_terra);
             /*SALA GIOCHI*/
