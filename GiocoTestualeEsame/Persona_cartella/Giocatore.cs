@@ -10,17 +10,19 @@ using System.Threading.Tasks;
 
 namespace GiocoTestualeEsame
 {
-    public class Giocatore : Persona
+    public class Giocatore
     {
         //uso le proprietà con solo il get perchè il set lo faccio già quando creo l'oggetto
-        private string cognome { get; } //credo per il loggin serve sapere il cognome
+        public string nome { get; }
+        public string cognome { get; } //credo per il loggin serve sapere il cognome
         public double pesoMaxZaino { get; } = 50; //peso massimo che può portare il giocatore
         private Stack<Oggetto> zaino = new Stack<Oggetto>();//lista zaino con tecnica LIFO
         private List<Oggetto> oggettiMomentaneiRimossi = new List<Oggetto>();
         public double pesoNelloZaino { get; set;} = 0; //il peso che si aggiorna man mano che si aggiungono oggetti nello zaino
 
-        public Giocatore(string nome, string cognome) : base(nome) //creo la classe con nome e cognome e poi gli passo il nome
+        public Giocatore(string nome, string cognome) //creo la classe con nome e cognome e poi gli passo il nome
         {
+            this.nome = nome;
             this.cognome = cognome;
         }
 

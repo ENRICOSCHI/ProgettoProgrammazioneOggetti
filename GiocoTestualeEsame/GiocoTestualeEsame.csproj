@@ -51,8 +51,7 @@
     <Compile Include="Oggetto_cartella\oggetto.cs" />
     <Compile Include="Oggetto_cartella\Passaggio.cs" />
     <Compile Include="Persona_cartella\Giocatore.cs" />
-    <Compile Include="Persona_cartella\Persona.cs" />
-    <Compile Include="Persona_cartella\Personaggio.cs" />
+    <Compile Include="Oggetto_cartella\Personaggio.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="stanze\ElencoStanze.cs" />

@@ -47,7 +47,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void MettiNellaMano(string argomento)
         {
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
-            Oggetto oggettoPassato = ConvertiStringToOggetto(argomento,false);
+            Oggetto oggettoPassato = ConvertiStringToOggetto(argomento);
             Oggetto oggettoCorrenteInMano = GestisciStatoGioco.oggettoInMano;//oggetto che ho in mano prima di cambiarlo
             if (oggettoPassato != null && GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(oggettoPassato))// se è vero...
             {
@@ -61,7 +61,6 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 {
                     Warning.WarningNonPuoiRaccogliereOgetto();
                 }
-                
             }
             else
             {
@@ -92,19 +91,19 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// </summary>
        public void Help()
        {
-            Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
-            Console.WriteLine("- help: mostra i comandi presenti nel gioco.\n" +
-                "- ciao: saluta!\n" +
-                "- prendi + oggetto da prendere. Prendi un oggetto presente nella stanza (l'oggetto in mano verrà messo nella stanza).Per esempio: prendi spada.\n" +
-                "- lascia: l'oggetto in mano viene lasciato nella scena, e la mano sarà così liberata\n"+
-                "- guarda: guarda gli oggetti presenti nella stanza.\n" +
-                "- vai + direzione: Spostati nel mondo di gioco inserendo verso quale posizone spostarti. Per esempio: vai porta_destra.\n" +
-                "- zaino: Guarda gli oggetti presenti nel tuo zaino.\n" +
-                "- aggiungi + oggetto: aggiunge l'oggetto nello zaino e lo rimuove dalla stanza. Per esempio: aggiungi spada.\n" +
-                "- rimuovi + oggetto: rimuove l'oggetto dallo zaino e lo lascia nella stanza. Per esempio: rimuovi spada.\n" +
-                "- peso: Puoi vedere quanto pesa il tuo zaino\n" +
-                "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada\n" +
-                "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale\n");
+            Console.ForegroundColor = ConsoleColor.DarkGray;//cambio colore scritta
+            Console.WriteLine("- help: mostra i comandi presenti nel gioco.\n\n" +
+                "- ciao: saluta!\n\n" +
+                "- prendi + oggetto da prendere. Prendi un oggetto presente nella stanza (l'oggetto in mano verrà messo nella stanza).Per esempio: prendi spada.\n\n" +
+                "- lascia: l'oggetto in mano viene lasciato nella scena, e la mano sarà così liberata\n\n"+
+                "- guarda: guarda gli oggetti presenti nella stanza.\n\n" +
+                "- vai + direzione: Spostati nel mondo di gioco inserendo verso quale posizone spostarti. Per esempio: vai porta_destra.\n\n" +
+                "- zaino: Guarda gli oggetti presenti nel tuo zaino.\n\n" +
+                "- aggiungi + oggetto: aggiunge l'oggetto nello zaino e lo rimuove dalla stanza. Per esempio: aggiungi spada.\n\n" +
+                "- rimuovi + oggetto: rimuove l'oggetto dallo zaino e lo lascia nella stanza. Per esempio: rimuovi spada.\n\n" +
+                "- peso: Puoi vedere quanto pesa il tuo zaino\n\n" +
+                "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada\n\n" +
+                "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale\n\n");
        }
         /// <summary>
         /// Sposta il giocatore nelle stanze del gioco
@@ -113,13 +112,13 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void Vai(string nomePassaggio)
         {
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
-            Passaggio o = ConvertiStringToPassaggio(nomePassaggio);//converto la stringa in un Oggetto, e controllo se la direzione è presente come oggetto nella stanza
-            if (!GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))
+            Passaggio p = ConvertiStringToPassaggio(nomePassaggio);//converto la stringa in un Oggetto, e controllo se la direzione è presente come oggetto nella stanza
+            if (!GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(p))
             {
                 Warning.WarningDirezioneNonPresenteNellaScena();
                 return;//se non è presente esco dal metodo 
             }
-            Stanza stanzaDestinazione = o.destinazione; //prendo la stanza in cui entrerà il giocatore
+            Stanza stanzaDestinazione = p.destinazione; //prendo la stanza in cui entrerà il giocatore
             GestisciStatoGioco.stanzaCorrente = stanzaDestinazione; //entra nella stanza
             Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);//mostro la descrizione della stanza
         }
@@ -137,7 +136,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void AggiungiNelloZaino(string oggettoPassato)
         {
-            Oggetto o = ConvertiStringToOggetto(oggettoPassato,false);//mentre converto controllo se l'oggetto esiste
+            Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
             if(GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//se è presente nella stanza...
             {
                 GestisciStatoGioco.giocatoreCorrente.AddZaino(o);//inserisco l'oggetto nello zaino
@@ -153,7 +152,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void RimuoviOggettoDalloZaino(string oggettoPassato)
         {
-            Oggetto o = ConvertiStringToOggetto(oggettoPassato,false);//mentre converto controllo se l'oggetto esiste
+            Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
             GestisciStatoGioco.giocatoreCorrente.RemoveZaino(o);
         }
         /// <summary>
@@ -170,10 +169,9 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void DescrizioneOggetto(string oggettoPassato)
         {
-            Oggetto o = ConvertiStringToOggetto(oggettoPassato,true);//converto in oggetto
-            Passaggio p = ConvertiStringToPassaggio(oggettoPassato);//converto in passaggio
+            Oggetto o = ConvertiStringToOggettoOrPassaggi(oggettoPassato);//converto in Oggetto o Passaggi
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
-            if (o != null)
+            if (o.isRaccoglibile)//se è un Oggetto...
             {
                 if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//controllo se l'oggetto è nella stanza
                 {
@@ -196,11 +194,11 @@ namespace GiocoTestualeEsame.comandiDiGioco
                     Warning.WarningOggettoNonPresenteNelloZaino(o);
                     Warning.WarnignOggettoNonPresenteNellaStanza();
                 }
-            }else if(p != null)
+            }else if(!o.isRaccoglibile)//se è un Passaggio...
             {
-                if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(p))
+                if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))
                 {
-                    Console.WriteLine("Descrizione: " + p.descrizione + "\n");
+                    Console.WriteLine("Descrizione: " + o.descrizione + "\n");
                 }
                 else
                 {
@@ -227,19 +225,42 @@ namespace GiocoTestualeEsame.comandiDiGioco
 
         /// <summary>
         /// Converto la stringa in Oggetto.
-        /// Ritorna un oggetto.
-        /// Se l'oggetto non esiste ritorna null con un warning
-        /// PS. Se il metodo viene richiamato prima di ConvertiStringToPassaggio, mettere il bool a true
+        /// Ritorna un Oggetto.
+        /// Se l'oggetto non esiste ritorna null con un warning.
+        /// <br>PS. Questo metodo può convertire anche in Passaggio ma lo ritorna come oggetto (funziona perchè eredità da oggetto).</br>
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static Oggetto ConvertiStringToOggetto(string input,bool byPassError)
+        public static Oggetto ConvertiStringToOggettoOrPassaggi(string input)
+        {
+            Oggetto o;
+            Passaggio p;
+            if (ElencoOggetti.TuttiGliOggetti.TryGetValue(input, out o))
+            {
+                return o;
+            }else if(ElencoOggetti.TuttiIPassaggi.TryGetValue(input, out p))
+            {
+                return p;
+            }
+            else
+            {
+                Warning.WarningErroreDiBattitura();
+                return null;
+            }
+        }
+        /// <summary>
+        /// Converto la stringa in Oggetto.
+        /// Ritorna un Oggetto.
+        /// Se l'oggetto non esiste ritorna null con un warning
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static Oggetto ConvertiStringToOggetto(string input)
         {
             Oggetto o;
             if (!ElencoOggetti.TuttiGliOggetti.TryGetValue(input, out o))
             {
-                if(!byPassError)
-                    Warning.WarningErroreDiBattitura();
+                Warning.WarningErroreDiBattitura();
                 return null;
             }
             return o;
