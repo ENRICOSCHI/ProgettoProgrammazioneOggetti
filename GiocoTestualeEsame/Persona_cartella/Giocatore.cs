@@ -73,7 +73,7 @@ namespace GiocoTestualeEsame
                 pesoNelloZaino += oggetto.peso;//aggiorno il peso
                 GestisciStatoGioco.stanzaCorrente.RimuoviOggettoDallaStanza(oggetto);//siccome ho messo l'oggetto nello zaino, lo tolgo dalla stanza
                 Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
-                Console.WriteLine("Oggetto inserito nello zaino");
+                Console.WriteLine($"{oggetto.nome} inserito nello zaino");
             }
         }
         /// <summary>
@@ -88,7 +88,6 @@ namespace GiocoTestualeEsame
             if (zaino.Contains(oggetto)) // contaians controlla se l'oggetto è presente e ritorna o false o true
             {
                 pesoNelloZaino -= oggetto.peso;
-                /*Pensare come tirare fuori l'oggetto desiderato!!!!*/
                 Oggetto o = null;
                 do
                 {
@@ -96,21 +95,53 @@ namespace GiocoTestualeEsame
                     oggettiMomentaneiRimossi.Add(o);
                 } while (o.nome != oggetto.nome);
                 oggettiMomentaneiRimossi.Remove(o);//rimuovo l'oggetto che ho appena tolto dallo zaino
-                GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(o);//agiungo l'oggetto rimosso nella stanza
+                GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(o);//aggiungo l'oggetto rimosso nella stanza
                 foreach (Oggetto ogg in oggettiMomentaneiRimossi)
                 {
                     AddZaino(ogg);//rimetto gli oggetti che ho tolto
                 }
                 oggettiMomentaneiRimossi.Clear();//svuoto la lista
                 Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
-                Console.WriteLine("Oggetto rimosso dallo zaino");
+                Console.WriteLine($"{oggetto.nome} rimosso dallo zaino");
             }
             else
             {
                 Warning.WarningOggettoNonPresenteNelloZaino(oggetto);
             }
         }
-
+        /// <summary>
+        /// Rimuovo un oggetto per sempre dal gioco
+        /// </summary>
+        /// <param name="oggetto"></param>
+        public void RimuoviSenzaLasciareNellaStanza(Oggetto oggetto)
+        {
+            //controllo se l'oggetto è presente nello zaino
+            if (zaino.Contains(oggetto)) // contaians controlla se l'oggetto è presente e ritorna o false o true
+            {
+                pesoNelloZaino -= oggetto.peso;
+                Oggetto o = null;
+                do
+                {
+                    o = zaino.Pop();//rimuovo oggetto dalla lista
+                    oggettiMomentaneiRimossi.Add(o);
+                } while (o.nome != oggetto.nome);
+                oggettiMomentaneiRimossi.Remove(o);//rimuovo l'oggetto che ho appena tolto dallo zaino
+                foreach (Oggetto ogg in oggettiMomentaneiRimossi)
+                {
+                    AddZaino(ogg);//rimetto gli oggetti che ho tolto
+                }
+                oggettiMomentaneiRimossi.Clear();//svuoto la lista
+                Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
+                Console.WriteLine($"{oggetto.nome} rimosso dallo zaino");
+            }
+            else
+            {
+                Warning.WarningOggettoNonPresenteNelloZaino(oggetto);
+            }
+        }
+        /// <summary>
+        /// Elenca gli oggetti presenti nello zaino
+        /// </summary>
         public void GuardaOggettiNelloZaino()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;//cambio colore scritta
@@ -119,6 +150,10 @@ namespace GiocoTestualeEsame
             {
                 Console.WriteLine($"{i}) {o.nome}");
                 i++;//aggiorno il count per l'elenco
+            }
+            if(i == 1)// se i non è stato aggiornato allora lo zaino è vuoto
+            {
+                Console.WriteLine("zaino vuoto");
             }
         }
 

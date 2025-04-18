@@ -37,6 +37,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 case "tp": c.Teletrasporto(); break;
                 case "lascia": c.Lascia();break;
                 case "parla": c.Parla(argomento); break;
+                case "dai": c.Dai(argomento); break;
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
@@ -102,10 +103,11 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 "- zaino: Guarda gli oggetti presenti nel tuo zaino.\n\n" +
                 "- aggiungi + oggetto: aggiunge l'oggetto nello zaino e lo rimuove dalla stanza. Per esempio: aggiungi spada.\n\n" +
                 "- rimuovi + oggetto: rimuove l'oggetto dallo zaino e lo lascia nella stanza. Per esempio: rimuovi spada.\n\n" +
-                "- peso: Puoi vedere quanto pesa il tuo zaino\n\n" +
-                "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada\n\n" +
-                "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale\n\n" +
-                "- parla + nome personaggio: ascolta cosa ha da dirti un personaggio nella scena\n\n");
+                "- peso: Puoi vedere quanto pesa il tuo zaino.\n\n" +
+                "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada.\n\n" +
+                "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale.\n\n" +
+                "- parla + nome personaggio: ascolta cosa ha da dirti un personaggio nella scena.\n\n" +
+                "- dai + nome personaggio: dai al personaggio indicato l'oggetto richieste == l'oggetto deve essere nello zaino ==.");
        }
         /// <summary>
         /// Sposta il giocatore nelle stanze del gioco
@@ -136,6 +138,18 @@ namespace GiocoTestualeEsame.comandiDiGioco
             else
                 Warning.WarnignOggettoNonPresenteNellaStanza();
         }
+
+        /// <summary>
+        /// Il personaggio da al giocatore il premio per avergli dato quello che ha richiesto.
+        /// </summary>
+        /// <param name="personaggio"></param>
+        public void Dai(string personaggio)
+        {
+            Personaggio c = ConvertiStringToPersonaggio(personaggio);
+            if(GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(c))//se il personaggio è nella stanza...
+                c.AddZainoRegalo();//controlla se il giocatore ha la richiesta nello zaino
+        }
+
         /// <summary>
         /// Il giocatore guarda gli oggetti presenti nello zaino.
         /// </summary>

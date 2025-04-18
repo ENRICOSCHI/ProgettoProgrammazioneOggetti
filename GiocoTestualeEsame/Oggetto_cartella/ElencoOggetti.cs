@@ -26,7 +26,7 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Passaggio scale_giu_cantina { get; } = new Passaggio("scala3", "queste scale portano alla cantina", ElencoStanze.cantina);
 
         /*PERSONAGGI*/
-        public static Personaggio ragazzoChill { get; } = new Personaggio("ChillGuy", "è solo un ragazzo nel chill che ti vuole bene", ElencoOggetti.spada);
+        public static Personaggio ragazzoChill { get; } = new Personaggio("ChillGuy", "è solo un ragazzo nel chill che ti vuole bene", ElencoOggetti.spada,ElencoOggetti.teletrasporto);
 
         //dizionario oggetto
         public static readonly Dictionary<string, Oggetto> TuttiGliOggetti = new Dictionary<string, Oggetto>(System.StringComparer.OrdinalIgnoreCase)//per non renderelo case sensitive
