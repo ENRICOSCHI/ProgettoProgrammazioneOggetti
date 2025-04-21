@@ -26,9 +26,16 @@ namespace GiocoTestualeEsame
         public void RichiestaToString()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"{nome} vorrebbe ");
+            Console.Write($"{descrizione},{nome} vorrebbe ");
             Console.ForegroundColor = ConsoleColor.DarkRed;//cambio il colore solo per la variabile
-            Console.Write(richiesta.nome+"\n");
+            Console.Write(richiesta.nome+".\n");
+            if(regalo != null)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"In cambio riceverai ");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;//cambio il colore solo per la variabile
+                Console.Write(regalo.nome + ".\n");
+            }
         }
         /// <summary>
         /// Il personaggio può dare un oggetto dopo aver ricevuto la richiesta.

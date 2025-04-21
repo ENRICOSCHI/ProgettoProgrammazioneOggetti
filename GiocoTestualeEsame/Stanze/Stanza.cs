@@ -1,4 +1,5 @@
 ﻿using GiocoTestualeEsame.Oggetto_cartella;
+using GiocoTestualeEsame.Storia;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +74,10 @@ namespace GiocoTestualeEsame.stanze
         /// <returns></returns>
         public static Stanza GetRandomStanza()
         { 
-            return ElencoStanze.TutteLeStanze.ElementAt(random.Next(ElencoStanze.TutteLeStanze.Count)).Value;//con .Value accedo alla stanza
+            Stanza nuovoaStanza = ElencoStanze.TutteLeStanze.ElementAt(random.Next(ElencoStanze.TutteLeStanze.Count)).Value;//con .Value accedo alla stanza
+            while (nuovoaStanza == GestisciStatoGioco.stanzaCorrente)
+                nuovoaStanza = ElencoStanze.TutteLeStanze.ElementAt(random.Next(ElencoStanze.TutteLeStanze.Count)).Value;
+            return nuovoaStanza;
         }
     }
 }

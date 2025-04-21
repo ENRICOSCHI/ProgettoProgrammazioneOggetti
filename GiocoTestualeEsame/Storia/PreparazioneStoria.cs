@@ -17,7 +17,6 @@ namespace GiocoTestualeEsame.Storia
         {
             /*PIANO TERRA*/
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scarpa);
-            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.spada);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_camera);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_salagiochi);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_giu_cantina);
@@ -25,6 +24,10 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.ragazzoChill);
             /*CANTINA*/
             ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.scale_piano_terra);
+            ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.porta_quadro_elettrico);
+            /*QUADRO ELETTRICO*/
+            ElencoStanze.quadroElettrico.AddOggettoNellaStanza(ElencoOggetti.Elettricista);
+            ElencoStanze.quadroElettrico.AddOggettoNellaStanza(ElencoOggetti.porta_cantina);
             /*SALA GIOCHI*/
             ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.teletrasporto);
             ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.porta_piano_terra);
@@ -32,6 +35,7 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.scale_piano_terra);
             /*CAMERA*/
             ElencoStanze.camera.AddOggettoNellaStanza(ElencoOggetti.porta_piano_terra);
+            ElencoStanze.camera.AddOggettoNellaStanza(ElencoOggetti.spada);
         }
         
     }
