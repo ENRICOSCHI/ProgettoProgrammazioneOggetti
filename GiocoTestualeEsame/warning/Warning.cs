@@ -20,6 +20,7 @@ namespace GiocoTestualeEsame.warning
         private static string erroreDiBattitura = "Attenzione, il nome inserito è sbagliato\r";
         private static string comandoErrato = "Attenzione, il comando '{0}' inserito non esiste\r";
         private static string direzioneErrata = "Non è presente questo passaggio nella stanza\r";
+        private static string erroreOggettoPassato = "Attenzione, non puoi passare questo oggetto\r";
 
 
 
@@ -110,6 +111,14 @@ namespace GiocoTestualeEsame.warning
         {
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
             Console.WriteLine(oggettoNonInMano);
+        }
+        /// <summary>
+        /// Warning per avvisare che il casting eseguito è errato
+        /// </summary>
+        public static void WarningErroreCasting()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
+            Console.WriteLine(erroreOggettoPassato);
         }
 
     }

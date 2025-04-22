@@ -59,5 +59,27 @@ namespace GiocoTestualeEsame.Oggetto_cartella
             {ragazzoChill.nome,ragazzoChill},
             { Elettricista.nome,Elettricista}
         };
+        //Dizionario generale
+        public static readonly Dictionary<string, Oggetto> TuttiGliInteragibili = new Dictionary<string, Oggetto>(System.StringComparer.OrdinalIgnoreCase)
+        {
+            
+        };
+        
+        //inserisco gli elementi dei 3 dizionari nel dizionario generale
+        static ElencoOggetti()
+        {
+            foreach(var elemento in TuttiIPassaggi)
+            {
+                TuttiGliInteragibili[elemento.Key] = elemento.Value;
+            }
+            foreach(var elemento in TuttiIPersonaggi)
+            {
+                TuttiGliInteragibili[elemento.Key] = elemento.Value;
+            }
+            foreach (var elemento in TuttiGliOggetti)
+            {
+                TuttiGliInteragibili[elemento.Key] = elemento.Value;
+            }
+        }
     }
 }
