@@ -107,7 +107,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada.\n\n" +
                 "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale.\n\n" +
                 "- parla + nome personaggio: ascolta cosa ha da dirti un personaggio nella scena.\n\n" +
-                "- dai + nome personaggio: dai al personaggio indicato l'oggetto richieste == l'oggetto deve essere nello zaino ==.");
+                "- dai + nome personaggio: dai al personaggio indicato l'oggetto richiesto == l'oggetto deve essere nello zaino ==.");
        }
         /// <summary>
         /// Sposta il giocatore nelle stanze del gioco
