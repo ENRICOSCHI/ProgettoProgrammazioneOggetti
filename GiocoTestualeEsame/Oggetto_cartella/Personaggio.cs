@@ -25,10 +25,13 @@ namespace GiocoTestualeEsame
         /// </summary>
         public void RichiestaToString()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"{descrizione},{nome} vorrebbe ");
-            Console.ForegroundColor = ConsoleColor.DarkRed;//cambio il colore solo per la variabile
-            Console.Write(richiesta.nome+".\n");
+            if(richiesta != null)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{descrizione},{nome} vorrebbe ");
+                Console.ForegroundColor = ConsoleColor.DarkRed;//cambio il colore solo per la variabile
+                Console.Write(richiesta.nome + ".\n");
+            }
             if(regalo != null)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -44,15 +47,23 @@ namespace GiocoTestualeEsame
         public void AddZainoRegalo()
         {
             giocatore = GestisciStatoGioco.giocatoreCorrente;//prendo il giocatore attuale
-            if (giocatore.IsOggettoNelloZaino(richiesta))
+            if(richiesta != null)//se c'è una richiesta...
             {
-                giocatore.RimuoviSenzaLasciareNellaStanza(richiesta);//rimuovo definitivamente l'oggetto dal gioco
-                giocatore.AddZaino(regalo);//aggiungo l'oggetto dato dal personaggio nello zaino
+                if (giocatore.IsOggettoNelloZaino(richiesta))
+                {
+                    giocatore.RimuoviSenzaLasciareNellaStanza(richiesta);//rimuovo definitivamente l'oggetto dal gioco
+                    giocatore.AddZaino(regalo);//aggiungo l'oggetto dato dal personaggio nello zaino
+                }
+                else
+                {
+                    Warning.WarningOggettoNonPresenteNelloZaino(richiesta);
+                }
             }
             else
             {
-                Warning.WarningOggettoNonPresenteNelloZaino(richiesta);
+                giocatore.AddZaino(regalo);//se non c'è richiesta do direttamente il regalo...
             }
+            
             
         }
     }

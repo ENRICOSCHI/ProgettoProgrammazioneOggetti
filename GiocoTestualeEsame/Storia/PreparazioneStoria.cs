@@ -33,9 +33,12 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.porta_piano_terra);
             /*PRIMO PIANO*/
             ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.scale_piano_terra);
+            ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.Mago);
             /*CAMERA*/
             ElencoStanze.camera.AddOggettoNellaStanza(ElencoOggetti.porta_piano_terra);
             ElencoStanze.camera.AddOggettoNellaStanza(ElencoOggetti.spada);
+            /*PRIGIONE*///--> accessibile solo tramite tp
+            ElencoStanze.prigione.AddOggettoNellaStanza(ElencoOggetti.Sicario);
         }
         
     }

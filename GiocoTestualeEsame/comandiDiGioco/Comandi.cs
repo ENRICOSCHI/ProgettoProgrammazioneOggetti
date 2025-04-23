@@ -144,7 +144,11 @@ namespace GiocoTestualeEsame.comandiDiGioco
             {
                 Personaggio c = (Personaggio)o;//casting...
                 if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(c))
+                {
                     c.RichiestaToString();//stampo la richeista del personaggio
+                    if(c.richiesta == null)//se il personaggio non ha la richiesta...
+                        c.AddZainoRegalo();//do direttamente il regalo
+                }     
                 else
                     Warning.WarnignOggettoNonPresenteNellaStanza();
             }
@@ -264,6 +268,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 GestisciStatoGioco.stanzaCorrente = Stanza.GetRandomStanza();
                 Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
                 Console.WriteLine("ti sei teletrasportato con successo");
+                Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
+                Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);
             }
             else
             {

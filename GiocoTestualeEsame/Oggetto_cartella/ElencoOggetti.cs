@@ -17,7 +17,8 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Oggetto scarpa { get; } = new Oggetto("scarpa",1.5, "scarpe rotte da usare come abbellimento", true);
         public static Oggetto teletrasporto { get; } = new Oggetto("teletrasporto", 10, "vieni portato in una stanza casuale", true);
         public static Oggetto cacciavite { get; } = new Oggetto("cacciavite", 2, "serve all'elettricista", true);
-        
+        public static Oggetto dadi { get; } = new Oggetto("dadi", 1.50, "li vuole il sicario", true);
+
         /*PASSAGGI*/
         public static Passaggio porta_camera { get; } = new Passaggio("porta3", "questa porta va in camera", ElencoStanze.camera);
         public static Passaggio porta_salagiochi { get; } = new Passaggio("porta2", "questa porta va alla sala giochi", ElencoStanze.salaGiochi);
@@ -27,11 +28,13 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Passaggio scale_su_primo_piano { get; } = new Passaggio("scala2", "queste scale portano al primo piano", ElencoStanze.primoPiano);
         public static Passaggio scale_piano_terra { get; } = new Passaggio("scala1", "queste scale portano al piano terra", ElencoStanze.pianoTerra);
         public static Passaggio scale_giu_cantina { get; } = new Passaggio("scala3", "queste scale portano alla cantina", ElencoStanze.cantina);
-        
 
         /*PERSONAGGI*/
-        public static Personaggio ragazzoChill { get; } = new Personaggio("ChillGuy", "è solo un ragazzo nel chill che ti vuole bene", ElencoOggetti.spada,ElencoOggetti.teletrasporto);
-        public static Personaggio Elettricista { get; } = new Personaggio("Elettricista","è l'unico che può mettere a posto la corrente elettrica", ElencoOggetti.cacciavite,null);
+        public static Personaggio ragazzoChill { get; } = new Personaggio("ChillGuy", "è solo un ragazzo nel chill che ti vuole bene", spada,teletrasporto);
+        public static Personaggio Elettricista { get; } = new Personaggio("Elettricista","è l'unico che può mettere a posto la corrente elettrica", cacciavite,null);
+        public static Personaggio Sicario { get; } = new Personaggio("Sicario", "ti aiuterà ad uccidere il cattivo", dadi, null);//vedi meglio il personaggio
+        public static Personaggio Mago { get; } = new Personaggio("Mago", "ti darà dei dadi per aver partecipato a un suo trucco di magia", null, dadi);
+
         //dizionario oggetto
         public static readonly Dictionary<string, Oggetto> TuttiGliOggetti = new Dictionary<string, Oggetto>(System.StringComparer.OrdinalIgnoreCase)//per non renderelo case sensitive
         {
@@ -39,6 +42,7 @@ namespace GiocoTestualeEsame.Oggetto_cartella
             { scarpa.nome, scarpa },
             {teletrasporto.nome,teletrasporto },
             {cacciavite.nome,cacciavite },
+            {dadi.nome,dadi },
             { "vuoto", manoVuota } //oggetto di default
         };
         //dizionario passaggio
@@ -57,7 +61,9 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static readonly Dictionary<string, Personaggio> TuttiIPersonaggi = new Dictionary<string, Personaggio>(System.StringComparer.OrdinalIgnoreCase)
         {
             {ragazzoChill.nome,ragazzoChill},
-            { Elettricista.nome,Elettricista}
+            { Elettricista.nome,Elettricista},
+            {Sicario.nome,Sicario},
+            {Mago.nome,Mago}
         };
         //Dizionario generale
         public static readonly Dictionary<string, Oggetto> TuttiGliInteragibili = new Dictionary<string, Oggetto>(System.StringComparer.OrdinalIgnoreCase)

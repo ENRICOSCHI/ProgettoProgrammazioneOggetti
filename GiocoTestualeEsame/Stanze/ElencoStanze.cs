@@ -14,15 +14,17 @@ namespace GiocoTestualeEsame.stanze
         public static Stanza salaGiochi { get; } = new Stanza("sala giochi", "descrizione sala giochi");
         public static Stanza camera { get; } = new Stanza("camera", "descrizione camera");
         public static Stanza quadroElettrico { get; } = new Stanza("quadro elettrico", "In questa stanza è presente il quadro elettrico dell'intero edificio");
+        public static Stanza prigione { get; } = new Stanza("prigione", "questa stanza non ha porte e l'unico modo per uscirne è tramite teletrasporto");
 
         public static readonly Dictionary<string, Stanza> TutteLeStanze = new Dictionary<string, Stanza>()
         {
             { "piano_terra" , pianoTerra },
-            {"cantina", cantina },
+            {cantina.nome, cantina },
             {"primo_piano", primoPiano },
             {"sala_giochi", salaGiochi },
-            {"camera",camera },
-            {"quadro_elettrico",quadroElettrico }
+            {camera.nome,camera },
+            {"quadro_elettrico",quadroElettrico },
+            {prigione.nome,prigione }
         };
     }
 }
