@@ -11,7 +11,7 @@ namespace GiocoTestualeEsame
         //non c'è veramente bisogno dei set
         public string nome { get; }
         public double peso { get; } //ogni oggetto ha un peso
-        public string descrizione { get; }
+        public string descrizione { get; set; }
         public bool isRaccoglibile { get; } //non tutti gli oggetti sono raccoglibile
 
         public Oggetto(string nome,double peso,string descrizione,bool isRaccoglibile)

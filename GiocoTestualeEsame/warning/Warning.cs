@@ -10,6 +10,7 @@ namespace GiocoTestualeEsame.warning
 {
     public  class Warning
     {
+        #region"stringhe per i messaggi di avviso"
         /*MESSAGGI DI WARNING*/
         private static string superatoLimitePeso = "Non puoi inserire {0}, hai superato il limite di peso. Peso zaino: {1}\r"; //nello 0 ci andrà il nome dell'oggetto
         private static string oggettoNonPresenteNelloZaino = "ERRORE, {0} non è presente nello zaino\r";
@@ -21,10 +22,10 @@ namespace GiocoTestualeEsame.warning
         private static string comandoErrato = "Attenzione, il comando '{0}' inserito non esiste\r";
         private static string direzioneErrata = "Non è presente questo passaggio nella stanza\r";
         private static string erroreOggettoPassato = "Attenzione, non puoi passare questo oggetto\r";
+        #endregion
 
 
-
-
+        #region "metodi per il warning"
         /// <summary>
         /// Warning per il superamento del limite di peso nello zaino.
         /// </summary>
@@ -120,6 +121,6 @@ namespace GiocoTestualeEsame.warning
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
             Console.WriteLine(erroreOggettoPassato);
         }
-
+        #endregion
     }
 }

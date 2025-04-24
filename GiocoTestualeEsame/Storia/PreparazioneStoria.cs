@@ -29,8 +29,8 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.quadroElettrico.AddOggettoNellaStanza(ElencoOggetti.Elettricista);
             ElencoStanze.quadroElettrico.AddOggettoNellaStanza(ElencoOggetti.porta_cantina);
             /*SALA GIOCHI*/
-            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.teletrasporto);
             ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.porta_piano_terra);
+            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.carteDaGioco);
             /*PRIMO PIANO*/
             ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.scale_piano_terra);
             ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.Mago);
@@ -39,6 +39,8 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.camera.AddOggettoNellaStanza(ElencoOggetti.spada);
             /*PRIGIONE*///--> accessibile solo tramite tp
             ElencoStanze.prigione.AddOggettoNellaStanza(ElencoOggetti.Sicario);
+            ElencoStanze.prigione.AddOggettoNellaStanza(ElencoOggetti.Poliziotto);
+            ElencoStanze.prigione.AddOggettoNellaStanza(ElencoOggetti.Pirata);
         }
         
     }

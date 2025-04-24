@@ -12,8 +12,8 @@ namespace GiocoTestualeEsame
     public class Personaggio : Oggetto
     {
         Giocatore giocatore; 
-        public Oggetto richiesta { get;} 
-        public Oggetto regalo { get; }
+        public Oggetto richiesta { get; set; } 
+        public Oggetto regalo { get; set; }
         public Personaggio(string nome, string descrizione, Oggetto richiesta, Oggetto regalo) : base(nome, 0, descrizione, false)
         {
             this.richiesta = richiesta;
@@ -25,9 +25,9 @@ namespace GiocoTestualeEsame
         /// </summary>
         public void RichiestaToString()
         {
-            if(richiesta != null)
+            Console.ForegroundColor = ConsoleColor.Green;
+            if (richiesta != null)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"{descrizione},{nome} vorrebbe ");
                 Console.ForegroundColor = ConsoleColor.DarkRed;//cambio il colore solo per la variabile
                 Console.Write(richiesta.nome + ".\n");
@@ -38,6 +38,11 @@ namespace GiocoTestualeEsame
                 Console.Write($"In cambio riceverai ");
                 Console.ForegroundColor = ConsoleColor.DarkYellow;//cambio il colore solo per la variabile
                 Console.Write(regalo.nome + ".\n");
+            }
+            else if(richiesta == null)//se non ha niente stampa solo la descrizione
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(descrizione + "\n");
             }
         }
         /// <summary>
@@ -52,7 +57,9 @@ namespace GiocoTestualeEsame
                 if (giocatore.IsOggettoNelloZaino(richiesta))
                 {
                     giocatore.RimuoviSenzaLasciareNellaStanza(richiesta);//rimuovo definitivamente l'oggetto dal gioco
-                    giocatore.AddZaino(regalo);//aggiungo l'oggetto dato dal personaggio nello zaino
+                    if(regalo != null)
+                        giocatore.AddZaino(regalo);//aggiungo l'oggetto dato dal personaggio nello zaino
+                    
                 }
                 else
                 {
@@ -61,10 +68,15 @@ namespace GiocoTestualeEsame
             }
             else
             {
-                giocatore.AddZaino(regalo);//se non c'è richiesta do direttamente il regalo...
+                if (regalo != null)
+                    giocatore.AddZaino(regalo);//se non c'è richiesta do direttamente il regalo...
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("non ha regali da darti\n");
+                }
+                
             }
-            
-            
         }
     }
 }

@@ -24,7 +24,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
             /*swtich case con tutti i casi del comando che può esser stato scelto*/
             switch (comando)
             {
-                case "ciao": Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine("ciao!");break;
+                case "ciao": Console.ForegroundColor = ConsoleColor.Green; Console.WriteLine($"ciao! {GestisciStatoGioco.giocatoreCorrente.nome}");break;
                 case "prendi": c.MettiNellaMano(argomento); break;
                 case "guarda": c.GuardaStanza(); break;
                 case "help": c.Help(); break;
@@ -41,7 +41,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
-
+        #region "metodi comando prendi"
         /// <summary>
         /// L'oggetto assegnato viene messo nella mano del giocatore e quello che era in mano viene lasciato nella stanza
         /// </summary>
@@ -80,18 +80,21 @@ namespace GiocoTestualeEsame.comandiDiGioco
             else
                 Console.WriteLine("non hai oggetti in mano");
         }
-
+        #endregion
+        #region "metodi comando guarda"
         /// <summary>
         /// Mostro gli oggetti presenti nella stanza
         /// </summary>
-       public void GuardaStanza()
-       {
+        public void GuardaStanza()
+        {
             GestisciStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
-       }
+        }
+        #endregion
+        #region "metodi comando help"
         /// <summary>
         /// Riassunto dei comandi
         /// </summary>
-       public void Help()
+        public void Help()
        {
             Console.ForegroundColor = ConsoleColor.DarkGray;//cambio colore scritta
             Console.WriteLine("- help: mostra i comandi presenti nel gioco.\n\n" +
@@ -107,8 +110,10 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 "- descrizione + oggetto: mostra la descrizione e/o peso di un oggetto presente nella scena o nello zaino. Per esempio: descrizione spada.\n\n" +
                 "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale.\n\n" +
                 "- parla + nome personaggio: ascolta cosa ha da dirti un personaggio nella scena.\n\n" +
-                "- dai + nome personaggio: dai al personaggio indicato l'oggetto richiesto == l'oggetto deve essere nello zaino ==.");
-       }
+                "- dai + nome personaggio: dai al personaggio indicato l'oggetto richiesto == l'oggetto deve essere nello zaino ==.\n");
+        }
+        #endregion
+        #region "metodi comando vai/muoversi tra le stanze"
         /// <summary>
         /// Sposta il giocatore nelle stanze del gioco
         /// </summary>
@@ -133,6 +138,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 Warning.WarningErroreCasting();
             
         }
+        #endregion
+        #region "metodi comando interazione con i personaggi (parla,dai)"
         /// <summary>
         /// L'utente può leggere la richiesta del personaggio selezionato.
         /// </summary>
@@ -146,8 +153,9 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(c))
                 {
                     c.RichiestaToString();//stampo la richeista del personaggio
-                    if(c.richiesta == null)//se il personaggio non ha la richiesta...
+                    if (c.richiesta == null && c.regalo != null)//se il personaggio non ha la richiesta...
                         c.AddZainoRegalo();//do direttamente il regalo
+
                 }     
                 else
                     Warning.WarnignOggettoNonPresenteNellaStanza();
@@ -168,13 +176,21 @@ namespace GiocoTestualeEsame.comandiDiGioco
             {
                 Personaggio c = (Personaggio)o;
                 if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(c))//se il personaggio è nella stanza...
+                {
                     c.AddZainoRegalo();//controlla se il giocatore ha la richiesta nello zaino
+                    //azzero richiesta e regalo
+                    c.descrizione = $"{c.nome} ti è riconoscete per il regalo";
+                    c.richiesta = null;
+                    c.regalo = null;
+                }
+
             }
             else
                 Warning.WarningErroreCasting();
             
         }
-
+        #endregion
+        #region "metodi interazione con lo zaino (guardaZaino,Aggiungi,Rimuovi,Peso)"
         /// <summary>
         /// Il giocatore guarda gli oggetti presenti nello zaino.
         /// </summary>
@@ -206,7 +222,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void RimuoviOggettoDalloZaino(string oggettoPassato)
         {
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
-            GestisciStatoGioco.giocatoreCorrente.RemoveZaino(o);
+            if(o != null)
+                GestisciStatoGioco.giocatoreCorrente.RemoveZaino(o);
         }
         /// <summary>
         /// L'utene può vedere quanto pesa lo zaino.
@@ -216,6 +233,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
             Console.WriteLine("Lo zaino pesa: " + GestisciStatoGioco.giocatoreCorrente.pesoNelloZaino + " kg / "+ GestisciStatoGioco.giocatoreCorrente.pesoMaxZaino);
         }
+        #endregion
+        #region"metodi comando descrizione"
         /// <summary>
         /// Mostra all'utente il peso e la descrizione di un oggetto presente nella scena o nello zaino o in mano
         /// </summary>
@@ -224,43 +243,47 @@ namespace GiocoTestualeEsame.comandiDiGioco
         {
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//converto in Oggetto o Passaggi
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
-            if (o.isRaccoglibile)//se è un Oggetto...
+            if(o != null)
             {
-                if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//controllo se l'oggetto è nella stanza
+                if (o.isRaccoglibile)//se è un Oggetto...
                 {
-                    Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
-                    return;
+                    if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//controllo se l'oggetto è nella stanza
+                    {
+                        Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
+                        return;
+                    }
+                    else if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(o))//controllo se l'oggetto è nello zaino
+                    {
+                        Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
+                        return;
+                    }
+                    else if (GestisciStatoGioco.oggettoInMano.nome == oggettoPassato)//se l'oggetto è in mano
+                    {
+
+                        Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
+                        return;
+                    }
+                    else
+                    {
+                        Warning.WarningOggettoNonPresenteNelloZaino(o);
+                        Warning.WarnignOggettoNonPresenteNellaStanza();
+                    }
                 }
-                else if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(o))//controllo se l'oggetto è nello zaino
+                else if (!o.isRaccoglibile)//se è un Passaggio...
                 {
-                    Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
-                    return;
-                }
-                else if (GestisciStatoGioco.oggettoInMano.nome == oggettoPassato)//se l'oggetto è in mano
-                {
-                    
-                    Console.WriteLine("Descrizione: " + o.descrizione + "\nPeso: " + o.peso);
-                    return;
-                }
-                else
-                {
-                    Warning.WarningOggettoNonPresenteNelloZaino(o);
-                    Warning.WarnignOggettoNonPresenteNellaStanza();
-                }
-            }else if(!o.isRaccoglibile)//se è un Passaggio...
-            {
-                if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))
-                {
-                    Console.WriteLine("Descrizione: " + o.descrizione);
-                }
-                else
-                {
-                    Warning.WarningDirezioneNonPresenteNellaScena();
+                    if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))
+                    {
+                        Console.WriteLine("Descrizione: " + o.descrizione);
+                    }
+                    else
+                    {
+                        Warning.WarningDirezioneNonPresenteNellaScena();
+                    }
                 }
             }
         }
-
-        /*Da completare*/
+        #endregion
+        #region"metodi comando tp"
         public void Teletrasporto()
         {
             if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(ElencoOggetti.teletrasporto) || GestisciStatoGioco.giocatoreCorrente.IsOggettoInMano(ElencoOggetti.teletrasporto))
@@ -277,6 +300,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 Warning.WarningOggettoNonInMano();
             }
         }
+        #endregion
         /// <summary>
         /// Converto la stringa in Oggetto.
         /// Ritorna un Oggetto.
