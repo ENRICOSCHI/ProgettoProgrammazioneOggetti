@@ -51,14 +51,13 @@ namespace GiocoTestualeEsame
         /// </summary>
         public void AddZainoRegalo()
         {
-            giocatore = GestisciStatoGioco.giocatoreCorrente;//prendo il giocatore attuale
             if(richiesta != null)//se c'è una richiesta...
             {
-                if (giocatore.IsOggettoNelloZaino(richiesta))
+                if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(richiesta))
                 {
-                    giocatore.RimuoviSenzaLasciareNellaStanza(richiesta);//rimuovo definitivamente l'oggetto dal gioco
+                    GestisciStatoGioco.giocatoreCorrente.RimuoviSenzaLasciareNellaStanza(richiesta);//rimuovo definitivamente l'oggetto dal gioco
                     if(regalo != null)
-                        giocatore.AddZaino(regalo);//aggiungo l'oggetto dato dal personaggio nello zaino
+                        GestisciStatoGioco.giocatoreCorrente.AddZaino(regalo);//aggiungo l'oggetto dato dal personaggio nello zaino
                     
                 }
                 else
@@ -69,7 +68,7 @@ namespace GiocoTestualeEsame
             else
             {
                 if (regalo != null)
-                    giocatore.AddZaino(regalo);//se non c'è richiesta do direttamente il regalo...
+                    GestisciStatoGioco.giocatoreCorrente.AddZaino(regalo);//se non c'è richiesta do direttamente il regalo...
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
