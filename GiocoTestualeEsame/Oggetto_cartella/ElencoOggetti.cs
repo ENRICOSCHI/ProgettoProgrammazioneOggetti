@@ -11,6 +11,7 @@ namespace GiocoTestualeEsame.Oggetto_cartella
     /*CLASSE CON TUTTI GLI OGGETTI CREATI*/
     public class ElencoOggetti
     {
+        #region"OGGETTI"
         /*OGGETTI*/
         public static Oggetto manoVuota { get; } = new Oggetto("", 0, "non hai niente in mano", false);
         public static Oggetto spada { get; } = new Oggetto("spada", 9.50, "spada trovata sotto il letto", true);
@@ -19,7 +20,8 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Oggetto cacciavite { get; } = new Oggetto("cacciavite", 2, "serve all'elettricista", true);
         public static Oggetto dadi { get; } = new Oggetto("dadi", 1.50, "li vuole il sicario", true);
         public static Oggetto carteDaGioco { get; } = new Oggetto("carte_da_gioco", 2, "potrebbero interessare a qualcuno che si annoia", true);
-
+        #endregion
+        #region"PASSAGGI"
         /*PASSAGGI*/
         public static Passaggio porta_camera { get; } = new Passaggio("porta3", "questa porta va in camera", ElencoStanze.camera);
         public static Passaggio porta_salagiochi { get; } = new Passaggio("porta2", "questa porta va alla sala giochi", ElencoStanze.salaGiochi);
@@ -29,7 +31,8 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Passaggio scale_su_primo_piano { get; } = new Passaggio("scala2", "queste scale portano al primo piano", ElencoStanze.primoPiano);
         public static Passaggio scale_piano_terra { get; } = new Passaggio("scala1", "queste scale portano al piano terra", ElencoStanze.pianoTerra);
         public static Passaggio scale_giu_cantina { get; } = new Passaggio("scala3", "queste scale portano alla cantina", ElencoStanze.cantina);
-
+        #endregion
+        #region"PERSONAGGI"
         /*PERSONAGGI*/
         public static Personaggio ragazzoChill { get; } = new Personaggio("ChillGuy", "è solo un ragazzo nel chill che ti vuole bene", spada,teletrasporto);
         public static Personaggio Elettricista { get; } = new Personaggio("Elettricista","è l'unico che può mettere a posto la corrente elettrica", cacciavite,null);
@@ -37,7 +40,8 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Personaggio Pirata { get; } = new Personaggio("Pirata", "è stato incarcerato 10 anni fa in questa prigione, non vuole niente, solo la libertà!", null, null);
         public static Personaggio Poliziotto { get; } = new Personaggio("Poliziotto", "stare tutto il tempo in prigione lo sta annoiando, per passare il tempo", carteDaGioco, null);
         public static Personaggio Mago { get; } = new Personaggio("Mago", "ti darà dei dadi per aver partecipato a un suo trucco di magia", null, dadi);
-
+        #endregion
+        #region"DIZIONARI"
         //dizionario oggetto
         public static readonly Dictionary<string, Oggetto> TuttiGliOggetti = new Dictionary<string, Oggetto>(System.StringComparer.OrdinalIgnoreCase)//per non renderelo case sensitive
         {
@@ -76,7 +80,7 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         {
             
         };
-        
+        #endregion
         //inserisco gli elementi dei 3 dizionari nel dizionario generale
         static ElencoOggetti()
         {
