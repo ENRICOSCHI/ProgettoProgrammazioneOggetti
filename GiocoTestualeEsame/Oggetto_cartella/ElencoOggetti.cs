@@ -20,6 +20,11 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Oggetto cacciavite { get; } = new Oggetto("cacciavite", 2, "serve all'elettricista", true);
         public static Oggetto dadi { get; } = new Oggetto("dadi", 1.50, "li vuole il sicario", true);
         public static Oggetto carteDaGioco { get; } = new Oggetto("carte_da_gioco", 2, "potrebbero interessare a qualcuno che si annoia", true);
+        public static Oggetto palla { get; } = new Oggetto("palla", 3, "una palla da calcia, perfetta per giocarchi", true);
+        public static Oggetto sfera { get; } = new Oggetto("sfera", 5, "creata unendo una palla da calcio con alluminio", true);
+        public static Oggetto sferaElettrica { get; } = new Oggetto("sferaElettrica", 7, "una sfera elettrica che quando attivata crea una fortissima scarica elettrica, si dice che sia in grado di sfamare per sempre un certo tipo di topo...", true);
+        public static Oggetto ticket { get; } = new Oggetto("ticket", 0.5, "dato come segno di gratitudine dall'eletricista per averlo aiutato", true);
+
         #endregion
         #region"PASSAGGI"
         /*PASSAGGI*/
@@ -31,15 +36,20 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Passaggio scale_su_primo_piano { get; } = new Passaggio("scala2", "queste scale portano al primo piano", ElencoStanze.primoPiano);
         public static Passaggio scale_piano_terra { get; } = new Passaggio("scala1", "queste scale portano al piano terra", ElencoStanze.pianoTerra);
         public static Passaggio scale_giu_cantina { get; } = new Passaggio("scala3", "queste scale portano alla cantina", ElencoStanze.cantina);
+        public static Passaggio botolaGiu { get; } = new Passaggio("botola1", "questa botola sotto il letto porta in un posto misterioso", ElencoStanze.bosco);//da mettere in camera
+        public static Passaggio botolaSu { get; } = new Passaggio("botola2", "questa botola ti riporta in camera", ElencoStanze.camera);//da mettere nel bosco
         #endregion
         #region"PERSONAGGI"
         /*PERSONAGGI*/
         public static Personaggio ragazzoChill { get; } = new Personaggio("ChillGuy", "è solo un ragazzo nel chill che ti vuole bene", spada,teletrasporto);
-        public static Personaggio Elettricista { get; } = new Personaggio("Elettricista","è l'unico che può mettere a posto la corrente elettrica", cacciavite,null);
-        public static Personaggio Sicario { get; } = new Personaggio("Sicario", "ti aiuterà ad uccidere il cattivo", dadi, null);//vedi meglio il personaggio
+        public static Personaggio Elettricista { get; } = new Personaggio("Elettricista","appena arrivato ha visto il topo drago elettrico ed è corso a nascondersi sotto un tavolo", null,null);
+        public static Personaggio Sicario { get; } = new Personaggio("Sicario", "qui in prigione si è stancato di giocare con la palla", dadi, palla);
         public static Personaggio Pirata { get; } = new Personaggio("Pirata", "è stato incarcerato 10 anni fa in questa prigione, non vuole niente, solo la libertà!", null, null);
         public static Personaggio Poliziotto { get; } = new Personaggio("Poliziotto", "stare tutto il tempo in prigione lo sta annoiando, per passare il tempo", carteDaGioco, null);
         public static Personaggio Mago { get; } = new Personaggio("Mago", "ti darà dei dadi per aver partecipato a un suo trucco di magia", null, dadi);
+        public static Personaggio ElfoMaestro { get; } = new Personaggio("ElfoMaestro", "è l'unico che sa creare l'oggetto perfetto per sfamare il TopoDragoElettrico, ti vuole aiutare però gli manca un materiale importante...", sfera, sferaElettrica);//buono
+        public static Personaggio ElfoAiutante { get; } = new Personaggio("ElfoAiutante", "è sempre pronto ad aiutare il maestro", palla, sfera);
+        public static Personaggio TopoDragoElettrico { get; } = new Personaggio("TopoDragoElettrico", "ha sempre fame di energia elettrica, non si toglierà finchè non ha saziato la sua fame", sferaElettrica, null);//cattivo
         #endregion
         #region"DIZIONARI"
         //dizionario oggetto
@@ -51,6 +61,10 @@ namespace GiocoTestualeEsame.Oggetto_cartella
             {cacciavite.nome,cacciavite },
             {dadi.nome,dadi },
             {carteDaGioco.nome, carteDaGioco },
+            {palla.nome, palla },
+            {sfera.nome, sfera },
+            {sferaElettrica.nome, sferaElettrica },
+            {ticket.nome, ticket },
             { "vuoto", manoVuota } //oggetto di default
         };
         //dizionario passaggio
@@ -63,7 +77,9 @@ namespace GiocoTestualeEsame.Oggetto_cartella
             {porta_piano_terra.nome ,porta_piano_terra },
             {porta_salagiochi.nome,porta_salagiochi},
             {porta_quadro_elettrico.nome,porta_quadro_elettrico},
-            {porta_cantina.nome,porta_cantina }
+            {porta_cantina.nome,porta_cantina },
+            { botolaGiu.nome,botolaGiu },
+            {botolaSu.nome,botolaSu}
         };
         //dizionario personaggi
         public static readonly Dictionary<string, Personaggio> TuttiIPersonaggi = new Dictionary<string, Personaggio>(System.StringComparer.OrdinalIgnoreCase)
@@ -74,6 +90,9 @@ namespace GiocoTestualeEsame.Oggetto_cartella
             {Mago.nome,Mago},
             {Pirata.nome,Pirata},
             {Poliziotto.nome,Poliziotto},
+            {ElfoAiutante.nome,ElfoAiutante},
+            {ElfoMaestro.nome,ElfoMaestro},
+            {TopoDragoElettrico.nome,TopoDragoElettrico}
         };
         //Dizionario generale
         public static readonly Dictionary<string, Oggetto> TuttiGliInteragibili = new Dictionary<string, Oggetto>(System.StringComparer.OrdinalIgnoreCase)

@@ -61,6 +61,12 @@ namespace GiocoTestualeEsame
             {
                 Warning.WarnignSuperamentoPesoMassimo(oggetto);
                 Warning.WarningOggettoNonAggiuntoAlloZaino(oggetto);
+                if (!GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(oggetto))//se non è presente nella stanza...
+                {
+                    GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggetto);//vuol dire che era un regalo di un personaggio e quindi lo lascio nella stanza..
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Oggetto lasciato nella stanza");
+                }
             }
             else if (!oggetto.isRaccoglibile)//se non può essere raccolto
             {

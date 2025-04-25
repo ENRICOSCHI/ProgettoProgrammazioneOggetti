@@ -177,11 +177,20 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 Personaggio c = (Personaggio)o;
                 if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(c))//se il personaggio è nella stanza...
                 {
-                    c.AddZainoRegalo();//controlla se il giocatore ha la richiesta nello zaino
-                    //azzero richiesta e regalo
-                    c.descrizione = $"{c.nome} ti è riconoscete per il regalo";
-                    c.richiesta = null;
-                    c.regalo = null;
+                    if (c.AddZainoRegalo())//controlla se il giocatore ha la richiesta nello zaino e se c'è la dai il regalo
+                    {
+                        GestisciStatoGioco.ControllaMorteCattivo(c);//controllo se ha completato la richiesta del cattivo
+                        GestisciStatoGioco.ControlloFinePartira(c);//Controllo se ha finito il gioco
+                        if(c != null)
+                        {
+                            //azzero richiesta e regalo
+                            c.descrizione = $"{c.nome} ti è riconoscete per il regalo";
+                            c.richiesta = null;
+                            c.regalo = null;
+                        }
+                        
+                    }
+                    
                 }
 
             }
