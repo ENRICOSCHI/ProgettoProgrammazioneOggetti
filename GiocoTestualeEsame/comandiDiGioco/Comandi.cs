@@ -41,7 +41,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
-        #region "metodi comando prendi"
+        #region "metodi comando prendi/lascia"
         /// <summary>
         /// L'oggetto assegnato viene messo nella mano del giocatore e quello che era in mano viene lasciato nella stanza
         /// </summary>

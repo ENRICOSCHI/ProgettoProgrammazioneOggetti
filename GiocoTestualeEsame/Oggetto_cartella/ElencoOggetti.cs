@@ -24,6 +24,13 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Oggetto sfera { get; } = new Oggetto("sfera", 5, "creata unendo una palla da calcio con alluminio", true);
         public static Oggetto sferaElettrica { get; } = new Oggetto("sferaElettrica", 7, "una sfera elettrica che quando attivata crea una fortissima scarica elettrica, si dice che sia in grado di sfamare per sempre un certo tipo di topo...", true);
         public static Oggetto ticket { get; } = new Oggetto("ticket", 0.5, "dato come segno di gratitudine dall'eletricista per averlo aiutato", true);
+        public static Oggetto ArcadePM { get; } = new Oggetto("Arcade_PacMan", 120, "arcade con il gioco pacman", false);
+        public static Oggetto ArcadeSM { get; } = new Oggetto("Arcade_Super_Mario", 120, "arcade con il gioco super mario", false);
+        public static Oggetto ArcadeFootball { get; } = new Oggetto("Arcade_Calcio", 120, "arcade con un gioco di calcio", false);
+        public static Oggetto ArcadeDK { get; } = new Oggetto("Arcade_Donkey_Kong", 120, "arcade con il gioco donkey kong", false);
+        public static Oggetto ArcadeSI { get; } = new Oggetto("Arcade_Space_Invaders", 120, "arcade con il gioco space invaders", false);
+        public static Oggetto libro { get; } = new Oggetto("libro", 5, "libro di Giulia", true);
+        public static Oggetto discoLayla { get; } = new Oggetto("discoLayla", 5, "disco della canzone Layla dei Derek and the Dominos", true);
 
         #endregion
         #region"PASSAGGI"
@@ -50,6 +57,9 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Personaggio ElfoMaestro { get; } = new Personaggio("ElfoMaestro", "è l'unico che sa creare l'oggetto perfetto per sfamare il TopoDragoElettrico, ti vuole aiutare però gli manca un materiale importante...", sfera, sferaElettrica);//buono
         public static Personaggio ElfoAiutante { get; } = new Personaggio("ElfoAiutante", "è sempre pronto ad aiutare il maestro", palla, sfera);
         public static Personaggio TopoDragoElettrico { get; } = new Personaggio("TopoDragoElettrico", "ha sempre fame di energia elettrica, non si toglierà finchè non ha saziato la sua fame", sferaElettrica, null);//cattivo
+        public static Personaggio bambinoTriste { get; } = new Personaggio("bambinoTriste", "oggi voleva andare a giocare al suo gioco preferito nella sala giochi, ma per colpa del mostro non può", null, null);
+        public static Personaggio giulia { get; } = new Personaggio("Giulia", "sta cercando il suo libro ma ha paura che gli sia caduto dalle scale", libro, null);
+        public static Personaggio Marco { get; } = new Personaggio("Marco", "è stato appena lasciato dalla sua ragazza Layla", discoLayla, null);
         #endregion
         #region"DIZIONARI"
         //dizionario oggetto
@@ -65,6 +75,13 @@ namespace GiocoTestualeEsame.Oggetto_cartella
             {sfera.nome, sfera },
             {sferaElettrica.nome, sferaElettrica },
             {ticket.nome, ticket },
+            {ArcadeDK.nome, ArcadeDK },
+            {ArcadeFootball.nome, ArcadeFootball },
+            {ArcadePM.nome, ArcadePM },
+            {ArcadeSI.nome, ArcadeSI },
+            {ArcadeSM.nome, ArcadeSM },
+            {libro.nome, libro },
+            {discoLayla.nome, discoLayla },
             { "vuoto", manoVuota } //oggetto di default
         };
         //dizionario passaggio
@@ -92,7 +109,10 @@ namespace GiocoTestualeEsame.Oggetto_cartella
             {Poliziotto.nome,Poliziotto},
             {ElfoAiutante.nome,ElfoAiutante},
             {ElfoMaestro.nome,ElfoMaestro},
-            {TopoDragoElettrico.nome,TopoDragoElettrico}
+            {TopoDragoElettrico.nome,TopoDragoElettrico},
+            {giulia.nome,giulia},
+            {bambinoTriste.nome,bambinoTriste},
+            {Marco.nome,Marco}
         };
         //Dizionario generale
         public static readonly Dictionary<string, Oggetto> TuttiGliInteragibili = new Dictionary<string, Oggetto>(System.StringComparer.OrdinalIgnoreCase)

@@ -18,7 +18,7 @@ namespace GiocoTestualeEsame.Storia
             /*TESTO NARRATIVO INIZIALE*/
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(
-            "\nINTRODUZIONE\nSei stato chiamato in un luogo avvolto nel mistero.\n" +
+            $"\nINTRODUZIONE\n{GestisciStatoGioco.giocatoreCorrente.nome} sei stato chiamato in un luogo avvolto nel mistero.\n" +
             "La sala giochi non ha più la corrente e bambini non possono più giocarchi.\n" +
             "Si è venuti a sapere di mostro famelico che si aggira tra i cavi elettrici, divorandoli senza sosta.\n\n" +
             "Si dice che solo gli elfi conoscano il modo per scacciarlo...\n" +
@@ -31,8 +31,13 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_giu_cantina);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.scale_su_primo_piano);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.ragazzoChill);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.giulia);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.bambinoTriste);
+            ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.Marco);
             /*CANTINA*/
             ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.scale_piano_terra);
+            ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.libro);
+            ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.discoLayla);
             ElencoStanze.cantina.AddOggettoNellaStanza(ElencoOggetti.porta_quadro_elettrico);
             /*QUADRO ELETTRICO*/
             ElencoStanze.quadroElettrico.AddOggettoNellaStanza(ElencoOggetti.Elettricista);
@@ -42,6 +47,11 @@ namespace GiocoTestualeEsame.Storia
             ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.porta_piano_terra);
             ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.carteDaGioco);
             ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.cacciavite);
+            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.ArcadeSM);
+            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.ArcadeSI);
+            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.ArcadePM);
+            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.ArcadeFootball);
+            ElencoStanze.salaGiochi.AddOggettoNellaStanza(ElencoOggetti.ArcadeDK);
             /*PRIMO PIANO*/
             ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.scale_piano_terra);
             ElencoStanze.primoPiano.AddOggettoNellaStanza(ElencoOggetti.Mago);
