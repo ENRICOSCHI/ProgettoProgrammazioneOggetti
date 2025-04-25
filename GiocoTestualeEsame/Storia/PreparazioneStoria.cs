@@ -23,7 +23,8 @@ namespace GiocoTestualeEsame.Storia
             "Si è venuti a sapere di mostro famelico che si aggira tra i cavi elettrici, divorandoli senza sosta.\n\n" +
             "Si dice che solo gli elfi conoscano il modo per scacciarlo...\n" +
             "Ma nessuno sa dove si nascondano.\n" +
-            "L'elettricista deve riparare quei quadri elettrici, ma con il mostro nelle vicinanze lui non si muoverà.\n"
+            "L'elettricista deve riparare quei quadri elettrici, ma con il mostro nelle vicinanze lui non si muoverà.\n" +
+            "========================================= PER SAPERE I COMANDI SCRIVERE -> help <- =========================================\n"
             );
             /*PIANO TERRA*/
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_camera);

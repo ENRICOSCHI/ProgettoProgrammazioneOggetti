@@ -97,7 +97,10 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void Help()
        {
             Console.ForegroundColor = ConsoleColor.DarkGray;//cambio colore scritta
-            Console.WriteLine("- help: mostra i comandi presenti nel gioco.\n\n" +
+            Console.WriteLine("============================DESCRIZIONE PROMPT============================\n\n" +
+                "[stanza attuale] oggetto in mano > lettura comandi\n\n" +
+                "==========================COMANDI================================\n\n" +
+                "- help: mostra i comandi presenti nel gioco.\n\n" +
                 "- ciao: saluta!\n\n" +
                 "- prendi + oggetto da prendere. Prendi un oggetto presente nella stanza (l'oggetto in mano verrà messo nella stanza).Per esempio: prendi spada.\n\n" +
                 "- lascia: l'oggetto in mano viene lasciato nella scena, e la mano sarà così liberata\n\n"+
