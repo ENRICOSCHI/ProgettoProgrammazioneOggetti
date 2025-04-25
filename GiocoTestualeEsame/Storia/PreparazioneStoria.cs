@@ -15,6 +15,16 @@ namespace GiocoTestualeEsame.Storia
         /*Attenzione gli oggetti devono avere nomi differenti se stanno in stanze diverse*/
         public static void CostruisciStoria()
         {
+            /*TESTO NARRATIVO INIZIALE*/
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(
+            "\nINTRODUZIONE\nSei stato chiamato in un luogo avvolto nel mistero.\n" +
+            "La sala giochi non ha più la corrente e bambini non possono più giocarchi.\n" +
+            "Si è venuti a sapere di mostro famelico che si aggira tra i cavi elettrici, divorandoli senza sosta.\n\n" +
+            "Si dice che solo gli elfi conoscano il modo per scacciarlo...\n" +
+            "Ma nessuno sa dove si nascondano.\n" +
+            "L'elettricista deve riparare quei quadri elettrici, ma con il mostro nelle vicinanze lui non si muoverà.\n"
+            );
             /*PIANO TERRA*/
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_camera);
             ElencoStanze.pianoTerra.AddOggettoNellaStanza(ElencoOggetti.porta_salagiochi);

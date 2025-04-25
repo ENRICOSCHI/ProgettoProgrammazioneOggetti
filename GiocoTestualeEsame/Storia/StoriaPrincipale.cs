@@ -10,17 +10,19 @@ namespace GiocoTestualeEsame.Storia
 {
     internal class StoriaPrincipale
     {
-
         static void Main(string[] args)
         {
-            StoriaPrincipale storia = new StoriaPrincipale();
             GestisciStatoGioco GS = new GestisciStatoGioco();
-            PreparazioneStoria.CostruisciStoria();
             /*Chiedo le credenziali del giocatore*/
             Console.WriteLine("Inserisci nome e cognome\n");
-            Console.Write("Nome: ");string nomeUtente = Console.ReadLine();
+            Console.Write("Nome: "); string nomeUtente = Console.ReadLine();
             Console.Write("Cognome: "); string cognomeUtente = Console.ReadLine();
-            GS.CreateGiocatore(nomeUtente,cognomeUtente);//creo il giocatore
+            GS.CreateGiocatore(nomeUtente, cognomeUtente);//creo il giocatore
+            StoriaPrincipale storia = new StoriaPrincipale();
+            PreparazioneStoria.CostruisciStoria();
+            /*descrizione piano iniziale*/
+            Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta del prompt 
+            Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);
             while (true)
             {
                 storia.Prompt();
