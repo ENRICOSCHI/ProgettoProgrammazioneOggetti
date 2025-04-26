@@ -43,7 +43,11 @@ namespace GiocoTestualeEsame.Storia
             if(c.nome == ElencoOggetti.Elettricista.nome)//se sta parlando con l'elettricista e ha il ticket nello zaino o nella stanza
             {
                 if (giocatoreCorrente.IsOggettoNelloZaino(ElencoOggetti.ticket) || stanzaCorrente.ControlloOggettoNellaStanza(ElencoOggetti.ticket))
-                    Console.WriteLine("HAI FINITO IL GIOCO");
+                {
+                    Console.WriteLine("==========================HAI FINITO IL GIOCO==========================\nLa corrente è finalmente tornata e la sala giochi è di nuovo accessibile!\n=============================================================================");
+                    Console.ForegroundColor= ConsoleColor.White;
+                    Environment.Exit(0);
+                }
             }
         }
     }
