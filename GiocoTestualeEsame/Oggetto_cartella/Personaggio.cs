@@ -79,5 +79,17 @@ namespace GiocoTestualeEsame
                 
             }
         }
+
+        public void AddRegalo(Personaggio c)
+        {
+            GestisciStatoGioco.giocatoreCorrente.AddZaino(regalo);//se non c'è richiesta do direttamente il regalo...
+            if(c != null)
+            {
+                //azzero richiesta e regalo
+                c.descrizione = $"{c.nome} ti è riconosciente";
+                c.richiesta = null;
+                c.regalo = null;
+            }
+        }
     }
 }

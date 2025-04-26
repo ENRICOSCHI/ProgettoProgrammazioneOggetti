@@ -157,7 +157,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 {
                     c.RichiestaToString();//stampo la richeista del personaggio
                     if (c.richiesta == null && c.regalo != null)//se il personaggio non ha la richiesta...
-                        c.AddZainoRegalo();//do direttamente il regalo
+                        c.AddRegalo(c);//do direttamente il regalo
 
                 }     
                 else

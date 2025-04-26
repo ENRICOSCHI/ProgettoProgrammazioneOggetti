@@ -12,7 +12,7 @@ namespace GiocoTestualeEsame.warning
     {
         #region"stringhe per i messaggi di avviso"
         /*MESSAGGI DI WARNING*/
-        private static string superatoLimitePeso = "Non puoi inserire {0}, hai superato il limite di peso. Peso zaino: {1}\r"; //nello 0 ci andrà il nome dell'oggetto
+        private static string superatoLimitePeso = "Non puoi inserire {0}, hai superato il limite di peso. Peso zaino attuale: {1}\r"; //nello 0 ci andrà il nome dell'oggetto
         private static string oggettoNonPresenteNelloZaino = "ERRORE, {0} non è presente nello zaino\r";
         private static string oggettoNonPresenteNellaStanza = "ERRORE, l'oggetto non è presente nella stanza\r";
         private static string oggettoNonInMano = "ERRORE, l'oggetto non è in mano\r";

@@ -93,13 +93,14 @@ namespace GiocoTestualeEsame
             //controllo se l'oggetto è presente nello zaino
             if (zaino.Contains(oggetto)) // contaians controlla se l'oggetto è presente e ritorna o false o true
             {
-                pesoNelloZaino -= oggetto.peso;
-                Oggetto o = null;
-                do
+                pesoNelloZaino -= oggetto.peso;//tolgo il peso dell'oggetto principale
+                Oggetto o = zaino.Pop();
+                while (o.nome != oggetto.nome)
                 {
-                    o = zaino.Pop();//rimuovo oggetto dalla lista
+                    pesoNelloZaino -= o.peso;//tolgo momentaneamente il peso degli oggetti per poi riaggionralo con AddZaino
                     oggettiMomentaneiRimossi.Add(o);
-                } while (o.nome != oggetto.nome);
+                    o = zaino.Pop();//rimuovo oggetto dalla lista
+                }
                 oggettiMomentaneiRimossi.Remove(o);//rimuovo l'oggetto che ho appena tolto dallo zaino
                 GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(o);//aggiungo l'oggetto rimosso nella stanza
                 foreach (Oggetto ogg in oggettiMomentaneiRimossi)
@@ -124,13 +125,14 @@ namespace GiocoTestualeEsame
             //controllo se l'oggetto è presente nello zaino
             if (zaino.Contains(oggetto)) // contaians controlla se l'oggetto è presente e ritorna o false o true
             {
-                pesoNelloZaino -= oggetto.peso;
-                Oggetto o = null;
-                do
+                pesoNelloZaino -= oggetto.peso;//tolgo il peso dell'oggetto principale
+                Oggetto o = zaino.Pop();
+                while (o.nome != oggetto.nome)
                 {
-                    o = zaino.Pop();//rimuovo oggetto dalla lista
+                    pesoNelloZaino -= o.peso;//tolgo momentaneamente il peso degli oggetti per poi riaggionralo con AddZaino
                     oggettiMomentaneiRimossi.Add(o);
-                } while (o.nome != oggetto.nome);
+                    o = zaino.Pop();//rimuovo oggetto dalla lista
+                } 
                 oggettiMomentaneiRimossi.Remove(o);//rimuovo l'oggetto che ho appena tolto dallo zaino
                 foreach (Oggetto ogg in oggettiMomentaneiRimossi)
                 {
