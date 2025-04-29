@@ -21,6 +21,17 @@ namespace GiocoTestualeEsame.Storia
             giocatoreCorrente = new Giocatore(nome, cognome);//creo giocatore
         }
         /// <summary>
+        /// Passo il giocatoreCorrente al giocatore appena caricato
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <param name="cognome"></param>
+        /// <returns></returns>
+        public static Giocatore LoadGiocatoreEsistente(string nome,string cognome)
+        {
+            giocatoreCorrente = new Giocatore(nome, cognome);
+            return giocatoreCorrente;
+        }
+        /// <summary>
         /// Aggiorno la storia dopo che è stato dato l'oggetto richiesto dal cattivo
         /// </summary>
         /// <param name="c"></param>

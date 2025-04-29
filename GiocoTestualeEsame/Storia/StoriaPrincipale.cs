@@ -12,27 +12,17 @@ namespace GiocoTestualeEsame.Storia
     {
         static void Main(string[] args)
         {
-            GestisciStatoGioco GS = new GestisciStatoGioco();
-            /*Chiedo le credenziali del giocatore*/
-            Console.WriteLine("Inserisci nome e cognome\n");
-            Console.Write("Nome: "); string nomeUtente = Console.ReadLine();
-            Console.Write("Cognome: "); string cognomeUtente = Console.ReadLine();
-            GS.CreateGiocatore(nomeUtente, cognomeUtente);//creo il giocatore
-            StoriaPrincipale storia = new StoriaPrincipale();
-            PreparazioneStoria.CostruisciStoria();
-            /*descrizione piano iniziale*/
-            Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta del prompt 
-            Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);
+            StoriaPrincipale.CreazioneGiocatore_StartStoria();
             while (true)
             {
-                storia.Prompt();
+                StoriaPrincipale.Prompt();
             }
 
         }
         /// <summary>
         /// Gestisco prompt del giocatore
         /// </summary>
-        public void Prompt()
+        public static void Prompt()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;//cambio colore scritta del prompt 
             Console.Write($"[{GestisciStatoGioco.stanzaCorrente.nome}] {GestisciStatoGioco.oggettoInMano.nome} > "); //scrivo nella riga dove il giocatore scrive l'input con Write
@@ -44,6 +34,20 @@ namespace GiocoTestualeEsame.Storia
                 argomento = substring[1];//argomento del comando (una parola)
              Comandi.ControlloComandi(command, argomento);// controllo il comando inserito
             //Console.WriteLine($"Hai scritto: {command} {argomento}"); test comando
+        }
+        public static void CreazioneGiocatore_StartStoria()
+        {
+            GestisciStatoGioco GS = new GestisciStatoGioco();
+            /*Chiedo le credenziali del giocatore*/
+            Console.WriteLine("Inserisci nome e cognome\n");
+            Console.Write("Nome: "); string nomeUtente = Console.ReadLine();
+            Console.Write("Cognome: "); string cognomeUtente = Console.ReadLine();
+            GS.CreateGiocatore(nomeUtente, cognomeUtente);//creo il giocatore
+            StoriaPrincipale storia = new StoriaPrincipale();
+            PreparazioneStoria.CostruisciStoria();
+            /*descrizione piano iniziale*/
+            Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta del prompt 
+            Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);
         }
     }
 }

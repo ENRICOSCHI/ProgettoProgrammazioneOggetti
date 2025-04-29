@@ -12,11 +12,11 @@ namespace GiocoTestualeEsame
 {
     internal class Program
     {
-        static void Main(string[] args)
+        /*static void Main(string[] args)
         {
-            /*prove generali SI POTRANNO RIMUOVERE*/
+            /*prove generali SI POTRANNO RIMUOVERE
             StoriaPrincipale storia = new StoriaPrincipale();
-            storia.Prompt();
+            //storia.Prompt();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(ElencoOggetti.scarpa.nome); //esempio
             Giocatore player = new Giocatore("Enrico", "Fiore");
@@ -29,7 +29,7 @@ namespace GiocoTestualeEsame
             string input = Console.ReadLine();
             Oggetto oggettoScelto = null;
             oggettoScelto = ControlloInput(input, oggettoScelto);//controllo oggetto scelto
-            Console.WriteLine($"{oggettoScelto.nome} è stato scelto");*/
+            Console.WriteLine($"{oggettoScelto.nome} è stato scelto");
             GestisciStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
             PreparazioneStoria.CostruisciStoria();
             Console.WriteLine("costruisco storia");
@@ -49,7 +49,7 @@ namespace GiocoTestualeEsame
                 input = Console.ReadLine();
             }
             return oggettoScelto;
-        }
+        }*/
         
     }
 }

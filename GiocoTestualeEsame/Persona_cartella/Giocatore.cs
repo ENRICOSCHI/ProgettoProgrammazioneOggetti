@@ -1,4 +1,5 @@
 ﻿using GiocoTestualeEsame.Oggetto_cartella;
+using GiocoTestualeEsame.Persona_cartella;
 using GiocoTestualeEsame.stanze;
 using GiocoTestualeEsame.Storia;
 using GiocoTestualeEsame.warning;
@@ -13,8 +14,8 @@ namespace GiocoTestualeEsame
     public class Giocatore
     {
         //uso le proprietà con solo il get perchè il set lo faccio già quando creo l'oggetto
-        public string nome { get; }
-        public string cognome { get; } //credo per il loggin serve sapere il cognome
+        public string nome { get;  }
+        public string cognome { get;  } //credo per il loggin serve sapere il cognome
         public double pesoMaxZaino { get; } = 20; //peso massimo che può portare il giocatore
         private Stack<Oggetto> zaino = new Stack<Oggetto>();//lista zaino con tecnica LIFO
         private List<Oggetto> oggettiMomentaneiRimossi = new List<Oggetto>();
@@ -25,7 +26,41 @@ namespace GiocoTestualeEsame
             this.nome = nome;
             this.cognome = cognome;
         }
-
+        /// <summary>
+        /// Creo il giocatore utilizzando la classe SalvattaggiGiocatore e ricarica gli oggetti presenti nello zaino e in mano
+        /// </summary>
+        /// <param name="sg"></param>
+        /// <returns></returns>
+        public static Giocatore CreoGiocatoreDaSalvattaggiGiocatore(SalvataggiGiocatore sg)
+        {
+            Giocatore g = GestisciStatoGioco.LoadGiocatoreEsistente(sg.Nome, sg.Cognome); //creo il giocatore dai file caricati
+            //reinserisco gli oggetti nello zaino
+            foreach (string nomeOggetto in sg.Zaino)
+            {
+                if (ElencoOggetti.TuttiGliOggetti.TryGetValue(nomeOggetto, out Oggetto oggetto))
+                {
+                    g.AddZaino(oggetto); //uso il metodo già creato per inserire gli oggetti nello zaino
+                }
+            }
+            //reinserisco l'oggetto in mano
+            if (!string.IsNullOrEmpty(sg.OggettoInMano) && ElencoOggetti.TuttiGliOggetti.TryGetValue(sg.OggettoInMano, out Oggetto oggettoInMano))
+            {
+                GestisciStatoGioco.oggettoInMano = oggettoInMano;
+            }
+            else
+            {
+                GestisciStatoGioco.oggettoInMano = ElencoOggetti.manoVuota; // fallback sicuro
+            }
+            return g;
+        }
+        /// <summary>
+        /// Importo i dati da caricare nella classe SalvattiGiocatore
+        /// </summary>
+        /// <returns></returns>
+        public SalvataggiGiocatore ImportoDatiCorrenti()
+        {
+            return new SalvataggiGiocatore { Nome = this.nome,Cognome=this.cognome,Zaino = this.zaino.Select(o=> o.nome).ToList(), OggettoInMano = GestisciStatoGioco.oggettoInMano?.nome };
+        }
         /// <summary>
         /// Aggiunge l'oggetto raccolto in mano
         /// </summary>

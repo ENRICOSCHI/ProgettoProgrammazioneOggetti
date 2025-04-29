@@ -1,4 +1,5 @@
 ﻿using GiocoTestualeEsame.Oggetto_cartella;
+using GiocoTestualeEsame.Persona_cartella;
 using GiocoTestualeEsame.stanze;
 using GiocoTestualeEsame.Storia;
 using GiocoTestualeEsame.warning;
@@ -8,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using System.IO;
 
 namespace GiocoTestualeEsame.comandiDiGioco
 {
@@ -38,6 +41,9 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 case "lascia": c.Lascia();break;
                 case "parla": c.Parla(argomento); break;
                 case "dai": c.Dai(argomento); break;
+                case "salva": c.Salva(); break;
+                case "carica": c.Carica(); break;
+                case "nuovaPartita": c.NuovaPartita(); break;
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
@@ -311,6 +317,36 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 Warning.WarningOggettoNonPresenteNelloZaino(ElencoOggetti.teletrasporto);
                 Warning.WarningOggettoNonInMano();
             }
+        }
+        #endregion
+        #region"metodi Salvataggi e caricamento"
+        public void Salva()
+        {
+            SalvataggiGiocatore sg = GestisciStatoGioco.giocatoreCorrente.ImportoDatiCorrenti();
+            string jsonString = JsonSerializer.Serialize(sg, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText("giocatore.json", jsonString);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("dati salvati");
+        }
+        public void Carica()
+        {
+            string jsonString = File.ReadAllText("giocatore.json");
+            SalvataggiGiocatore sg = JsonSerializer.Deserialize<SalvataggiGiocatore>(jsonString);
+            Giocatore giocatore = Giocatore.CreoGiocatoreDaSalvattaggiGiocatore(sg);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("dati caricati");
+        }
+
+        public void NuovaPartita()
+        {
+            string path = "giocatore.json";
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                Console.WriteLine("Salvataggio precedente eliminato.");
+            }
+            Console.Clear();
+            StoriaPrincipale.CreazioneGiocatore_StartStoria();
         }
         #endregion
         /// <summary>
