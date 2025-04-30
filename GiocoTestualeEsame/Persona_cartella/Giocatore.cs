@@ -34,7 +34,7 @@ namespace GiocoTestualeEsame
         public static Giocatore CreoGiocatoreDaSalvattaggiGiocatore(SalvataggiGiocatore sg)
         {
             Giocatore g = GestisciStatoGioco.LoadGiocatoreEsistente(sg.Nome, sg.Cognome); //creo il giocatore dai file caricati
-            //reinserisco gli oggetti nello zaino
+            /*RICARICO OGGETTI IN MANO*/
             foreach (string nomeOggetto in sg.Zaino)
             {
                 if (ElencoOggetti.TuttiGliOggetti.TryGetValue(nomeOggetto, out Oggetto oggetto))
@@ -42,7 +42,7 @@ namespace GiocoTestualeEsame
                     g.AddZaino(oggetto); //uso il metodo già creato per inserire gli oggetti nello zaino
                 }
             }
-            //reinserisco l'oggetto in mano
+            /*RICARICO L'OGGETTO IN MANO*/
             if (!string.IsNullOrEmpty(sg.OggettoInMano) && ElencoOggetti.TuttiGliOggetti.TryGetValue(sg.OggettoInMano, out Oggetto oggettoInMano))
             {
                 GestisciStatoGioco.oggettoInMano = oggettoInMano;
@@ -50,6 +50,11 @@ namespace GiocoTestualeEsame
             else
             {
                 GestisciStatoGioco.oggettoInMano = ElencoOggetti.manoVuota; // fallback sicuro
+            }
+            /*CARICO LA STANZA IN CUI ERO*/
+            if(ElencoStanze.TutteLeStanze.TryGetValue(sg.stanzaAttuale, out Stanza stanzaSalvata))
+            {
+                GestisciStatoGioco.stanzaCorrente = stanzaSalvata;
             }
             return g;
         }
@@ -59,7 +64,7 @@ namespace GiocoTestualeEsame
         /// <returns></returns>
         public SalvataggiGiocatore ImportoDatiCorrenti()
         {
-            return new SalvataggiGiocatore { Nome = this.nome,Cognome=this.cognome,Zaino = this.zaino.Select(o=> o.nome).ToList(), OggettoInMano = GestisciStatoGioco.oggettoInMano?.nome };
+            return new SalvataggiGiocatore { Nome = this.nome,Cognome=this.cognome,Zaino = this.zaino.Select(o=> o.nome).ToList(), OggettoInMano = GestisciStatoGioco.oggettoInMano?.nome, stanzaAttuale = GestisciStatoGioco.stanzaCorrente.nome };
         }
         /// <summary>
         /// Aggiunge l'oggetto raccolto in mano

@@ -84,7 +84,6 @@
     <Compile Include="Persona_cartella\Giocatore.cs" />
     <Compile Include="Oggetto_cartella\Personaggio.cs" />
     <Compile Include="Persona_cartella\SalvataggiGiocatore.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="stanze\ElencoStanze.cs" />
     <Compile Include="stanze\Stanza.cs" />

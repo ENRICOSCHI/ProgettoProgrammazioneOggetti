@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace GiocoTestualeEsame.Persona_cartella
 {
     public class SalvataggiGiocatore
@@ -13,5 +14,6 @@ namespace GiocoTestualeEsame.Persona_cartella
         public string Cognome { get; set; }
         public List<string> Zaino { get; set; }
         public string OggettoInMano { get; set; }
+        public string stanzaAttuale { get; set; }
     }
 }

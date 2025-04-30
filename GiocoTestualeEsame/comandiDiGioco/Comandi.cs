@@ -105,6 +105,10 @@ namespace GiocoTestualeEsame.comandiDiGioco
             Console.ForegroundColor = ConsoleColor.DarkGray;//cambio colore scritta
             Console.WriteLine("============================DESCRIZIONE PROMPT============================\n\n" +
                 "[stanza attuale] oggetto in mano > lettura comandi\n\n" +
+                "==========================COMANDI GESTIONE PARTITA==========================\n\n" +
+                "- salva: salva partita attuale\n\n" +
+                "- carica: carica partita precedente\n\n" +
+                "- nuovaPartita: comincia una partita da capo cancellando i dati di salvataggio esistenti\n\n" +
                 "==========================COMANDI================================\n\n" +
                 "- help: mostra i comandi presenti nel gioco.\n\n" +
                 "- ciao: saluta!\n\n" +
