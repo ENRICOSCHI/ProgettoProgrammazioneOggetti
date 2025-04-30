@@ -12,10 +12,10 @@ namespace GiocoTestualeEsame.Storia
     {
         static void Main(string[] args)
         {
-            StoriaPrincipale.CreazioneGiocatore_StartStoria();
+            CreazioneGiocatore_StartStoria();
             while (true)
             {
-                StoriaPrincipale.Prompt();
+                Prompt();
             }
 
         }
