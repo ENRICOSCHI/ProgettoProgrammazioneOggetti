@@ -57,6 +57,8 @@ namespace GiocoTestualeEsame.Storia
                 {
                     Console.WriteLine("==========================HAI FINITO IL GIOCO==========================\nLa corrente è finalmente tornata e la sala giochi è di nuovo accessibile!\n=============================================================================");
                     Console.ForegroundColor= ConsoleColor.White;
+                    Console.WriteLine("\nPremi un tasto per chiudere...");
+                    Console.ReadKey();
                     Environment.Exit(0);
                 }
             }
