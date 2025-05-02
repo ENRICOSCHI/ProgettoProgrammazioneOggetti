@@ -203,12 +203,10 @@ namespace GiocoTestualeEsame.comandiDiGioco
                             c.descrizione = $"{c.nome} ti è riconoscete per il regalo";
                             c.richiesta = null;
                             c.regalo = null;
+                            c.isInteragibile = false;
                         }
-                        
                     }
-                    
                 }
-
             }
             else
                 Warning.WarningErroreCasting();
@@ -327,16 +325,24 @@ namespace GiocoTestualeEsame.comandiDiGioco
         }
         #endregion
         #region"metodi Salvataggi e caricamento"
+        /// <summary>
+        /// Salvo i dati della partita attuale
+        /// </summary>
         public void Salva()
         {
+            /*SALVATAGGIO DATI GIOCATORE*/
             SalvataggiGiocatore sg = GestisciStatoGioco.giocatoreCorrente.ImportoDatiCorrenti();
             string jsonGiocatore = JsonSerializer.Serialize(sg, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(FILEJSONGIOCATORE, jsonGiocatore);
+            /*SALVATAGGIO DATI OGGETTI STANZE*/
             string jsonStanze = JsonSerializer.Serialize(ElencoStanze.TutteLeStanze , new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(FILEJSONSTANZE, jsonStanze);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("dati salvati");
         }
+        /// <summary>
+        /// Carico dati della partita salvata precedentemente
+        /// </summary>
         public void Carica()
         {
             /*CARICAMENTO OGGETTI NELLA STANZA*/
@@ -345,10 +351,12 @@ namespace GiocoTestualeEsame.comandiDiGioco
             foreach(string nomeStanza in ElencoStanze.TutteLeStanze.Keys)
             {
                 Stanza stanza = ConvertiStringToStanza(nomeStanza);
-                stanza.PuliscoLista_oggettiNellaStanza();
+                stanza.PuliscoLista_oggettiNellaStanza();//ripulisco la lista così da mettere altri i nuovi oggetti salvati nella stanza 
                 foreach (var o in tutteLeStanzeDatiCaricati[nomeStanza].oggettiNellaStanza)
                 {
                     Oggetto oggetto = ConvertiStringToOggetto(o.nome);//oggetto estratto è diverso dall'oggetto caricato inizialmente
+                    oggetto.isInteragibile = o.isInteragibile;//carico lo stato di interagibile precedentemente salvato
+                    oggetto.descrizione = o.descrizione; //carico la descrizione precedentemente salvata
                     stanza.AddOggettoNellaStanza(oggetto);
                 }
             }
@@ -360,7 +368,9 @@ namespace GiocoTestualeEsame.comandiDiGioco
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("dati caricati");
         }
-
+        /// <summary>
+        /// Cancello i dati precedente e della partita attuale per cominciarne una nuova
+        /// </summary>
         public void NuovaPartita()
         {
             string pathGiocatore = FILEJSONGIOCATORE;

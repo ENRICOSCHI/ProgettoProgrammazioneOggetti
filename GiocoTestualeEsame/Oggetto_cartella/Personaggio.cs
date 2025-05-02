@@ -13,8 +13,9 @@ namespace GiocoTestualeEsame
     {
         public Oggetto richiesta { get; set; } 
         public Oggetto regalo { get; set; }
+        //private bool isInteractable;//se alla creazione del personaggio è true, indica che il personaggio ha una richiesta
 
-        public Personaggio(string nome, string descrizione, Oggetto richiesta, Oggetto regalo) : base(nome, 0, descrizione, false)
+        public Personaggio(string nome, string descrizione, Oggetto richiesta, Oggetto regalo,bool isInteragibile) : base(nome, 0, descrizione, false,isInteragibile)
         {
             this.richiesta = richiesta;
             this.regalo = regalo;
@@ -26,23 +27,31 @@ namespace GiocoTestualeEsame
         public void RichiestaToString()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            if (richiesta != null)
+            if (isInteragibile)
             {
-                Console.Write($"{descrizione},{nome} vorrebbe ");
-                Console.ForegroundColor = ConsoleColor.DarkRed;//cambio il colore solo per la variabile
-                Console.Write(richiesta.nome + ".\n");
+                if (richiesta != null)
+                {
+                    Console.Write($"{descrizione},{nome} vorrebbe ");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;//cambio il colore solo per la variabile
+                    Console.Write(richiesta.nome + ".\n");
+                }
+                if (richiesta == null)//se non vuole niente stampa solo la descrizione
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(descrizione + "\n");
+                }
+                if (regalo != null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"In cambio riceverai ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;//cambio il colore solo per la variabile
+                    Console.Write(regalo.nome + ".\n");
+                }
             }
-            if(richiesta == null)//se non vuole niente stampa solo la descrizione
+            else
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(descrizione + "\n");
-            }
-            if (regalo != null)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"In cambio riceverai ");
-                Console.ForegroundColor = ConsoleColor.DarkYellow;//cambio il colore solo per la variabile
-                Console.Write(regalo.nome + ".\n");
             }
         }
         /// <summary>
@@ -51,7 +60,13 @@ namespace GiocoTestualeEsame
         /// </summary>
         public bool AddZainoRegalo()
         {
-            if(richiesta != null)//se c'è una richiesta...
+            if (!isInteragibile)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("non ha regali da darti\n"); 
+                return true;
+            }
+            else if(richiesta != null)//se c'è una richiesta...
             {
                 if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(richiesta))
                 {
@@ -89,6 +104,7 @@ namespace GiocoTestualeEsame
                 c.descrizione = $"{c.nome} ti è riconosciente";
                 c.richiesta = null;
                 c.regalo = null;
+                c.isInteragibile = false;
             }
         }
     }

@@ -79,7 +79,9 @@ namespace GiocoTestualeEsame.stanze
                 nuovoaStanza = ElencoStanze.TutteLeStanze.ElementAt(random.Next(ElencoStanze.TutteLeStanze.Count)).Value;
             return nuovoaStanza;
         }
-
+        /// <summary>
+        /// Pulisco la lista oggettiNellaStanza
+        /// </summary>
         public void PuliscoLista_oggettiNellaStanza()
         {
             oggettiNellaStanza.Clear();

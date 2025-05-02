@@ -40,8 +40,7 @@ namespace GiocoTestualeEsame.Storia
             if(c.nome == ElencoOggetti.TopoDragoElettrico.nome && stanzaCorrente.nome == ElencoStanze.quadroElettrico.nome)//se si trova nella stanza giusta e ha dato l'oggetto richiesta al cattivo...
             {
                 ElencoOggetti.Elettricista.descrizione = "Ora che il mostro se ne andato, può riparare il quadro elettrico";//cambio descrizione all'elettricista
-                ElencoOggetti.Elettricista.richiesta = ElencoOggetti.cacciavite;//aggiorno la richiesta
-                ElencoOggetti.Elettricista.regalo = ElencoOggetti.ticket;//aggiorno regalo
+                ElencoOggetti.Elettricista.isInteragibile = true;//lo rendo interagibile
                 stanzaCorrente.RimuoviOggettoDallaStanza(c);//rimuovo il cattivo
             }
         }

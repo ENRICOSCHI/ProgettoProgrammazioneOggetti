@@ -35,6 +35,9 @@ namespace GiocoTestualeEsame.Storia
              Comandi.ControlloComandi(command, argomento);// controllo il comando inserito
             //Console.WriteLine($"Hai scritto: {command} {argomento}"); test comando
         }
+        /// <summary>
+        /// Creo il giocatore e faccio partire la storia
+        /// </summary>
         public static void CreazioneGiocatore_StartStoria()
         {
             GestisciStatoGioco GS = new GestisciStatoGioco();
