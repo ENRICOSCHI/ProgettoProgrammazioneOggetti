@@ -11,11 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.IO;
+using System.Text.Json.Serialization;
 
 namespace GiocoTestualeEsame.comandiDiGioco
 {
     public class Comandi
     {
+        private const string FILEJSONGIOCATORE = "giocatore.json";
+        private const string FILEJSONSTANZE = "OggettiStanze.json";
         /// <summary>
         /// Controllo i comandi inseriti dall'utente e in caso con l'argomento passato
         /// </summary>
@@ -327,27 +330,49 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void Salva()
         {
             SalvataggiGiocatore sg = GestisciStatoGioco.giocatoreCorrente.ImportoDatiCorrenti();
-            string jsonString = JsonSerializer.Serialize(sg, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText("giocatore.json", jsonString);
+            string jsonGiocatore = JsonSerializer.Serialize(sg, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(FILEJSONGIOCATORE, jsonGiocatore);
+            string jsonStanze = JsonSerializer.Serialize(ElencoStanze.TutteLeStanze , new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(FILEJSONSTANZE, jsonStanze);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("dati salvati");
         }
         public void Carica()
         {
-            string jsonString = File.ReadAllText("giocatore.json");
-            SalvataggiGiocatore sg = JsonSerializer.Deserialize<SalvataggiGiocatore>(jsonString);
+            /*CARICAMENTO OGGETTI NELLA STANZA*/
+            string jsonStanze = File.ReadAllText(FILEJSONSTANZE);
+            Dictionary<string, Stanza> tutteLeStanzeDatiCaricati = JsonSerializer.Deserialize<Dictionary<string, Stanza>>(jsonStanze);
+            foreach(string nomeStanza in ElencoStanze.TutteLeStanze.Keys)
+            {
+                Stanza stanza = ConvertiStringToStanza(nomeStanza);
+                stanza.PuliscoLista_oggettiNellaStanza();
+                foreach (var o in tutteLeStanzeDatiCaricati[nomeStanza].oggettiNellaStanza)
+                {
+                    Oggetto oggetto = ConvertiStringToOggetto(o.nome);//oggetto estratto è diverso dall'oggetto caricato inizialmente
+                    stanza.AddOggettoNellaStanza(oggetto);
+                }
+            }
+            /*CARICAMENTO GIOCATORE*/
+            string jsonGiocatore = File.ReadAllText(FILEJSONGIOCATORE);
+            SalvataggiGiocatore sg = JsonSerializer.Deserialize<SalvataggiGiocatore>(jsonGiocatore);
             Giocatore giocatore = Giocatore.CreoGiocatoreDaSalvattaggiGiocatore(sg);
+            
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("dati caricati");
         }
 
         public void NuovaPartita()
         {
-            string path = "giocatore.json";
-            if (File.Exists(path))
+            string pathGiocatore = FILEJSONGIOCATORE;
+            string pathStanza = FILEJSONSTANZE;
+            if (File.Exists(pathStanza))
             {
-                File.Delete(path);
-                Console.WriteLine("Salvataggio precedente eliminato.");
+                File.Delete(pathStanza);
+                Console.WriteLine("Salvataggio stanze eliminato.");
+            }else if (File.Exists(pathGiocatore))
+            {
+                File.Delete(pathGiocatore);
+                Console.WriteLine("Salvataggio giocatore eliminato.");
             }
             Console.Clear();
             StoriaPrincipale.CreazioneGiocatore_StartStoria();
@@ -369,6 +394,16 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 return null;
             }
             return o;
+        }
+        public static Stanza ConvertiStringToStanza(string input)
+        {
+            Stanza s;
+            if (!ElencoStanze.TutteLeStanze.TryGetValue(input, out s))
+            {
+                Warning.WarningErroreDiBattitura();
+                return null;
+            }
+            return s;
         }
     }
 }

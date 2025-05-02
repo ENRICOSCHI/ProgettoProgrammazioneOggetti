@@ -83,8 +83,9 @@
     <Compile Include="Oggetto_cartella\Passaggio.cs" />
     <Compile Include="Persona_cartella\Giocatore.cs" />
     <Compile Include="Oggetto_cartella\Personaggio.cs" />
-    <Compile Include="Persona_cartella\SalvataggiGiocatore.cs" />
+    <Compile Include="Salvataggi\SalvataggiGiocatore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Salvataggi\SalvataggiOggettiStanze.cs" />
     <Compile Include="stanze\ElencoStanze.cs" />
     <Compile Include="stanze\Stanza.cs" />
     <Compile Include="Storia\GestisciStatoGioco.cs" />

@@ -123,11 +123,17 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         //inserisco gli elementi dei 3 dizionari nel dizionario generale
         static ElencoOggetti()
         {
-            foreach(var elemento in TuttiIPassaggi)
+            InizializzoTuttiGliInteragibili();
+        }
+
+        public static void InizializzoTuttiGliInteragibili()
+        {
+            TuttiGliInteragibili.Clear();
+            foreach (var elemento in TuttiIPassaggi)
             {
                 TuttiGliInteragibili[elemento.Key] = elemento.Value;
             }
-            foreach(var elemento in TuttiIPersonaggi)
+            foreach (var elemento in TuttiIPersonaggi)
             {
                 TuttiGliInteragibili[elemento.Key] = elemento.Value;
             }

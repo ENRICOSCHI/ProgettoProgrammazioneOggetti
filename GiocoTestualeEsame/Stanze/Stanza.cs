@@ -13,7 +13,7 @@ namespace GiocoTestualeEsame.stanze
         public string nome { get; }
         public string descrizione { get; }
         /*inserire oggetti presenti nella stanza (si riemprirà con addOggettiNellaStanza)*/
-        private List<Oggetto> oggettiNellaStanza = new List<Oggetto>
+        public List<Oggetto> oggettiNellaStanza { get; set; } = new List<Oggetto>//pubblica così salvo gli oggetti presenti in ogni stanza
         {
         };
 
@@ -78,6 +78,11 @@ namespace GiocoTestualeEsame.stanze
             while (nuovoaStanza == GestisciStatoGioco.stanzaCorrente)
                 nuovoaStanza = ElencoStanze.TutteLeStanze.ElementAt(random.Next(ElencoStanze.TutteLeStanze.Count)).Value;
             return nuovoaStanza;
+        }
+
+        public void PuliscoLista_oggettiNellaStanza()
+        {
+            oggettiNellaStanza.Clear();
         }
     }
 }
