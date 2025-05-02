@@ -373,6 +373,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// </summary>
         public void NuovaPartita()
         {
+            /*GESTIRE ECCEZIONE QUANDO NON è PRESENTE NESSUN FILE DI CARICAMENTEO*/
             string pathGiocatore = FILEJSONGIOCATORE;
             string pathStanza = FILEJSONSTANZE;
             if (File.Exists(pathStanza))
