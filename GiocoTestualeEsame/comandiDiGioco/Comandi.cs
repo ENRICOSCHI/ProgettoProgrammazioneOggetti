@@ -111,7 +111,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 "==========================COMANDI GESTIONE PARTITA==========================\n\n" +
                 "- salva: salva partita attuale\n\n" +
                 "- carica: carica partita precedente\n\n" +
-                "- nuovaPartita: comincia una partita da capo cancellando i dati di salvataggio esistenti\n\n" +
+                "- nuovaPartita: comincia una partita da capo e (se sono presenti) cancellando i dati di salvataggio esistenti\n\n" +
                 "==========================COMANDI================================\n\n" +
                 "- help: mostra i comandi presenti nel gioco.\n\n" +
                 "- ciao: saluta!\n\n" +
@@ -324,9 +324,9 @@ namespace GiocoTestualeEsame.comandiDiGioco
             }
         }
         #endregion
-        #region"metodi Salvataggi e caricamento"
+        #region"metodi Salvataggio, Caricamento, Nuova Partita "
         /// <summary>
-        /// Salvo i dati della partita attuale
+        /// Salvo i dati della partita attuale.
         /// </summary>
         public void Salva()
         {
@@ -341,35 +341,41 @@ namespace GiocoTestualeEsame.comandiDiGioco
             Console.WriteLine("dati salvati");
         }
         /// <summary>
-        /// Carico dati della partita salvata precedentemente
+        /// Carico dati della partita salvata precedentemente.
         /// </summary>
         public void Carica()
         {
-            /*CARICAMENTO OGGETTI NELLA STANZA*/
-            string jsonStanze = File.ReadAllText(FILEJSONSTANZE);
-            Dictionary<string, Stanza> tutteLeStanzeDatiCaricati = JsonSerializer.Deserialize<Dictionary<string, Stanza>>(jsonStanze);
-            foreach(string nomeStanza in ElencoStanze.TutteLeStanze.Keys)
+            if (File.Exists(FILEJSONGIOCATORE) && File.Exists(FILEJSONSTANZE))
             {
-                Stanza stanza = ConvertiStringToStanza(nomeStanza);
-                stanza.PuliscoLista_oggettiNellaStanza();//ripulisco la lista così da mettere altri i nuovi oggetti salvati nella stanza 
-                foreach (var o in tutteLeStanzeDatiCaricati[nomeStanza].oggettiNellaStanza)
+                /*CARICAMENTO OGGETTI NELLA STANZA*/
+                string jsonStanze = File.ReadAllText(FILEJSONSTANZE);
+                Dictionary<string, Stanza> tutteLeStanzeDatiCaricati = JsonSerializer.Deserialize<Dictionary<string, Stanza>>(jsonStanze);
+                foreach (string nomeStanza in ElencoStanze.TutteLeStanze.Keys)
                 {
-                    Oggetto oggetto = ConvertiStringToOggetto(o.nome);//oggetto estratto è diverso dall'oggetto caricato inizialmente
-                    oggetto.isInteragibile = o.isInteragibile;//carico lo stato di interagibile precedentemente salvato
-                    oggetto.descrizione = o.descrizione; //carico la descrizione precedentemente salvata
-                    stanza.AddOggettoNellaStanza(oggetto);
+                    Stanza stanza = ConvertiStringToStanza(nomeStanza);
+                    stanza.PuliscoLista_oggettiNellaStanza();//ripulisco la lista così da mettere altri i nuovi oggetti salvati nella stanza 
+                    foreach (var o in tutteLeStanzeDatiCaricati[nomeStanza].oggettiNellaStanza)
+                    {
+                        Oggetto oggetto = ConvertiStringToOggetto(o.nome);//oggetto estratto è diverso dall'oggetto caricato inizialmente
+                        oggetto.isInteragibile = o.isInteragibile;//carico lo stato di interagibile precedentemente salvato
+                        oggetto.descrizione = o.descrizione; //carico la descrizione precedentemente salvata
+                        stanza.AddOggettoNellaStanza(oggetto);
+                    }
                 }
+                /*CARICAMENTO GIOCATORE*/
+                string jsonGiocatore = File.ReadAllText(FILEJSONGIOCATORE);
+                SalvataggiGiocatore sg = JsonSerializer.Deserialize<SalvataggiGiocatore>(jsonGiocatore);
+                Giocatore giocatore = Giocatore.CreoGiocatoreDaSalvattaggiGiocatore(sg);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("dati caricati");
             }
-            /*CARICAMENTO GIOCATORE*/
-            string jsonGiocatore = File.ReadAllText(FILEJSONGIOCATORE);
-            SalvataggiGiocatore sg = JsonSerializer.Deserialize<SalvataggiGiocatore>(jsonGiocatore);
-            Giocatore giocatore = Giocatore.CreoGiocatoreDaSalvattaggiGiocatore(sg);
+            else
+                Warning.WarningErroreFileNonEsistente();
             
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("dati caricati");
         }
         /// <summary>
-        /// Cancello i dati precedente e della partita attuale per cominciarne una nuova
+        /// Cancello i dati precedenti (se presenti) e della partita attuale per cominciarne una nuova.
         /// </summary>
         public void NuovaPartita()
         {
@@ -385,10 +391,21 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 File.Delete(pathGiocatore);
                 Console.WriteLine("Salvataggio giocatore eliminato.");
             }
-            Console.Clear();
-            StoriaPrincipale.CreazioneGiocatore_StartStoria();
+            Console.Clear();//pulisco la console
+            Console.ResetColor();//rimetto il colore bianco
+            StoriaPrincipale.CreazioneGiocatore_StartStoria();//faccio ripartire la storia
+        }
+        /// <summary>
+        /// Controllo se i dati sono già presenti e stampo a video un messaggio di notifica.
+        /// </summary>
+        public static void ControlloPresenzaDati()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            if (File.Exists(FILEJSONGIOCATORE) && File.Exists(FILEJSONSTANZE))
+                Console.WriteLine("\n---------IMPORATANTE!!!---------\nSono stati trovati file di salvattaggio precedenti, per caricarli scrivere ''carica''\n\n");
         }
         #endregion
+        #region "metodi di conversione"
         /// <summary>
         /// Converto la stringa in Oggetto.
         /// Ritorna un Oggetto.
@@ -416,5 +433,6 @@ namespace GiocoTestualeEsame.comandiDiGioco
             }
             return s;
         }
+        #endregion
     }
 }

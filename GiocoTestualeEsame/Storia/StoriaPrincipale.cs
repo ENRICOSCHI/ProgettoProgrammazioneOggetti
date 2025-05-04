@@ -48,6 +48,7 @@ namespace GiocoTestualeEsame.Storia
             GS.CreateGiocatore(nomeUtente, cognomeUtente);//creo il giocatore
             StoriaPrincipale storia = new StoriaPrincipale();
             PreparazioneStoria.CostruisciStoria();
+            Comandi.ControlloPresenzaDati();//Controllo se il giocatore ha file di salvataggio esistenti
             /*descrizione piano iniziale*/
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta del prompt 
             Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);

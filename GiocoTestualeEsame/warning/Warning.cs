@@ -22,6 +22,7 @@ namespace GiocoTestualeEsame.warning
         private static string comandoErrato = "Attenzione, il comando '{0}' inserito non esiste\r";
         private static string direzioneErrata = "Non è presente questo passaggio nella stanza\r";
         private static string erroreOggettoPassato = "Attenzione, non puoi passare questo oggetto\r";
+        private static string erroreFileNonEsistente = "Attenzione, non sono stati trovati file di salvataggio\r";
         #endregion
 
 
@@ -120,6 +121,11 @@ namespace GiocoTestualeEsame.warning
         {
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
             Console.WriteLine(erroreOggettoPassato);
+        }
+        public static void WarningErroreFileNonEsistente()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(erroreFileNonEsistente);
         }
         #endregion
     }
