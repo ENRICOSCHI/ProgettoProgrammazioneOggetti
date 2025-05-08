@@ -3,9 +3,11 @@ using GiocoTestualeEsame.Persona_cartella;
 using GiocoTestualeEsame.stanze;
 using GiocoTestualeEsame.Storia;
 using GiocoTestualeEsame.warning;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +15,7 @@ namespace GiocoTestualeEsame
 {
     public class Giocatore
     {
+        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         //uso le proprietà con solo il get perchè il set lo faccio già quando creo l'oggetto
         public string nome { get;  }
         public string cognome { get;  } //credo per il loggin serve sapere il cognome
@@ -56,6 +59,7 @@ namespace GiocoTestualeEsame
             {
                 GestisciStatoGioco.stanzaCorrente = stanzaSalvata;
             }
+            _log.Info(Warning.infoCreazioneDaiSalvataggiGiocatore);
             return g;
         }
         /// <summary>
@@ -106,11 +110,13 @@ namespace GiocoTestualeEsame
                     GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggetto);//vuol dire che era un regalo di un personaggio e quindi lo lascio nella stanza..
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Oggetto lasciato nella stanza");
+                    _log.Info("Oggetto lasciato nella stanza");
                 }
             }
             else if (!oggetto.isRaccoglibile)//se non può essere raccolto
             {
                 Warning.WarningNonPuoiRaccogliereOggetto();
+                _log.Error(Warning.erroreoggettoNonRaccoglibile_LOG);
             }
             else
             {
@@ -120,6 +126,7 @@ namespace GiocoTestualeEsame
                 GestisciStatoGioco.stanzaCorrente.RimuoviOggettoDallaStanza(oggetto);//siccome ho messo l'oggetto nello zaino, lo tolgo dalla stanza
                 Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
                 Console.WriteLine($"{oggetto.nome} inserito nello zaino");
+                _log.Info($"{oggetto.nome} inserito nello zaino");
             }
         }
         /// <summary>
@@ -150,10 +157,12 @@ namespace GiocoTestualeEsame
                 oggettiMomentaneiRimossi.Clear();//svuoto la lista
                 Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
                 Console.WriteLine($"{oggetto.nome} rimosso dallo zaino");
+                _log.Info($"{oggetto.nome} rimosso dallo zaino");
             }
             else
             {
                 Warning.WarningOggettoNonPresenteNelloZaino(oggetto);
+                _log.Error(Warning.oggettoNonPresenteNelloZaino_LOG);
             }
         }
         /// <summary>
@@ -181,10 +190,12 @@ namespace GiocoTestualeEsame
                 oggettiMomentaneiRimossi.Clear();//svuoto la lista
                 Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
                 Console.WriteLine($"{oggetto.nome} rimosso dallo zaino");
+                _log.Info($"{oggetto.nome} rimosso dallo zaino");
             }
             else
             {
                 Warning.WarningOggettoNonPresenteNelloZaino(oggetto);
+                _log.Error(Warning.oggettoNonPresenteNelloZaino_LOG);
             }
         }
         /// <summary>

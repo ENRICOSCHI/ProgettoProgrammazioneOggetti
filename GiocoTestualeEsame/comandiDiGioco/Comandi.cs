@@ -74,11 +74,12 @@ namespace GiocoTestualeEsame.comandiDiGioco
                     GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggettoCorrenteInMano);// metto l'oggetto che avevo in mano nella stanza
                     GestisciStatoGioco.giocatoreCorrente.MettiOggettoInMano(oggettoPassato);// metto l'oggetto nuovo in mano
                     Console.WriteLine("L'oggetto " + argomento + " è stato preso in mano");
+                    _log.Info($"Oggetto {argomento} preso in mano");
                 }
                 else
                 {
                     Warning.WarningNonPuoiRaccogliereOggetto();
-                    _log.Error(Warning.oggettoNonRaccoglibile_LOG);
+                    _log.Error(Warning.erroreoggettoNonRaccoglibile_LOG);
                     
                 }
             }
@@ -471,7 +472,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <returns></returns>
         public static Oggetto ConvertiStringToOggetto(string input)
         {
-            _log.Info("Conversione file");
+            _log.Info($"Conversione in oggetto {input}");
             Oggetto o;
             if (!ElencoOggetti.TuttiGliInteragibili.TryGetValue(input, out o))
             {
@@ -483,6 +484,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         }
         public static Stanza ConvertiStringToStanza(string input)
         {
+            _log.Info($"Conversione in stanza {input}");
             Stanza s;
             if (!ElencoStanze.TutteLeStanze.TryGetValue(input, out s))
             {

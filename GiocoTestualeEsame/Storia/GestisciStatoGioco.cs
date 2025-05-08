@@ -1,8 +1,10 @@
 ﻿using GiocoTestualeEsame.Oggetto_cartella;
 using GiocoTestualeEsame.stanze;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +13,7 @@ namespace GiocoTestualeEsame.Storia
 {
     public class GestisciStatoGioco
     {
-
+        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         //gestisci la stanza corrente
         public static Stanza stanzaCorrente { get; set; } = ElencoStanze.pianoTerra;
         public static Oggetto oggettoInMano { get; set; } = ElencoOggetti.manoVuota; //non ha niente all'inizio in mano
@@ -19,6 +21,7 @@ namespace GiocoTestualeEsame.Storia
         public void CreateGiocatore(string nome,string cognome)
         {
             giocatoreCorrente = new Giocatore(nome, cognome);//creo giocatore
+            _log.Info("Giocatore creato");
         }
         /// <summary>
         /// Passo il giocatoreCorrente al giocatore appena caricato
@@ -42,6 +45,8 @@ namespace GiocoTestualeEsame.Storia
                 ElencoOggetti.Elettricista.descrizione = "Ora che il mostro se ne andato, può riparare il quadro elettrico";//cambio descrizione all'elettricista
                 ElencoOggetti.Elettricista.isInteragibile = true;//lo rendo interagibile
                 stanzaCorrente.RimuoviOggettoDallaStanza(c);//rimuovo il cattivo
+                _log.Info("tolto TopoDragoElettrico dalla stanza");
+                _log.Info("cambiata descrizione e interagibilità elettricista");
             }
         }
         /// <summary>
@@ -54,6 +59,7 @@ namespace GiocoTestualeEsame.Storia
             {
                 if (giocatoreCorrente.IsOggettoNelloZaino(ElencoOggetti.ticket) || stanzaCorrente.ControlloOggettoNellaStanza(ElencoOggetti.ticket))
                 {
+                    _log.Info("gioco finito");
                     Console.WriteLine("==========================HAI FINITO IL GIOCO==========================\nLa corrente è finalmente tornata e la sala giochi è di nuovo accessibile!\n=============================================================================");
                     Console.ForegroundColor= ConsoleColor.White;
                     Console.WriteLine("\nPremi un tasto per chiudere...");

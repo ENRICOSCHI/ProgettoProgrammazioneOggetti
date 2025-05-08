@@ -27,16 +27,16 @@ namespace GiocoTestualeEsame.warning
 
         #region"stringhe per il logging"
         /*MESSAGGI DI ERRORE*/
-        public static string errorecomandoInesistente_LOG = "Errore, inserito comando errato.";
-        public static string erroreOggettoPassato_LOG = "ERRORE, la stringa passata non può diventare oggetto";
+        public static string errorecomandoInesistente_LOG = "ERRORE, inserito comando errato.";
+        public static string erroreOggettoPassato_LOG = "ERRORE, la stringa passata non puo' diventare oggetto";
         public static string erroreFileNonEsistente_LOG = "ERRORE, file di salvataggio non esistente";
         public static string erroreDiBattitura_LOG = "ERRORE,il nome inserito nel terminale non esiste";
+        public static string erroreoggettoNonRaccoglibile_LOG = "ERRORE,oggetto non raccoglibile.";
+        public static string erroreoggettoNonAggiuntoAlloZaino_LOG = "ERRORE, oggetto non aggiunto allo zaino.";
         public static string superatoLimitePeso_LOG = "Superato limite del peso.";
         public static string oggettoNonPresenteNelloZaino_LOG = "Oggetto non è presente nello zaino.";
         public static string oggettoNonPresenteNellaStanza_LOG = "Oggetto non è presente nella stanza.";
         public static string oggettoNonInMano_LOG = "Oggetto non è in mano.";
-        public static string oggettoNonRaccoglibile_LOG = "ERRORE,oggetto non raccoglibile.";
-        public static string oggettoNonAggiuntoAlloZaino_LOG = "ERRORE, oggetto non aggiunto allo zaino.";
         public static string direzioneErrata_LOG = "Passaggio non presente nella stanza.";
         /*MESSAGGI DI AVVISO*/
         public static string infoManoGiaVuota = "Info, si è provato a rimuovere un oggetto da una mano già vuota.";
@@ -56,6 +56,7 @@ namespace GiocoTestualeEsame.warning
         public static string infoUtenteUsaSalva= "Info, l'utente ha usato il comando salva.";
         public static string infoUtenteUsaCarica = "Info, l'utente ha usato il comando carica.";
         public static string infoUtenteUsaNuovaPartita= "Info, l'utente ha usato il comando nuova partita.";
+        public static string infoCreazioneDaiSalvataggiGiocatore = "Info, dati giocatore caricati nella classe SalvataggiGiocatore.";
 
         #endregion
 
