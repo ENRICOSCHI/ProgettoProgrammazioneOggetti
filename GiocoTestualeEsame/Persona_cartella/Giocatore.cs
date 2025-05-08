@@ -110,7 +110,7 @@ namespace GiocoTestualeEsame
             }
             else if (!oggetto.isRaccoglibile)//se non può essere raccolto
             {
-                Warning.WarningNonPuoiRaccogliereOgetto();
+                Warning.WarningNonPuoiRaccogliereOggetto();
             }
             else
             {

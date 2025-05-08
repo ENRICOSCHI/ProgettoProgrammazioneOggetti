@@ -25,6 +25,39 @@ namespace GiocoTestualeEsame.warning
         private static string erroreFileNonEsistente = "Attenzione, non sono stati trovati file di salvataggio\r";
         #endregion
 
+        #region"stringhe per il logging"
+        /*MESSAGGI DI ERRORE*/
+        public static string errorecomandoInesistente_LOG = "Errore, inserito comando errato.";
+        public static string erroreOggettoPassato_LOG = "ERRORE, la stringa passata non può diventare oggetto";
+        public static string erroreFileNonEsistente_LOG = "ERRORE, file di salvataggio non esistente";
+        public static string erroreDiBattitura_LOG = "ERRORE,il nome inserito nel terminale non esiste";
+        public static string superatoLimitePeso_LOG = "Superato limite del peso.";
+        public static string oggettoNonPresenteNelloZaino_LOG = "Oggetto non è presente nello zaino.";
+        public static string oggettoNonPresenteNellaStanza_LOG = "Oggetto non è presente nella stanza.";
+        public static string oggettoNonInMano_LOG = "Oggetto non è in mano.";
+        public static string oggettoNonRaccoglibile_LOG = "ERRORE,oggetto non raccoglibile.";
+        public static string oggettoNonAggiuntoAlloZaino_LOG = "ERRORE, oggetto non aggiunto allo zaino.";
+        public static string direzioneErrata_LOG = "Passaggio non presente nella stanza.";
+        /*MESSAGGI DI AVVISO*/
+        public static string infoManoGiaVuota = "Info, si è provato a rimuovere un oggetto da una mano già vuota.";
+        public static string infoGuardoStanza = "Info, l'utente guarda la stanza.";
+        public static string infoUtenteUsaHelp = "Info, l'utente ha usato il comando help.";
+        public static string infoUtenteUsaPrendi = "Info, l'utente ha usato il comando prendi.";
+        public static string infoUtenteUsaLascia = "Info, l'utente ha usato il comando lascia.";
+        public static string infoUtenteUsaVai = "Info, l'utente ha usato il comando vai.";
+        public static string infoUtenteUsaParla = "Info, l'utente ha cambiato parla.";
+        public static string infoUtenteUsaDai = "Info, l'utente ha usato il comando dai.";
+        public static string infoUtenteUsaZaino = "Info, l'utente ha usato il comando zaino.";
+        public static string infoUtenteUsaAggiungi = "Info, l'utente ha usato il comando aggiugni.";
+        public static string infoUtenteUsaRimuovi = "Info, l'utente ha usato il comando rimuovi.";
+        public static string infoUtenteUsaPeso = "Info, l'utente ha usato il comando peso.";
+        public static string infoUtenteUsaDescrizione = "Info, l'utente ha usato il comando descrizione.";
+        public static string infoUtenteUsaTeletrasporto = "Info, l'utente ha usato il comando teletrasporto.";
+        public static string infoUtenteUsaSalva= "Info, l'utente ha usato il comando salva.";
+        public static string infoUtenteUsaCarica = "Info, l'utente ha usato il comando carica.";
+        public static string infoUtenteUsaNuovaPartita= "Info, l'utente ha usato il comando nuova partita.";
+
+        #endregion
 
         #region "metodi per il warning"
         /// <summary>
@@ -53,7 +86,7 @@ namespace GiocoTestualeEsame.warning
         /// Warning per avvisare che l'oggetto che si cercava di raccogliere non è raccoglibile
         /// </summary>
         /// <returns></returns>
-        public static void WarningNonPuoiRaccogliereOgetto()
+        public static void WarningNonPuoiRaccogliereOggetto()
         {
             Console.ForegroundColor = ConsoleColor.Red;//cambio colore scritta
             Console.WriteLine(oggettoNonRaccoglibile);
