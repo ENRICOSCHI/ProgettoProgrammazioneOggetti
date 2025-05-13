@@ -359,7 +359,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// </summary>
         public void Carica()
         {
-            Warning.InfoCaricamentoGiocatore();
+            Warning.InfoUsoCarica();
             if (File.Exists(FILEJSONGIOCATORE) && File.Exists(FILEJSONSTANZE))
             {
                 /*CARICAMENTO OGGETTI NELLA STANZA*/

@@ -1,5 +1,6 @@
 ﻿using GiocoTestualeEsame.Oggetto_cartella;
 using GiocoTestualeEsame.stanze;
+using GiocoTestualeEsame.warning;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace GiocoTestualeEsame.Storia
         /*Attenzione gli oggetti devono avere nomi differenti se stanno in stanze diverse*/
         public static void CostruisciStoria()
         {
+            Warning.InfoCustomizable("Storia creata");//metto un info nel log per mostrare che sono stati caricati i personaggi ecc.. nel gioco
             /*TESTO NARRATIVO INIZIALE*/
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(
