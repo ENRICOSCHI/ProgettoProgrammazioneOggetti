@@ -24,7 +24,6 @@ namespace GiocoTestualeEsame.comandiDiGioco
     {
         private const string FILEJSONGIOCATORE = "giocatore.json";
         private const string FILEJSONSTANZE = "OggettiStanze.json";
-        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         /// <summary>
         /// Controllo i comandi inseriti dall'utente e in caso con l'argomento passato
         /// </summary>
@@ -53,7 +52,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 case "salva": c.Salva(); break;
                 case "carica": c.Carica(); break;
                 case "nuovaPartita": c.NuovaPartita(); break;
-                default: Warning.WarningComandoNonEsistente(comando);_log.Error(Warning.errorecomandoInesistente_LOG); break;
+                default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
         #region "metodi comando prendi/lascia"
@@ -63,7 +62,6 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="argomento"></param>
         public void MettiNellaMano(string argomento)
         {
-            _log.Info(Warning.infoUtenteUsaPrendi);
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
             Oggetto oggettoPassato = ConvertiStringToOggetto(argomento);
             Oggetto oggettoCorrenteInMano = GestisciStatoGioco.oggettoInMano;//oggetto che ho in mano prima di cambiarlo
@@ -73,35 +71,29 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 {
                     GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggettoCorrenteInMano);// metto l'oggetto che avevo in mano nella stanza
                     GestisciStatoGioco.giocatoreCorrente.MettiOggettoInMano(oggettoPassato);// metto l'oggetto nuovo in mano
-                    Console.WriteLine("L'oggetto " + argomento + " è stato preso in mano");
-                    _log.Info($"Oggetto {argomento} preso in mano");
+                    Console.WriteLine("L'oggetto " + oggettoPassato.nome + " è stato preso in mano");
+                    Warning.InfoOggettoPresoInMano(oggettoPassato);
+                    Warning.InfoOggettoLasciatoInStanza(oggettoCorrenteInMano, GestisciStatoGioco.stanzaCorrente);
                 }
                 else
-                {
                     Warning.WarningNonPuoiRaccogliereOggetto();
-                    _log.Error(Warning.erroreoggettoNonRaccoglibile_LOG);
-                    
-                }
             }
             else
-            {
                 Warning.WarnignOggettoNonPresenteNellaStanza();
-                _log.Error(Warning.oggettoNonInMano_LOG);
-            }
         }
         /// <summary>
         /// Lascio nella stanza l'oggetto presente nella mano
         /// </summary>
         public void Lascia()
         {
-            _log.Info(Warning.infoUtenteUsaLascia);
+            Warning.InfoUsoLascia();
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
             if (GestisciStatoGioco.oggettoInMano.nome != "")
                 GestisciStatoGioco.giocatoreCorrente.LasciOggettoDallaMano();
             else
             {
                 Console.WriteLine("non hai oggetti in mano");
-                _log.Info(Warning.infoManoGiaVuota);
+                Warning.InfoManoGiàVuota();
             }                
         }
         #endregion
@@ -112,7 +104,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void GuardaStanza()
         {
             GestisciStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
-            _log.Info(Warning.infoGuardoStanza);
+            Warning.InfoGuardaStanza(GestisciStatoGioco.stanzaCorrente);
         }
         #endregion
         #region "metodi comando help"
@@ -143,7 +135,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 "- tp: se hai il teletrasporto nello zaino, puoi teletrasportarti in una stanza casuale.\n\n" +
                 "- parla + nome personaggio: ascolta cosa ha da dirti un personaggio nella scena.\n\n" +
                 "- dai + nome personaggio: dai al personaggio indicato l'oggetto richiesto == l'oggetto deve essere nello zaino ==.\n");
-            _log.Info(Warning.infoUtenteUsaHelp);
+            Warning.InfoUsoHelp();
         }
         #endregion
         #region "metodi comando vai/muoversi tra le stanze"
@@ -153,7 +145,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="direzione"></param>
         public void Vai(string nomePassaggio)
         {
-            _log.Info(Warning.infoUtenteUsaVai);
+            Warning.InfoUsoVai();
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
             Oggetto o = ConvertiStringToOggetto(nomePassaggio);//converto la stringa in un Oggetto, e controllo se la direzione è presente come oggetto nella stanza
             if (o is Passaggio)
@@ -162,7 +154,6 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 if (!GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(p))
                 {
                     Warning.WarningDirezioneNonPresenteNellaScena();
-                    _log.Info(Warning.direzioneErrata_LOG);
                     return;//se non è presente esco dal metodo 
                 }
                 Stanza stanzaDestinazione = p.destinazione; //prendo la stanza in cui entrerà il giocatore
@@ -170,11 +161,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);//mostro la descrizione della stanza
             }
             else
-            {
-
                 Warning.WarningErroreCasting();
-                _log.Error(Warning.erroreOggettoPassato_LOG);
-            } 
         }
         #endregion
         #region "metodi comando interazione con i personaggi (parla,dai)"
@@ -184,7 +171,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="personaggio"></param>
         public void Parla(string personaggio)
         {
-            _log.Info(Warning.infoUtenteUsaParla);
+            Warning.InfoUsoParla();
             Oggetto o = ConvertiStringToOggetto(personaggio);
             if (o is Personaggio)
             {
@@ -197,16 +184,10 @@ namespace GiocoTestualeEsame.comandiDiGioco
 
                 }
                 else
-                {
                     Warning.WarnignOggettoNonPresenteNellaStanza();
-                    _log.Error(Warning.oggettoNonPresenteNellaStanza_LOG);
-                }    
             }
             else
-            {
                 Warning.WarningErroreCasting();
-                _log.Error(Warning.erroreOggettoPassato_LOG);
-            }  
         }
 
         /// <summary>
@@ -215,7 +196,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="personaggio"></param>
         public void Dai(string personaggio)
         {
-            _log.Info(Warning.infoUtenteUsaDai);
+            Warning.InfoUsoDai();
             Oggetto o = ConvertiStringToOggetto(personaggio);
             if (o is Personaggio)//controllo se è effettivamente di tipo personaggio
             {
@@ -238,12 +219,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 }
             }
             else
-            {
                 Warning.WarningErroreCasting();
-                _log.Error(Warning.erroreOggettoPassato_LOG);
-            }
-                
-            
         }
         #endregion
         #region "metodi interazione con lo zaino (guardaZaino,Aggiungi,Rimuovi,Peso)"
@@ -252,7 +228,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// </summary>
         public void GuardaZaino()
         {
-            _log.Info(Warning.infoUtenteUsaZaino);
+            Warning.InfoUsoZaino();
             GestisciStatoGioco.giocatoreCorrente.GuardaOggettiNelloZaino();
         }
         /// <summary>
@@ -262,17 +238,14 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void AggiungiNelloZaino(string oggettoPassato)
         {
-            _log.Info(Warning.infoUtenteUsaAggiungi);
+            Warning.InfoUsoAggiungi();
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
             if(GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(o))//se è presente nella stanza...
             {
                 GestisciStatoGioco.giocatoreCorrente.AddZaino(o);//inserisco l'oggetto nello zaino
             }
             else
-            {
                 Warning.WarnignOggettoNonPresenteNellaStanza();
-                _log.Error(Warning.oggettoNonPresenteNellaStanza_LOG);
-            }
         }
         /// <summary>
         /// Rimuovo l'oggetto dallo zaino
@@ -280,7 +253,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void RimuoviOggettoDalloZaino(string oggettoPassato)
         {
-            _log.Info(Warning.infoUtenteUsaRimuovi);
+            Warning.InfoUsoRimuovi();
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
             if(o != null)
                 GestisciStatoGioco.giocatoreCorrente.RemoveZaino(o);
@@ -290,7 +263,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// </summary>
         public void PesoZaino()
         {
-            _log.Info(Warning.infoUtenteUsaPeso);
+            Warning.InfoUsoPeso();
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
             Console.WriteLine("Lo zaino pesa: " + GestisciStatoGioco.giocatoreCorrente.pesoNelloZaino + " kg / "+ GestisciStatoGioco.giocatoreCorrente.pesoMaxZaino);
         }
@@ -302,7 +275,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <param name="oggettoPassato"></param>
         public void DescrizioneOggetto(string oggettoPassato)
         {
-            _log.Info(Warning.infoUtenteUsaDescrizione);
+            Warning.InfoUsoDescrizione();
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//converto in Oggetto o Passaggi
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
             if(o != null)
@@ -329,8 +302,6 @@ namespace GiocoTestualeEsame.comandiDiGioco
                     {
                         Warning.WarningOggettoNonPresenteNelloZaino(o);
                         Warning.WarnignOggettoNonPresenteNellaStanza();
-                        _log.Error(Warning.oggettoNonPresenteNelloZaino_LOG);
-                        _log.Error(Warning.oggettoNonPresenteNellaStanza_LOG);
                     }
                 }
                 else if (!o.isRaccoglibile)//se è un Passaggio...
@@ -340,10 +311,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                         Console.WriteLine("Descrizione: " + o.descrizione);
                     }
                     else
-                    {
                         Warning.WarningDirezioneNonPresenteNellaScena();
-                        _log.Error(Warning.direzioneErrata_LOG);
-                    }
                 }
             }
         }
@@ -351,7 +319,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         #region"metodi comando tp"
         public void Teletrasporto()
         {
-            _log.Info(Warning.infoUtenteUsaTeletrasporto);
+            Warning.InfoUsoTeletrasporto();
             if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(ElencoOggetti.teletrasporto) || GestisciStatoGioco.giocatoreCorrente.IsOggettoInMano(ElencoOggetti.teletrasporto))
             {
                 GestisciStatoGioco.stanzaCorrente = Stanza.GetRandomStanza();
@@ -359,13 +327,12 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 Console.WriteLine("ti sei teletrasportato con successo");
                 Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
                 Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);
+                Warning.InfoStanzaTeletrasportato(GestisciStatoGioco.stanzaCorrente);//salvo nel log la stanza in cui mi sono tp
             }
             else
             {
                 Warning.WarningOggettoNonPresenteNelloZaino(ElencoOggetti.teletrasporto);
                 Warning.WarningOggettoNonInMano();
-                _log.Error(Warning.oggettoNonPresenteNelloZaino_LOG);
-                _log.Error(Warning.oggettoNonInMano_LOG);
             }
         }
         #endregion
@@ -375,7 +342,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// </summary>
         public void Salva()
         {
-            _log.Info(Warning.infoUtenteUsaSalva);
+            Warning.InfoUsoSalva();
             /*SALVATAGGIO DATI GIOCATORE*/
             SalvataggiGiocatore sg = GestisciStatoGioco.giocatoreCorrente.ImportoDatiCorrenti();
             string jsonGiocatore = JsonSerializer.Serialize(sg, new JsonSerializerOptions { WriteIndented = true });
@@ -385,14 +352,14 @@ namespace GiocoTestualeEsame.comandiDiGioco
             File.WriteAllText(FILEJSONSTANZE, jsonStanze);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("dati salvati");
-            _log.Info("Dati salvati correttamente");
+            Warning.InfoDatiSalvatiConSuccesso();
         }
         /// <summary>
         /// Carico dati della partita salvata precedentemente.
         /// </summary>
         public void Carica()
         {
-            _log.Info(Warning.infoUtenteUsaCarica);
+            Warning.InfoCaricamentoGiocatore();
             if (File.Exists(FILEJSONGIOCATORE) && File.Exists(FILEJSONSTANZE))
             {
                 /*CARICAMENTO OGGETTI NELLA STANZA*/
@@ -417,20 +384,17 @@ namespace GiocoTestualeEsame.comandiDiGioco
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("dati caricati");
-                _log.Info("Dati caricati correttamente");
+                Warning.InfoDatiCaricatiConSuccesso();
             }
             else
-            {
-                _log.Error(Warning.erroreFileNonEsistente_LOG);
                 Warning.WarningErroreFileNonEsistente();
-            } 
         }
         /// <summary>
         /// Cancello i dati precedenti (se presenti) e della partita attuale per cominciarne una nuova.
         /// </summary>
         public void NuovaPartita()
         {
-            _log.Info(Warning.infoUtenteUsaNuovaPartita);
+            Warning.InfoUsoNuovaPartita();
             /*GESTIRE ECCEZIONE QUANDO NON è PRESENTE NESSUN FILE DI CARICAMENTEO*/
             string pathGiocatore = FILEJSONGIOCATORE;
             string pathStanza = FILEJSONSTANZE;
@@ -438,12 +402,12 @@ namespace GiocoTestualeEsame.comandiDiGioco
             {
                 File.Delete(pathStanza);
                 Console.WriteLine("Salvataggio stanze eliminato.");
-                _log.Info("Salvataggio stanze eliminato.");
+                Warning.InfoDatiStanzeEliminati();
             }else if (File.Exists(pathGiocatore))
             {
                 File.Delete(pathGiocatore);
                 Console.WriteLine("Salvataggio giocatore eliminato.");
-                _log.Info("Salvataggio giocatore eliminato.");
+                Warning.InfoDatiGiocatoreEliminati();
             }
             Console.Clear();//pulisco la console
             Console.ResetColor();//rimetto il colore bianco
@@ -458,7 +422,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
             if (File.Exists(FILEJSONGIOCATORE) && File.Exists(FILEJSONSTANZE))
             {
                 Console.WriteLine("\n---------IMPORATANTE!!!---------\nSono stati trovati file di salvattaggio precedenti, per caricarli scrivere ''carica''\n\n");
-                _log.Info("Trovati file di salvataggio precedenti");
+                Warning.InfoCustomizable("Trovati file di salvataggio precedenti");
             }     
         }
         #endregion
@@ -472,24 +436,22 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <returns></returns>
         public static Oggetto ConvertiStringToOggetto(string input)
         {
-            _log.Info($"Conversione in oggetto {input}");
+            Warning.InfoCustomizable($"Conversione in oggetto {input}");
             Oggetto o;
             if (!ElencoOggetti.TuttiGliInteragibili.TryGetValue(input, out o))
             {
                 Warning.WarningErroreDiBattitura();
-                _log.Error(Warning.erroreDiBattitura_LOG);
                 return null;
             }
             return o;
         }
         public static Stanza ConvertiStringToStanza(string input)
         {
-            _log.Info($"Conversione in stanza {input}");
+            Warning.InfoCustomizable($"Conversione in stanza {input}");
             Stanza s;
             if (!ElencoStanze.TutteLeStanze.TryGetValue(input, out s))
             {
                 Warning.WarningErroreDiBattitura();
-                _log.Error(Warning.erroreDiBattitura_LOG);
                 return null;
             }
             return s;
