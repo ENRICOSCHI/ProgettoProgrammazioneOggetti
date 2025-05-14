@@ -368,7 +368,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 foreach (string nomeStanza in ElencoStanze.TutteLeStanze.Keys)
                 {
                     Stanza stanza = ConvertiStringToStanza(nomeStanza);
-                    stanza.PuliscoLista_oggettiNellaStanza();//ripulisco la lista così da mettere altri i nuovi oggetti salvati nella stanza 
+                    stanza.PuliscoLista_oggettiNellaStanza();//ripulisco la lista così da mettere i nuovi oggetti salvati nella stanza 
                     foreach (var o in tutteLeStanzeDatiCaricati[nomeStanza].oggettiNellaStanza)
                     {
                         Oggetto oggetto = ConvertiStringToOggetto(o.nome);//oggetto estratto è diverso dall'oggetto caricato inizialmente
