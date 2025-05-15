@@ -49,15 +49,12 @@ namespace GiocoTestualeEsame.warning
         private static string infoUtenteUsaTeletrasporto = "Info, l'utente ha usato il comando teletrasporto.";
         private static string infoUtenteUsaSalva= "Info, l'utente ha usato il comando salva.";
         private static string infoUtenteUsaCarica = "Info, l'utente ha usato il comando carica.";
-        private static string infoUtenteUsaNuovaPartita= "Info, l'utente ha usato il comando nuova partita.";
         private static string infoCreazioneDaiSalvataggiGiocatore = "Info, dati giocatore caricati nella classe SalvataggiGiocatore.";
         private static string infoOggettoPresoInMano = "Oggetto {0} preso in mano";
         private static string infoOggettoLasciatoNellaStanza = "Oggetto {0} lasciato nella stanza{1}";
         private static string infoStanzaTeletrasportato = "Giocatore teletrasportato nella stanza{0}";
         private static string infoDatiSalvatiSuccesso = "Dati salvati correttamente";
         private static string infoDatiCaricatiSuccesso = "Dati caricati correttamente";
-        private static string infoDatiGiocatoreEliminati = "Dati giocatore eliminati correttamente";
-        private static string infoDatiStanzeEliminati = "Dati stanze eliminati correttamente";
         #endregion
 
         #region "metodi per il warning"
@@ -318,13 +315,6 @@ namespace GiocoTestualeEsame.warning
         /// <summary>
         /// Scrivo nel file di log l'azione eseguita dall'utente
         /// </summary>
-        public static void InfoUsoNuovaPartita()
-        {
-            _log.Info(infoUtenteUsaNuovaPartita);
-        }
-        /// <summary>
-        /// Scrivo nel file di log l'azione eseguita dall'utente
-        /// </summary>
         public static void InfoCaricamentoGiocatore()
         {
             _log.Info(infoCreazioneDaiSalvataggiGiocatore);
@@ -370,20 +360,6 @@ namespace GiocoTestualeEsame.warning
         public static void InfoDatiCaricatiConSuccesso()
         {
             _log.Info(infoDatiCaricatiSuccesso);
-        }
-        /// <summary>
-        /// Inserire la stanza in cui si è teletrasportato il giocatore.
-        /// </summary>
-        public static void InfoDatiGiocatoreEliminati()
-        {
-            _log.Info(infoDatiGiocatoreEliminati);
-        }
-        /// <summary>
-        /// Inserire la stanza in cui si è teletrasportato il giocatore.
-        /// </summary>
-        public static void InfoDatiStanzeEliminati()
-        {
-            _log.Info(infoDatiStanzeEliminati);
         }
         #endregion
     }

@@ -51,7 +51,6 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 case "dai": c.Dai(argomento); break;
                 case "salva": c.Salva(); break;
                 case "carica": c.Carica(); break;
-                case "nuovaPartita": c.NuovaPartita(); break;
                 default: Warning.WarningComandoNonEsistente(comando); break;
             }
         }
@@ -404,30 +403,6 @@ namespace GiocoTestualeEsame.comandiDiGioco
             }
             else
                 Warning.WarningErroreFileNonEsistente();
-        }
-        /// <summary>
-        /// Cancello i dati precedenti (se presenti) e della partita attuale per cominciarne una nuova.
-        /// </summary>
-        public void NuovaPartita()
-        {
-            Warning.InfoUsoNuovaPartita();
-            /*GESTIRE ECCEZIONE QUANDO NON è PRESENTE NESSUN FILE DI CARICAMENTEO*/
-            string pathGiocatore = FILEJSONGIOCATORE;
-            string pathStanza = FILEJSONSTANZE;
-            if (File.Exists(pathStanza))
-            {
-                File.Delete(pathStanza);
-                Console.WriteLine("Salvataggio stanze eliminato.");
-                Warning.InfoDatiStanzeEliminati();
-            }else if (File.Exists(pathGiocatore))
-            {
-                File.Delete(pathGiocatore);
-                Console.WriteLine("Salvataggio giocatore eliminato.");
-                Warning.InfoDatiGiocatoreEliminati();
-            }
-            Console.Clear();//pulisco la console
-            Console.ResetColor();//rimetto il colore bianco
-            StoriaPrincipale.CreazioneGiocatore_StartStoria();//faccio ripartire la storia
         }
         /// <summary>
         /// Controllo se i dati sono già presenti e stampo a video un messaggio di notifica.
