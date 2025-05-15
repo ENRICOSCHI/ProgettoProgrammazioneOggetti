@@ -335,7 +335,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
             }
         }
         #endregion
-        #region"metodi Salvataggio, Caricamento, Nuova Partita "
+        #region"metodi Salvataggio, Caricamento"
         /// <summary>
         /// Salvo i dati della partita attuale.
         /// </summary>
