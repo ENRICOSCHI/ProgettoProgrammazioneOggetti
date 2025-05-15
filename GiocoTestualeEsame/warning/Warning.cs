@@ -27,6 +27,8 @@ namespace GiocoTestualeEsame.warning
         private static string direzioneErrata = "Non è presente questo passaggio nella stanza\r";
         private static string erroreOggettoPassato = "Attenzione, non puoi passare questo oggetto\r";
         private static string erroreFileNonEsistente = "Attenzione, non sono stati trovati file di salvataggio\r";
+        private static string erroreSalvataggio = "ERRORE, i dati NON sono stati salvati correttamente {0}";
+        private static string erroreCaricamento = "ERRORE, i dati NON sono stati caricati correttamente {0}";
         #endregion
 
         #region"stringhe per i messaggi di avviso"
@@ -172,6 +174,24 @@ namespace GiocoTestualeEsame.warning
         {
             Console.ForegroundColor = ConsoleColor.Red;
             _log.Error(erroreFileNonEsistente);
+        }
+        /// <summary>
+        /// Warning per avvisare che c'è stato un errore durante il salvataggio dei file
+        /// </summary>
+        /// <param name="ex"></param>
+        public static void WarningErroreSalvataggio(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            _log.Error(string.Format(erroreSalvataggio,ex.Message));
+        }
+        /// <summary>
+        /// Warning per avvisare che c'è stato un errore durante il caricamento dei file
+        /// </summary>
+        /// <param name="ex"></param>
+        public static void WarningErroreCaricamento(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            _log.Error(string.Format(erroreCaricamento, ex.Message));
         }
         #endregion
         #region"metodi per gli avvisi"

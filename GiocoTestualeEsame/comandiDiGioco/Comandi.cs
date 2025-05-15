@@ -343,16 +343,24 @@ namespace GiocoTestualeEsame.comandiDiGioco
         public void Salva()
         {
             Warning.InfoUsoSalva();
-            /*SALVATAGGIO DATI GIOCATORE*/
-            SalvataggiGiocatore sg = GestisciStatoGioco.giocatoreCorrente.ImportoDatiCorrenti();
-            string jsonGiocatore = JsonSerializer.Serialize(sg, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(FILEJSONGIOCATORE, jsonGiocatore);
-            /*SALVATAGGIO DATI OGGETTI STANZE*/
-            string jsonStanze = JsonSerializer.Serialize(ElencoStanze.TutteLeStanze , new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(FILEJSONSTANZE, jsonStanze);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("dati salvati");
-            Warning.InfoDatiSalvatiConSuccesso();
+            try
+            {
+                /*SALVATAGGIO DATI GIOCATORE*/
+                SalvataggiGiocatore sg = GestisciStatoGioco.giocatoreCorrente.ImportoDatiCorrenti();
+                string jsonGiocatore = JsonSerializer.Serialize(sg, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(FILEJSONGIOCATORE, jsonGiocatore);
+                /*SALVATAGGIO DATI OGGETTI STANZE*/
+                string jsonStanze = JsonSerializer.Serialize(ElencoStanze.TutteLeStanze, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(FILEJSONSTANZE, jsonStanze);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("dati salvati");
+                Warning.InfoDatiSalvatiConSuccesso();
+            }
+            catch(Exception ex)
+            {
+                Warning.WarningErroreSalvataggio(ex);
+            }
+            
         }
         /// <summary>
         /// Carico dati della partita salvata precedentemente.
@@ -362,29 +370,37 @@ namespace GiocoTestualeEsame.comandiDiGioco
             Warning.InfoUsoCarica();
             if (File.Exists(FILEJSONGIOCATORE) && File.Exists(FILEJSONSTANZE))
             {
-                /*CARICAMENTO OGGETTI NELLA STANZA*/
-                string jsonStanze = File.ReadAllText(FILEJSONSTANZE);
-                Dictionary<string, Stanza> tutteLeStanzeDatiCaricati = JsonSerializer.Deserialize<Dictionary<string, Stanza>>(jsonStanze);
-                foreach (string nomeStanza in ElencoStanze.TutteLeStanze.Keys)
+                try
                 {
-                    Stanza stanza = ConvertiStringToStanza(nomeStanza);
-                    stanza.PuliscoLista_oggettiNellaStanza();//ripulisco la lista così da mettere i nuovi oggetti salvati nella stanza 
-                    foreach (var o in tutteLeStanzeDatiCaricati[nomeStanza].oggettiNellaStanza)
+                    /*CARICAMENTO OGGETTI NELLA STANZA*/
+                    string jsonStanze = File.ReadAllText(FILEJSONSTANZE);
+                    Dictionary<string, Stanza> tutteLeStanzeDatiCaricati = JsonSerializer.Deserialize<Dictionary<string, Stanza>>(jsonStanze);
+                    foreach (string nomeStanza in ElencoStanze.TutteLeStanze.Keys)
                     {
-                        Oggetto oggetto = ConvertiStringToOggetto(o.nome);//oggetto estratto è diverso dall'oggetto caricato inizialmente
-                        oggetto.isInteragibile = o.isInteragibile;//carico lo stato di interagibile precedentemente salvato
-                        oggetto.descrizione = o.descrizione; //carico la descrizione precedentemente salvata
-                        stanza.AddOggettoNellaStanza(oggetto);
+                        Stanza stanza = ConvertiStringToStanza(nomeStanza);
+                        stanza.PuliscoLista_oggettiNellaStanza();//ripulisco la lista così da mettere i nuovi oggetti salvati nella stanza 
+                        foreach (var o in tutteLeStanzeDatiCaricati[nomeStanza].oggettiNellaStanza)
+                        {
+                            Oggetto oggetto = ConvertiStringToOggetto(o.nome);//oggetto estratto è diverso dall'oggetto caricato inizialmente
+                            oggetto.isInteragibile = o.isInteragibile;//carico lo stato di interagibile precedentemente salvato
+                            oggetto.descrizione = o.descrizione; //carico la descrizione precedentemente salvata
+                            stanza.AddOggettoNellaStanza(oggetto);
+                        }
                     }
-                }
-                /*CARICAMENTO GIOCATORE*/
-                string jsonGiocatore = File.ReadAllText(FILEJSONGIOCATORE);
-                SalvataggiGiocatore sg = JsonSerializer.Deserialize<SalvataggiGiocatore>(jsonGiocatore);
-                Giocatore giocatore = Giocatore.CreoGiocatoreDaSalvattaggiGiocatore(sg);
+                    /*CARICAMENTO GIOCATORE*/
+                    string jsonGiocatore = File.ReadAllText(FILEJSONGIOCATORE);
+                    SalvataggiGiocatore sg = JsonSerializer.Deserialize<SalvataggiGiocatore>(jsonGiocatore);
+                    Giocatore giocatore = Giocatore.CreoGiocatoreDaSalvattaggiGiocatore(sg);
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("dati caricati");
-                Warning.InfoDatiCaricatiConSuccesso();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("dati caricati");
+                    Warning.InfoDatiCaricatiConSuccesso();
+                }
+                catch(Exception ex)
+                {
+                    Warning.WarningErroreCaricamento(ex);
+                }
+                
             }
             else
                 Warning.WarningErroreFileNonEsistente();
