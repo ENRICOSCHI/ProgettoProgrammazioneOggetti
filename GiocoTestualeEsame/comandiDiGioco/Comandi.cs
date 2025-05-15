@@ -59,7 +59,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// L'oggetto assegnato viene messo nella mano del giocatore e quello che era in mano viene lasciato nella stanza
         /// </summary>
         /// <param name="argomento"></param>
-        public void MettiNellaMano(string argomento)
+        private void MettiNellaMano(string argomento)
         {
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
             Oggetto oggettoPassato = ConvertiStringToOggetto(argomento);
@@ -83,7 +83,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <summary>
         /// Lascio nella stanza l'oggetto presente nella mano
         /// </summary>
-        public void Lascia()
+        private void Lascia()
         {
             Warning.InfoUsoLascia();
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
@@ -100,7 +100,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <summary>
         /// Mostro gli oggetti presenti nella stanza
         /// </summary>
-        public void GuardaStanza()
+        private void GuardaStanza()
         {
             GestisciStatoGioco.stanzaCorrente.MostraOggettiNellaStanza();
             Warning.InfoGuardaStanza(GestisciStatoGioco.stanzaCorrente);
@@ -110,8 +110,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <summary>
         /// Riassunto dei comandi
         /// </summary>
-        public void Help()
-       {
+        private void Help()
+        {
             Console.ForegroundColor = ConsoleColor.DarkGray;//cambio colore scritta
             Console.WriteLine("============================DESCRIZIONE PROMPT============================\n\n" +
                 "[stanza attuale] oggetto in mano > lettura comandi\n\n" +
@@ -142,7 +142,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// Sposta il giocatore nelle stanze del gioco
         /// </summary>
         /// <param name="direzione"></param>
-        public void Vai(string nomePassaggio)
+        private void Vai(string nomePassaggio)
         {
             Warning.InfoUsoVai();
             Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
@@ -168,7 +168,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// L'utente può leggere la richiesta del personaggio selezionato.
         /// </summary>
         /// <param name="personaggio"></param>
-        public void Parla(string personaggio)
+        private void Parla(string personaggio)
         {
             Warning.InfoUsoParla();
             Oggetto o = ConvertiStringToOggetto(personaggio);
@@ -225,7 +225,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <summary>
         /// Il giocatore guarda gli oggetti presenti nello zaino.
         /// </summary>
-        public void GuardaZaino()
+        private void GuardaZaino()
         {
             Warning.InfoUsoZaino();
             GestisciStatoGioco.giocatoreCorrente.GuardaOggettiNelloZaino();
@@ -235,7 +235,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <br> Passare l'argomento come parametro.</br>
         /// </summary>
         /// <param name="oggettoPassato"></param>
-        public void AggiungiNelloZaino(string oggettoPassato)
+        private void AggiungiNelloZaino(string oggettoPassato)
         {
             Warning.InfoUsoAggiungi();
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
@@ -250,7 +250,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// Rimuovo l'oggetto dallo zaino
         /// </summary>
         /// <param name="oggettoPassato"></param>
-        public void RimuoviOggettoDalloZaino(string oggettoPassato)
+        private void RimuoviOggettoDalloZaino(string oggettoPassato)
         {
             Warning.InfoUsoRimuovi();
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//mentre converto controllo se l'oggetto esiste
@@ -260,7 +260,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <summary>
         /// L'utene può vedere quanto pesa lo zaino.
         /// </summary>
-        public void PesoZaino()
+        private void PesoZaino()
         {
             Warning.InfoUsoPeso();
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
@@ -272,7 +272,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// Mostra all'utente il peso e la descrizione di un oggetto presente nella scena o nello zaino o in mano
         /// </summary>
         /// <param name="oggettoPassato"></param>
-        public void DescrizioneOggetto(string oggettoPassato)
+        private void DescrizioneOggetto(string oggettoPassato)
         {
             Warning.InfoUsoDescrizione();
             Oggetto o = ConvertiStringToOggetto(oggettoPassato);//converto in Oggetto o Passaggi
@@ -316,7 +316,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         }
         #endregion
         #region"metodi comando tp"
-        public void Teletrasporto()
+        private void Teletrasporto()
         {
             Warning.InfoUsoTeletrasporto();
             if (GestisciStatoGioco.giocatoreCorrente.IsOggettoNelloZaino(ElencoOggetti.teletrasporto) || GestisciStatoGioco.giocatoreCorrente.IsOggettoInMano(ElencoOggetti.teletrasporto))
@@ -339,7 +339,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <summary>
         /// Salvo i dati della partita attuale.
         /// </summary>
-        public void Salva()
+        private void Salva()
         {
             Warning.InfoUsoSalva();
             try
@@ -364,7 +364,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// <summary>
         /// Carico dati della partita salvata precedentemente.
         /// </summary>
-        public void Carica()
+        private void Carica()
         {
             Warning.InfoUsoCarica();
             if (File.Exists(FILEJSONGIOCATORE) && File.Exists(FILEJSONSTANZE))
@@ -425,7 +425,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static Oggetto ConvertiStringToOggetto(string input)
+        private static Oggetto ConvertiStringToOggetto(string input)
         {
             Warning.InfoCustomizable($"Conversione in oggetto {input}");
             Oggetto o;
@@ -436,7 +436,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
             }
             return o;
         }
-        public static Stanza ConvertiStringToStanza(string input)
+        private static Stanza ConvertiStringToStanza(string input)
         {
             Warning.InfoCustomizable($"Conversione in stanza {input}");
             Stanza s;
