@@ -101,7 +101,7 @@ namespace GiocoTestualeEsame
             if(c != null)
             {
                 //azzero richiesta e regalo
-                c.descrizione = $"{c.nome} ti è riconosciente";
+                c.descrizione = $"{c.nome} ti è riconoscente";
                 c.richiesta = null;
                 c.regalo = null;
                 c.isInteragibile = false;

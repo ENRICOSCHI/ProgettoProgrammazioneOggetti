@@ -209,7 +209,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                         if(c != null)
                         {
                             //azzero richiesta e regalo
-                            c.descrizione = $"{c.nome} ti è riconoscete per il regalo";
+                            c.descrizione = $"{c.nome} ti è riconoscente per il regalo";
                             c.richiesta = null;
                             c.regalo = null;
                             c.isInteragibile = false;
