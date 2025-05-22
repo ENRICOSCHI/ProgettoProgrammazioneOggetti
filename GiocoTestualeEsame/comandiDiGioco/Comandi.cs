@@ -69,7 +69,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 if (oggettoPassato.isRaccoglibile)//se è raccoglibile
                 {
                     GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggettoCorrenteInMano);// metto l'oggetto che avevo in mano nella stanza.
-                    Console.WriteLine("L'oggetto " + oggettoCorrenteInMano.nome + " è stato lasciato nella stanza");
+                    if(oggettoCorrenteInMano.nome != "") Console.WriteLine("L'oggetto " + oggettoCorrenteInMano.nome + " è stato lasciato nella stanza"); //non mostro nella stanza la mano vuota
                     GestisciStatoGioco.giocatoreCorrente.MettiOggettoInMano(oggettoPassato);// metto l'oggetto nuovo in mano
                     Console.WriteLine("L'oggetto " + oggettoPassato.nome + " è stato preso in mano");
                     Warning.InfoOggettoPresoInMano(oggettoPassato);
