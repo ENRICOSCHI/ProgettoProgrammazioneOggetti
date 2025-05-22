@@ -45,6 +45,7 @@ namespace GiocoTestualeEsame.Storia
                 ElencoOggetti.Elettricista.descrizione = "Ora che il mostro se ne andato, può riparare il quadro elettrico";//cambio descrizione all'elettricista
                 ElencoOggetti.Elettricista.isInteragibile = true;//lo rendo interagibile
                 stanzaCorrente.RimuoviOggettoDallaStanza(c);//rimuovo il cattivo
+                Console.WriteLine("Il TopoDragoElettrico se ne è andato!");
                 Warning.InfoCustomizable("tolto TopoDragoElettrico dalla stanza");
                 Warning.InfoCustomizable("cambiata descrizione e interagibilità elettricista");
             }

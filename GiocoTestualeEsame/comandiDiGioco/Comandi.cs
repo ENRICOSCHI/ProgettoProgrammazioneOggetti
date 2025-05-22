@@ -182,7 +182,7 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(c))
                 {
                     c.RichiestaToString();//stampo la richeista del personaggio
-                    if (c.richiesta == null && c.regalo != null)//se il personaggio non ha la richiesta...
+                    if (c.isInteragibile && c.richiesta == null && c.regalo != null)//se il personaggio non ha la richiesta...
                         c.AddRegalo(c);//do direttamente il regalo
 
                 }
