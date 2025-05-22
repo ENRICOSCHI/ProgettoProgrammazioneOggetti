@@ -55,6 +55,7 @@ namespace GiocoTestualeEsame.warning
         private static string infoStanzaTeletrasportato = "Giocatore teletrasportato nella stanza{0}";
         private static string infoDatiSalvatiSuccesso = "Dati salvati correttamente";
         private static string infoDatiCaricatiSuccesso = "Dati caricati correttamente";
+        private static string infoNomeCognomeUtente = "E' entrato il giocatore, nome: {0} cognome:{1}";
         #endregion
 
         #region "metodi per il warning"
@@ -192,6 +193,10 @@ namespace GiocoTestualeEsame.warning
         }
         #endregion
         #region"metodi per gli avvisi"
+        public static void WriteInfoGiocatoreOnLogFile(string nome, string cognome)
+        {
+            _log.Info(string.Format(infoNomeCognomeUtente, nome, cognome));
+        }
         /// <summary>
         /// Scrivi una string direttamente dalla posizione del codice se non è presente tra gli info di default
         /// </summary>

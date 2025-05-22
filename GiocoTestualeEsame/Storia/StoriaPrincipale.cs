@@ -1,5 +1,6 @@
 ﻿using GiocoTestualeEsame.comandiDiGioco;
 using GiocoTestualeEsame.stanze;
+using GiocoTestualeEsame.warning;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,7 @@ namespace GiocoTestualeEsame.Storia
             Console.Write("Nome: "); string nomeUtente = Console.ReadLine();
             Console.Write("Cognome: "); string cognomeUtente = Console.ReadLine();
             GS.CreateGiocatore(nomeUtente, cognomeUtente);//creo il giocatore
+            Warning.WriteInfoGiocatoreOnLogFile(nomeUtente, cognomeUtente);
             StoriaPrincipale storia = new StoriaPrincipale();
             PreparazioneStoria.CostruisciStoria();
             Comandi.ControlloPresenzaDati();//Controllo se il giocatore ha file di salvataggio esistenti

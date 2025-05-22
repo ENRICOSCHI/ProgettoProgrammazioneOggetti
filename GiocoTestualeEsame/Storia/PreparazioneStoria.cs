@@ -21,7 +21,7 @@ namespace GiocoTestualeEsame.Storia
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(
             $"\nINTRODUZIONE\n{GestisciStatoGioco.giocatoreCorrente.nome} sei stato chiamato in un luogo avvolto nel mistero.\n" +
-            "La sala giochi non ha più la corrente e bambini non possono più giocarci.\n" +
+            "La sala giochi non ha più la corrente e i bambini non possono più giocarci.\n" +
             "Si è venuti a sapere di un mostro famelico che si aggira tra i cavi elettrici, divorandoli senza sosta.\n\n" +
             "Si dice che solo gli elfi conoscano il modo per scacciarlo...\n" +
             "Ma nessuno sa dove si nascondano.\n" +

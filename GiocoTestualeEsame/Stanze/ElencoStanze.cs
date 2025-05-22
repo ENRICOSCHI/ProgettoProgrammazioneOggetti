@@ -25,7 +25,8 @@ namespace GiocoTestualeEsame.stanze
             {salaGiochi.nome, salaGiochi },
             {camera.nome,camera },
             {quadroElettrico.nome,quadroElettrico },
-            {prigione.nome,prigione }
+            {prigione.nome,prigione },
+            {bosco.nome,bosco }
         };
         
     }

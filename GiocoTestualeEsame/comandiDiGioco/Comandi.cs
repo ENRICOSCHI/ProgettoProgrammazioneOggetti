@@ -68,7 +68,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
             {
                 if (oggettoPassato.isRaccoglibile)//se è raccoglibile
                 {
-                    GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggettoCorrenteInMano);// metto l'oggetto che avevo in mano nella stanza
+                    GestisciStatoGioco.stanzaCorrente.AddOggettoNellaStanza(oggettoCorrenteInMano);// metto l'oggetto che avevo in mano nella stanza.
+                    Console.WriteLine("L'oggetto " + oggettoCorrenteInMano.nome + " è stato lasciato nella stanza");
                     GestisciStatoGioco.giocatoreCorrente.MettiOggettoInMano(oggettoPassato);// metto l'oggetto nuovo in mano
                     Console.WriteLine("L'oggetto " + oggettoPassato.nome + " è stato preso in mano");
                     Warning.InfoOggettoPresoInMano(oggettoPassato);
@@ -118,13 +119,12 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 "==========================COMANDI GESTIONE PARTITA==========================\n\n" +
                 "- salva: salva partita attuale\n\n" +
                 "- carica: carica partita precedente\n\n" +
-                "- nuovaPartita: comincia una partita da capo e (se sono presenti) cancellando i dati di salvataggio esistenti\n\n" +
                 "==========================COMANDI================================\n\n" +
                 "- help: mostra i comandi presenti nel gioco.\n\n" +
                 "- ciao: saluta!\n\n" +
                 "- prendi + oggetto da prendere. Prendi un oggetto presente nella stanza (l'oggetto in mano verrà messo nella stanza).Per esempio: prendi spada.\n\n" +
                 "- lascia: l'oggetto in mano viene lasciato nella scena, e la mano sarà così liberata\n\n"+
-                "- guarda: guarda gli oggetti presenti nella stanza.\n\n" +
+                "- guarda: guarda cosa è presente nella stanza.\n\n" +
                 "- vai + direzione: Spostati nel mondo di gioco inserendo verso quale posizone spostarti. Per esempio: vai porta_destra.\n\n" +
                 "- zaino: Guarda gli oggetti presenti nel tuo zaino.\n\n" +
                 "- aggiungi + oggetto: aggiunge l'oggetto nello zaino e lo rimuove dalla stanza. Per esempio: aggiungi spada.\n\n" +
@@ -157,7 +157,11 @@ namespace GiocoTestualeEsame.comandiDiGioco
                 }
                 Stanza stanzaDestinazione = p.destinazione; //prendo la stanza in cui entrerà il giocatore
                 GestisciStatoGioco.stanzaCorrente = stanzaDestinazione; //entra nella stanza
+                Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta
                 Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);//mostro la descrizione della stanza
+                /*Console.ForegroundColor = ConsoleColor.Green;//cambio colore scritta
+                 * Console.WriteLine("Nella stanza ci sono:\r");
+                GuardaStanza(); //eseguo il comando guarda appena il giocatore entra in scena*/
             }
             else
                 Warning.WarningErroreCasting();
