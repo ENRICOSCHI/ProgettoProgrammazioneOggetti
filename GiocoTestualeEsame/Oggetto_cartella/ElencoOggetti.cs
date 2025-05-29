@@ -40,9 +40,9 @@ namespace GiocoTestualeEsame.Oggetto_cartella
         public static Passaggio porta_piano_terra { get; } = new Passaggio("porta1", "questa porta va al piano terra", ElencoStanze.pianoTerra);
         public static Passaggio porta_quadro_elettrico { get; } = new Passaggio("porta4","questa porta conduce al quadro elettrico",ElencoStanze.quadroElettrico);
         public static Passaggio porta_cantina { get; } = new Passaggio("porta5", "questa porta conduce in cantina", ElencoStanze.cantina);
-        public static Passaggio scale_su_primo_piano { get; } = new Passaggio("scalaPrimoPiano", "queste scale portano al primo piano", ElencoStanze.primoPiano);
+        public static Passaggio scale_su_primo_piano { get; } = new Passaggio("scala2", "queste scale portano al primo piano", ElencoStanze.primoPiano);
         public static Passaggio scale_piano_terra { get; } = new Passaggio("scala1", "queste scale portano al piano terra", ElencoStanze.pianoTerra);
-        public static Passaggio scale_giu_cantina { get; } = new Passaggio("scalaCantina", "queste scale portano alla cantina", ElencoStanze.cantina);
+        public static Passaggio scale_giu_cantina { get; } = new Passaggio("scala3", "queste scale portano alla cantina", ElencoStanze.cantina);
         public static Passaggio botolaGiu { get; } = new Passaggio("botola1", "questa botola sotto il letto porta in un posto misterioso", ElencoStanze.bosco);//da mettere in camera
         public static Passaggio botolaSu { get; } = new Passaggio("botola2", "questa botola ti riporta in camera", ElencoStanze.camera);//da mettere nel bosco
         #endregion
