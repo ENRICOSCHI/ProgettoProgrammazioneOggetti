@@ -20,6 +20,8 @@ namespace GiocoTestualeEsame.Storia
         public static Oggetto oggettoInMano { get; set; } = ElencoOggetti.manoVuota; //non ha niente all'inizio in mano
         public static Giocatore giocatoreCorrente { get; set; } //il giocatore lo creo da StoriaPrincipale
         private ConfigurazioneGioco CG = new ConfigurazioneGioco();
+
+
         public void CreateGiocatore(string nome,string cognome,bool isConfig)
         {
             var config = ConfigurazioneGioco.CaricaConfigurazione();//carico i dati da config.json
@@ -34,6 +36,7 @@ namespace GiocoTestualeEsame.Storia
         /// </summary>
         /// <param name="nome"></param>
         /// <param name="cognome"></param>
+        /// <param name="pesoZaino"></param>
         /// <returns></returns>
         public static Giocatore LoadGiocatoreEsistente(string nome,string cognome,double pesoZaino)
         {
