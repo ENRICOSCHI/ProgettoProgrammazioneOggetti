@@ -18,15 +18,16 @@ namespace GiocoTestualeEsame
         //uso le proprietà con solo il get perchè il set lo faccio già quando creo l'oggetto
         public string nome { get;  }
         public string cognome { get;  } //credo per il loggin serve sapere il cognome
-        public double pesoMaxZaino { get; } = 20; //peso massimo che può portare il giocatore
+        public double pesoMaxZaino { get; } //peso massimo che può portare il giocatore
         private Stack<Oggetto> zaino = new Stack<Oggetto>();//lista zaino con tecnica LIFO
         private List<Oggetto> oggettiMomentaneiRimossi = new List<Oggetto>();
         public double pesoNelloZaino { get; set;} = 0; //il peso che si aggiorna man mano che si aggiungono oggetti nello zaino
 
-        public Giocatore(string nome, string cognome) //creo la classe con nome e cognome e poi gli passo il nome
+        public Giocatore(string nome, string cognome,double pesoMaxZaino) //creo la classe con nome e cognome e poi gli passo il nome
         {
             this.nome = nome;
             this.cognome = cognome;
+            this.pesoMaxZaino = pesoMaxZaino;
         }
         /// <summary>
         /// Creo il giocatore utilizzando la classe SalvattaggiGiocatore e ricarica gli oggetti presenti nello zaino e in mano
@@ -35,7 +36,7 @@ namespace GiocoTestualeEsame
         /// <returns></returns>
         public static Giocatore CreoGiocatoreDaSalvattaggiGiocatore(SalvataggiGiocatore sg)
         {
-            Giocatore g = GestisciStatoGioco.LoadGiocatoreEsistente(sg.Nome, sg.Cognome); //creo il giocatore dai file caricati
+            Giocatore g = GestisciStatoGioco.LoadGiocatoreEsistente(sg.Nome, sg.Cognome,sg.pesoMassimoZaino); //creo il giocatore dai file caricati
             /*RICARICO OGGETTI IN MANO*/
             foreach (string nomeOggetto in sg.Zaino)
             {
@@ -67,7 +68,7 @@ namespace GiocoTestualeEsame
         /// <returns></returns>
         public SalvataggiGiocatore ImportoDatiCorrenti()
         {
-            return new SalvataggiGiocatore { Nome = this.nome,Cognome=this.cognome,Zaino = this.zaino.Select(o=> o.nome).ToList(), OggettoInMano = GestisciStatoGioco.oggettoInMano?.nome, stanzaAttuale = GestisciStatoGioco.stanzaCorrente.nome };
+            return new SalvataggiGiocatore { Nome = this.nome,Cognome=this.cognome,Zaino = this.zaino.Select(o=> o.nome).ToList(), OggettoInMano = GestisciStatoGioco.oggettoInMano?.nome, stanzaAttuale = GestisciStatoGioco.stanzaCorrente.nome, pesoMassimoZaino = pesoMaxZaino};
         }
         /// <summary>
         /// Aggiunge l'oggetto raccolto in mano

@@ -15,5 +15,6 @@ namespace GiocoTestualeEsame.Persona_cartella
         public List<string> Zaino { get; set; }
         public string OggettoInMano { get; set; }
         public string stanzaAttuale { get; set; }
+        public double pesoMassimoZaino { get; set; }
     }
 }

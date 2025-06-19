@@ -46,7 +46,8 @@ namespace GiocoTestualeEsame.Storia
             Console.WriteLine("Inserisci nome e cognome\n");
             Console.Write("Nome: "); string nomeUtente = Console.ReadLine();
             Console.Write("Cognome: "); string cognomeUtente = Console.ReadLine();
-            GS.CreateGiocatore(nomeUtente, cognomeUtente);//creo il giocatore
+            bool scelta = controlloScelta();//scelta per vedere se far partire la config di default o quella con l'aiuto
+            GS.CreateGiocatore(nomeUtente, cognomeUtente,scelta);//creo il giocatore
             Warning.WriteInfoGiocatoreOnLogFile(nomeUtente, cognomeUtente);
             StoriaPrincipale storia = new StoriaPrincipale();
             PreparazioneStoria.CostruisciStoria();
@@ -54,6 +55,18 @@ namespace GiocoTestualeEsame.Storia
             /*descrizione piano iniziale*/
             Console.ForegroundColor = ConsoleColor.Magenta;//cambio colore scritta del prompt 
             Console.WriteLine(GestisciStatoGioco.stanzaCorrente.descrizione);
+        }
+
+        private static bool controlloScelta()
+        {
+            Console.Write("Vuoi avere un aiutino nel gioco e avere uno zaino che porta più oggetti, da 10kg a 20kg? s/n: ");
+            string scelta = Console.ReadLine();
+            while (scelta != "s" && scelta != "n")
+            {
+                Console.Write("inserire 's' o 'n': ");
+                scelta = Console.ReadLine();
+            }
+            return (scelta == "s") ? true : false;
         }
     }
 }

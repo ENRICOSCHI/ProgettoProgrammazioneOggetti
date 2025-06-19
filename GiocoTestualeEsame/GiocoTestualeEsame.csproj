@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="comandiDiGioco\Comandi.cs" />
+    <Compile Include="Configurazioni\ConfigurazioneGioco.cs" />
     <Compile Include="Oggetto_cartella\ElencoOggetti.cs" />
     <Compile Include="Oggetto_cartella\oggetto.cs" />
     <Compile Include="Oggetto_cartella\Passaggio.cs" />
@@ -99,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
