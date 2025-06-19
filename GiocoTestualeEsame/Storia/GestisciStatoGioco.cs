@@ -1,4 +1,5 @@
-﻿using GiocoTestualeEsame.Oggetto_cartella;
+﻿using GiocoTestualeEsame.Configurazioni;
+using GiocoTestualeEsame.Oggetto_cartella;
 using GiocoTestualeEsame.stanze;
 using GiocoTestualeEsame.warning;
 using log4net;
@@ -18,9 +19,16 @@ namespace GiocoTestualeEsame.Storia
         public static Stanza stanzaCorrente { get; set; } = ElencoStanze.pianoTerra;
         public static Oggetto oggettoInMano { get; set; } = ElencoOggetti.manoVuota; //non ha niente all'inizio in mano
         public static Giocatore giocatoreCorrente { get; set; } //il giocatore lo creo da StoriaPrincipale
-        public void CreateGiocatore(string nome,string cognome)
+        private ConfigurazioneGioco CG = new ConfigurazioneGioco();
+
+
+        public void CreateGiocatore(string nome,string cognome,bool isConfig)
         {
-            giocatoreCorrente = new Giocatore(nome, cognome);//creo giocatore
+            var config = ConfigurazioneGioco.CaricaConfigurazione();//carico i dati da config.json
+            if (isConfig)
+                giocatoreCorrente = new Giocatore(nome, cognome,config.PesoMaxZaino);//creo giocatore con config. peso nello zaino maggiore
+            else
+                giocatoreCorrente = new Giocatore(nome, cognome, CG.PesoMaxZaino);//creo giocatore con config. default
             Warning.InfoCustomizable("Giocatore creato");
         }
         /// <summary>
@@ -28,10 +36,11 @@ namespace GiocoTestualeEsame.Storia
         /// </summary>
         /// <param name="nome"></param>
         /// <param name="cognome"></param>
+        /// <param name="pesoZaino"></param>
         /// <returns></returns>
-        public static Giocatore LoadGiocatoreEsistente(string nome,string cognome)
+        public static Giocatore LoadGiocatoreEsistente(string nome,string cognome,double pesoZaino)
         {
-            giocatoreCorrente = new Giocatore(nome, cognome);
+            giocatoreCorrente = new Giocatore(nome, cognome, pesoZaino);
             return giocatoreCorrente;
         }
         /// <summary>
