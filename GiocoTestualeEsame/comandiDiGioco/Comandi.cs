@@ -176,9 +176,8 @@ namespace GiocoTestualeEsame.comandiDiGioco
         {
             Warning.InfoUsoParla();
             Oggetto o = ConvertiStringToOggetto(personaggio);
-            if (o is Personaggio)
-            {
-                Personaggio c = (Personaggio)o;//casting...
+            if (o is Personaggio c)
+            { 
                 if (GestisciStatoGioco.stanzaCorrente.ControlloOggettoNellaStanza(c))
                 {
                     c.RichiestaToString();//stampo la richeista del personaggio
