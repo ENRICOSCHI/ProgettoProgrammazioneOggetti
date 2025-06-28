@@ -23,7 +23,7 @@ namespace GiocoTestualeEsame
         private List<Oggetto> oggettiMomentaneiRimossi = new List<Oggetto>();
         public double pesoNelloZaino { get; set;} = 0; //il peso che si aggiorna man mano che si aggiungono oggetti nello zaino
 
-        public Giocatore(string nome, string cognome,double pesoMaxZaino) //creo la classe con nome e cognome e poi gli passo il nome
+        public Giocatore(string nome, string cognome,double pesoMaxZaino) //creo la classe con nome e cognome e peso max zaino
         {
             this.nome = nome;
             this.cognome = cognome;
@@ -37,7 +37,7 @@ namespace GiocoTestualeEsame
         public static Giocatore CreoGiocatoreDaSalvattaggiGiocatore(SalvataggiGiocatore sg)
         {
             Giocatore g = GestisciStatoGioco.LoadGiocatoreEsistente(sg.Nome, sg.Cognome,sg.pesoMassimoZaino); //creo il giocatore dai file caricati
-            /*RICARICO OGGETTI IN MANO*/
+            /*RICARICO OGGETTI NELLO ZAINO*/
             foreach (string nomeOggetto in sg.Zaino)
             {
                 if (ElencoOggetti.TuttiGliOggetti.TryGetValue(nomeOggetto, out Oggetto oggetto))
@@ -52,7 +52,7 @@ namespace GiocoTestualeEsame
             }
             else
             {
-                GestisciStatoGioco.oggettoInMano = ElencoOggetti.manoVuota; // fallback sicuro
+                GestisciStatoGioco.oggettoInMano = ElencoOggetti.manoVuota;
             }
             /*CARICO LA STANZA IN CUI ERO*/
             if(ElencoStanze.TutteLeStanze.TryGetValue(sg.stanzaAttuale, out Stanza stanzaSalvata))
