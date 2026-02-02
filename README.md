@@ -3,8 +3,13 @@
 
 ## Funzionamento
 Per far partire il programma andare nella cartella [Storia](https://github.com/ENRICOSCHI/GiocoTestualeEsame/tree/main/GiocoTestualeEsame/Storia) e far partire "StoriaPrincipale.cs".
-Il progetto è pensato per poter creare storie diverse avendo però la struttura di gioco simile.
+<br>Il progetto è pensato per poter creare storie diverse avendo però la struttura di gioco simile.</br>
 Per cambiare storia bisogna modificare i personaggi, gli oggetti e i passaggi in [EleconOggetti.cs](https://github.com/ENRICOSCHI/GiocoTestualeEsame/blob/main/GiocoTestualeEsame/Oggetto_cartella/ElencoOggetti.cs), le stanze in [EleconStanze.cs](https://github.com/ENRICOSCHI/GiocoTestualeEsame/blob/main/GiocoTestualeEsame/Stanze/ElencoStanze.cs) e per il finale del gioco bisogna cambiare il contenuto dei metodi in [GestisciStatoGioco.cs](https://github.com/ENRICOSCHI/GiocoTestualeEsame/blob/main/GiocoTestualeEsame/Storia/GestisciStatoGioco.cs).
+
+## Documenti
+[Diagramma delle classi](https://github.com/ENRICOSCHI/GiocoTestualeEsame/blob/main/DigrammaClassi.png)
+<br>[Mappa concettuale del collegamento stanze](https://github.com/ENRICOSCHI/GiocoTestualeEsame/blob/main/MappaGioco.png)</br>
+
 
 ## Crediti 
 [Enrico Fiore](https://github.com/ENRICOSCHI)
