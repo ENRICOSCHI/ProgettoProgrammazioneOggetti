@@ -10,6 +10,11 @@ Per cambiare storia bisogna modificare i personaggi, gli oggetti e i passaggi in
 [Diagramma delle classi](https://github.com/ENRICOSCHI/GiocoTestualeEsame/blob/main/DigrammaClassi.png)
 <br>[Mappa concettuale del collegamento stanze](https://github.com/ENRICOSCHI/GiocoTestualeEsame/blob/main/MappaGioco.png)</br>
 
+## Immagini Gioco
+<img width="1339" height="315" alt="Screenshot 2026-02-10 173327" src="https://github.com/user-attachments/assets/2f1b5af7-531a-4a04-ac61-0284f2ce54ce" />
+<img width="1325" height="544" alt="Screenshot 2026-02-10 173344" src="https://github.com/user-attachments/assets/cce39ce9-3ae6-4007-a860-a92e0170735b" />
+<img width="1330" height="439" alt="Screenshot 2026-02-10 173426" src="https://github.com/user-attachments/assets/34291155-45ec-4050-9d7b-9783205e1b06" />
+
 
 ## Crediti 
 [Enrico Fiore](https://github.com/ENRICOSCHI)
